@@ -1,4 +1,9 @@
-var builder = WebApplication.CreateBuilder(args);
+using PortalProgramacao.Web;
+
+var builder = WebApplication.CreateBuilder(args)
+    .UseStartup<Startup>();
+
+/*
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -25,3 +30,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+*/
