@@ -9,8 +9,8 @@ namespace PortalProgramacao.Infrastructure.Identity
 {
     public class ApplicationUser : IdentityUser<string>
     {
-        public virtual string FirstName { get; set; }
-        public virtual string LastName { get; set; }
+        public virtual string FirstName { get; set; } = string.Empty;
+        public virtual string LastName { get; set; } = string.Empty;
         public virtual bool IsActive { get; set; }
         public virtual bool IsFirstAccess { get; set; }
     }
