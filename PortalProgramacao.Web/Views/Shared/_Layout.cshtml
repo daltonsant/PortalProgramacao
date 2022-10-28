@@ -1,9 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var isAdmin = true;
+    var isLogged = true;
+    
+    var userName = "DaltonPessoa";
+    if(!isLogged)
+        userName = "Faça o login";
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PortalProgramacao.Web</title>
+    <title>Portal da Programacao NSPS</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PortalProgramacao.Web.styles.css" asp-append-version="true" />
@@ -12,7 +20,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PortalProgramacao.Web</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Programação NSPS</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,12 +28,47 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Wallet" asp-action="Index">Carteira</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Activity" asp-action="Index">Atividades</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="Index">Colaboradores</a>
                         </li>
                     </ul>
+                    <div class="navbar-nav ms-auto">
+                        <div class="nav-item dropdown">
+                            <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle user-action"><img src="/icons/account_circle_black_24dp.svg" class="avatar" alt="Avatar"> @userName <b class="caret"></b></a>
+                            <div class="dropdown-menu">
+                                @if(isLogged && isAdmin) // se o usuario for admin
+                                {
+                                <a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Admin</a>
+                                }
+                                
+                                @if(isLogged) // se o usuario estiver logado
+                                {
+                                <a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Perfil</a>
+                                }
+                                
+                                @if(isLogged && isAdmin) // se o usuario for admin
+                                {
+                                <a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Configurações</a>
+                                }
+                                
+                                <div class="dropdown-divider"></div>
+                                @if(isLogged)
+                                {
+                                <a href="#" class="dropdown-item"><img src="/icons/logout_black_24dp.svg" class="logout" alt=""> Logout</a>
+                                }
+                                else
+                                {
+                                <a href="#" class="dropdown-item"><img src="/icons/login_black_24dp.svg" class="logout" alt=""> Login</a>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -38,12 +81,15 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - PortalProgramacao.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - NSPS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/popper/popper.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script src="~/js/site.js" asp-append-version="true"></script>
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
