@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = "Home Page";
+    ViewData["WalletMenu"] = "active";
+    Layout = "_Layout";
+}
+
+@section Styles{
+    <link  rel="stylesheet" href='~/lib/fullcalendar/lib/main.css' asp-append-version="true" />
+    <link href='~/lib/bootstrap/dist/css/bootstrap-icons.css' rel='stylesheet' asp-append-version="true" />
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about Bem vindo ao portal da programação.</p>
+</div>
+
+ <div id="calendar" class="fc fc-unthemed fc-ltr"></div>
+
+@section Scripts {
+    <script src="~/lib/fullcalendar/lib/main.min.js"></script>
+    <script src='~/lib/fullcalendar/lib/locales/pt-br.js'></script>
+    <script src="~/js/Carteira/carteira.js"></script>
+}

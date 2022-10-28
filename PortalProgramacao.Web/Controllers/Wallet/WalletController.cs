@@ -18,6 +18,12 @@ public class WalletController : BaseController
         return View();
     }
 
+    public IActionResult List()
+    {
+        return Ok();
+    }
+
+
     public IActionResult Privacy()
     {
         return View();

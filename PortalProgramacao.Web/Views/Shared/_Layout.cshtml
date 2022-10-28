@@ -5,6 +5,7 @@
     var userName = "DaltonPessoa";
     if(!isLogged)
         userName = "Faça o login";
+    
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +16,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PortalProgramacao.Web.styles.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
     <header>
@@ -27,15 +29,18 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
+                        @if(isLogged)
+                        {
+                        <li class="nav-item @ViewData["WalletMenu"]">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Wallet" asp-action="Index">Carteira</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @ViewData["ActivityMenu"]">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Activity" asp-action="Index">Atividades</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @ViewData["EmployeeMenu"]">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="Index">Colaboradores</a>
                         </li>
+                        }
                     </ul>
                     <div class="navbar-nav ms-auto">
                         <div class="nav-item dropdown">
