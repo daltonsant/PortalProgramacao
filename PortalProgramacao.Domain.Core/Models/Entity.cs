@@ -11,7 +11,7 @@ public class Entity<TKey>
 {
     public virtual TKey Id { get; set; }
     public virtual DateTime CreatedDate { get; set; }
-    public virtual DateTime UpdatedDate { get; set; }
+    public virtual DateTime? UpdatedDate { get; set; }
 
     //[Timestamp]
     //public byte[] RowVersion { get; set; }
