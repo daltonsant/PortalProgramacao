@@ -20,23 +20,16 @@ namespace PortalProgramacao.Infrastructure.Data.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.ApplyConfiguration(new RegionMap());
-            builder.ApplyConfiguration(new NplMap());
-
-            builder.ApplyConfiguration(new ProcessMap());
-            /*
-            builder.ApplyConfiguration(new AssetMap());
-            builder.ApplyConfiguration(new AssetTypeMap());
+            builder.ApplyConfiguration(new ActivityMap());
+            builder.ApplyConfiguration(new ActivityTypeMap());
             builder.ApplyConfiguration(new ApplicationRoleMap());
             builder.ApplyConfiguration(new ApplicationUserMap());
-            builder.ApplyConfiguration(new AttachmentMap());
-            builder.ApplyConfiguration(new ProjectMap());
-            builder.ApplyConfiguration(new TaskStepMap());
-            builder.ApplyConfiguration(new TaskItemMap());
-            builder.ApplyConfiguration(new LinkedTasksMap());
-            builder.ApplyConfiguration(new CheckListItemMap());
-            builder.ApplyConfiguration(new TaskTypeMap());
-            builder.ApplyConfiguration(new TaskCategoryMap());*/
+            builder.ApplyConfiguration(new EmployeeMap());
+            builder.ApplyConfiguration(new EmployeeProcessMap());
+            builder.ApplyConfiguration(new MonthDayCountMap());
+            builder.ApplyConfiguration(new NplMap());
+            builder.ApplyConfiguration(new ProcessMap());
+            builder.ApplyConfiguration(new RegionMap());
         }
 
     }
