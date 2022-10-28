@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 namespace PortalProgramacao.Infrastructure.Data.Repositories
 {
 
-    public class Repository<T, TKey> : IGenericRepository<T, TKey> where T : Entity<TKey>
+    public class GenericRepository<T, TKey> : IGenericRepository<T, TKey> where T : Entity<TKey>
     {
         private readonly ApplicationContext _context;
 
-        public Repository(ApplicationContext context)
+        public GenericRepository(ApplicationContext context)
         {
             _context = context;
         }
