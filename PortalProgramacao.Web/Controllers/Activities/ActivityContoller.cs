@@ -28,4 +28,19 @@ public class ActivityController : BaseController
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    public IActionResult List()
+    {
+        return View();
+    }
+
+    public IActionResult Edit()
+    {
+        return View();
+    }
+
+    public IActionResult Add()
+    {
+        return View();
+    }
 }
