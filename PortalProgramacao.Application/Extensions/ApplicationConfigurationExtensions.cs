@@ -39,7 +39,10 @@ namespace PortalProgramacao.Application.Extensions
                 }
                 else
                 {
-                    options.UseSqlite("database.db");
+                    options.UseSqlite("Data Source=database.db;Cache=Shared", b =>
+                        {
+                            b.MigrationsAssembly(Assembly.GetAssembly(typeof(ApplicationContext))?.ToString());
+                        });
                 }
             }
             );

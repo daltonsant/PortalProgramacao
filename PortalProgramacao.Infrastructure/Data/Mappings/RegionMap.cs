@@ -23,6 +23,27 @@ namespace PortalProgramacao.Infrastructure.Data.Mappings
 
             builder.HasMany(e => e.Npls).WithOne(x => x.Sector);
 
+            builder.HasData(new List<Sector>(){
+                new Sector(){
+                    Id = 1,
+                    Code = "NSIT",
+                    Name = "Interior",
+                    CreatedDate = DateTime.Now
+                },
+                new Sector(){
+                    Id = 2,
+                    Code = "NSLT",
+                    Name = "Litoral",
+                    CreatedDate = DateTime.Now
+                },
+                new Sector(){
+                    Id = 3,
+                    Code = "NSMT",
+                    Name = "Metropolitano",
+                    CreatedDate = DateTime.Now
+                }
+            });
+
             builder.ToTable("Sectors");
         }
     }

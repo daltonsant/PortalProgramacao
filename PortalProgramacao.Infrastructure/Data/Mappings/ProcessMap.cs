@@ -23,6 +23,29 @@ namespace PortalProgramacao.Infrastructure.Data.Mappings
             builder.HasMany(e => e.EmployeeProcesses).WithOne(x => x.Process);
             builder.HasMany(e => e.Activities).WithOne(x => x.Process);
 
+            builder.HasData(new List<Process>(){
+                new Process(){
+                    Id = 1,
+                    Name="SE",
+                    CreatedDate = DateTime.Now
+                },
+                new Process(){
+                    Id = 2,
+                    Name="LT",
+                    CreatedDate = DateTime.Now
+                },
+                new Process(){
+                    Id = 3,
+                    Name="AUT",
+                    CreatedDate = DateTime.Now
+                },
+                new Process(){
+                    Id = 4,
+                    Name="TLE",
+                    CreatedDate = DateTime.Now
+                }
+            });
+
             builder.ToTable("Processes");
         }
     }

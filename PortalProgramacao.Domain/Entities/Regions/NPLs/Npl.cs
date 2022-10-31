@@ -11,6 +11,7 @@ public class Npl : Entity<ulong>
     public virtual string Code { get; set; }
     public virtual string Name { get; set; }
 
+    public virtual ulong SectorId { get; set; }
     public virtual Sector Sector { get; set; }
     public virtual ICollection<Employee> EmployeesInNpl { get; set; }
     public virtual ICollection<Activity> Activities { get; set; }

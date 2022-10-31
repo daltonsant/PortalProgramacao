@@ -22,35 +22,80 @@ namespace PortalProgramacao.Infrastructure.Data.Repositories
 
         public T? Get(TKey id)
         {
-            return _context.Set<T>().FirstOrDefault(x => x.Id != null && x.Id.Equals(id));
+            try
+            {
+                return _context.Set<T>().FirstOrDefault(x => x.Id != null && x.Id.Equals(id));
+            }
+            catch(Exception ex)
+            {
+                //log the issue
+                return null;
+            }
         }
 
         public async Task<T?> GetAsync(TKey id)
         {
-            return await _context.Set<T>().FirstOrDefaultAsync(x => x.Id != null && x.Id.Equals(id));
+            try
+            {
+                return await _context.Set<T>().FirstOrDefaultAsync(x => x.Id != null && x.Id.Equals(id));
+            }
+            catch(Exception ex)
+            {
+                 //log the issue
+                return null;
+            }
         }
 
         public void Save(T entity)
         {
-            _context.Set<T>().Add(entity);
+            try
+            {
+                _context.Set<T>().Add(entity);
+            }
+            catch (Exception ex)
+            {
+                //log the issue 
+            }
+            
         }
 
         public async Task SaveAsync(T entity)
         {
-            await _context.Set<T>().AddAsync(entity);
+            try
+            {
+                await _context.Set<T>().AddAsync(entity);
+            }
+            catch (Exception ex)
+            {
+                 //log the issue
+            }
         }
 
         public void Update(T entity)
         {
-            _context.Set<T>().Update(entity);
+            try
+            {
+                _context.Set<T>().Update(entity);
+            }
+            catch (Exception ex)
+            {
+                //log the issue
+            }
         }
 
         public void Delete(TKey id)
         {
-            var entities = _context.Set<T>();
-            var entityToRemove = entities.FirstOrDefault(x => x.Id != null && x.Id.Equals(id));
-            if (entityToRemove != null)
-                entities.Remove(entityToRemove);
+            try
+            {
+                var entities = _context.Set<T>();
+                var entityToRemove = entities.FirstOrDefault(x => x.Id != null && x.Id.Equals(id));
+                if (entityToRemove != null)
+                    entities.Remove(entityToRemove);
+            }
+            catch (Exception ex)
+            {
+                //log the issue
+            }
         }
         public IQueryable<T> Entities => _context.Set<T>().AsQueryable();
 

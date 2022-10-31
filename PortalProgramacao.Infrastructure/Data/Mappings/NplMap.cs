@@ -22,10 +22,70 @@ namespace PortalProgramacao.Infrastructure.Data.Mappings
 
             builder.Property(e => e.Name).HasMaxLength(256);
 
-            builder.HasOne(e => e.Sector).WithMany(x => x.Npls);
+            builder.HasOne(e => e.Sector).WithMany(x => x.Npls).HasForeignKey(x => x.SectorId).OnDelete(DeleteBehavior.SetNull);
 
             builder.HasMany(e => e.EmployeesInNpl).WithOne(x => x.Npl);
             builder.HasMany(e => e.Activities).WithOne(x => x.Npl);
+
+            //1 - interior, 2 - litoral, 3 - metropolitano
+            builder.HasData(new List<Npl>(){
+                new Npl(){
+                    Id=1,
+                    Code ="CAA",
+                    Name = "Caruaru",
+                    SectorId = 2,
+                    CreatedDate = DateTime.Now
+                },
+                new Npl(){
+                    Id=2,
+                    Code ="GAN",
+                    Name = "Garanhuns",
+                    SectorId = 2,
+                    CreatedDate = DateTime.Now
+                },
+                new Npl(){
+                    Id=3,
+                    Code ="PMR",
+                    Name = "Palmares",
+                    SectorId = 2,
+                    CreatedDate = DateTime.Now
+                },
+                new Npl(){
+                    Id=4,
+                    Code ="PTU",
+                    Name = "Petrolina",
+                    SectorId = 1,
+                    CreatedDate = DateTime.Now
+                },
+                new Npl(){
+                    Id=5,
+                    Code ="SRT",
+                    Name = "Serra Talhada",
+                    SectorId = 1,
+                    CreatedDate = DateTime.Now
+                },
+                new Npl(){
+                    Id=6,
+                    Code ="MTS",
+                    Name = "Metropolitano Sul",
+                    SectorId = 3,
+                    CreatedDate = DateTime.Now
+                },
+                new Npl(){
+                    Id=7,
+                    Code ="MTN",
+                    Name = "Metropolitano Norte",
+                    SectorId = 3,
+                    CreatedDate = DateTime.Now
+                },
+                new Npl(){
+                    Id=8,
+                    Code ="CPN",
+                    Name = "Carpina",
+                    SectorId = 3,
+                    CreatedDate = DateTime.Now
+                },
+            });
 
             builder.ToTable("Npls");
         }
