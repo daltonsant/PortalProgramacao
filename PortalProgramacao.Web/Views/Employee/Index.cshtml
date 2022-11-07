@@ -1,9 +1,122 @@
+
 @{
     ViewData["Title"] = "Home Page";
     ViewData["EmployeeMenu"] = "active";
 }
 
+@section Styles{
+    <link  rel="stylesheet" href='~/lib/bootstrap/multiselect/dist/css/bootstrap-multiselect.css' asp-append-version="true" />
+    <link href='~/lib/bootstrap/dist/css/bootstrap-icons.css' rel='stylesheet' asp-append-version="true" />
+    <link  rel="stylesheet" href='~/lib/select2/dist/css/select2.min.css' asp-append-version="true" />
+    <link  rel="stylesheet" href='~/lib/select2/select2-bootstrap-5/select2-bootstrap-5-theme.min.css' asp-append-version="true" />
+    
+}
+
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Gerencie a lista de colaboradores</h1>
+
+    <div id="controllers" class="row" >
+        <div class="form-group col-sm-6">
+            <div class="row">
+                <div class=col-sm-1>
+                <label for="npls">NPL:</label>
+                </div>
+                <div class="col-sm-9">
+                    <select id="npls" class="form-select form-control" multiple aria-label=".form-select-sm multiple select" data-placeholder="Selecione a(s) NPL(s)">
+                        <option></option>
+                        <option value="1" >CAA</option>
+                        <option value="8" >CPN</option>
+                        <option value="2" >GAN</option>
+                        <option value="7" >MTN</option>
+                        <option value="6" >MTS</option>
+                        <option value="3" >PMR</option>
+                        <option value="4" >PTU</option>
+                        <option value="5" >SRT</option>
+                    </select>
+                </div>
+            </div>
+               
+        </div>
+        
+        <div class="form-group col-sm-6">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Importar Colaboradores</button>
+        </div>
+    </div>
+    <div class="row">
+
+    </div>
+    <div >
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Matrícula</th>
+                <th scope="col">Nome</th>
+                <th scope="col">NPL</th>
+                <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>mdo</td>
+                <td>mdo</td>
+                </tr>
+                <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>dada</td>
+                <td>mdo</td>
+                </tr>
+                <tr>
+                <th scope="row">3</th>
+                <td>Larry the Bird</td>
+                <td>twitter</td>
+                <td>twitter</td>
+                <td>mdo</td>
+                </tr>
+            </tbody>
+        </table>    
+    </div>
+    
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="import_form" asp-controller="Employee" asp-action="Import" method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <label for="formFile" class="form-label">Default file input example</label>
+                <input class="form-control" type="file" id="formFile" name="excel">
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" onclick="$('#import_form').submit()">Importar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/lib/bootstrap/multiselect/dist/js/bootstrap-multiselect.js"></script>
+    <script src="~/lib/select2/dist/js/select2.full.min.js"></script>
+    <script>
+        $(document).ready(function() {       
+          $( '#npls' ).select2({ theme: 'bootstrap-5' });
+        });
+
+    </script>
+}
