@@ -4,83 +4,224 @@
     ViewData["EmployeeMenu"] = "active";
 }
 
-@section Styles{
-    <link  rel="stylesheet" href='~/lib/bootstrap/multiselect/dist/css/bootstrap-multiselect.css' asp-append-version="true" />
+@section Styles
+{
     <link href='~/lib/bootstrap/dist/css/bootstrap-icons.css' rel='stylesheet' asp-append-version="true" />
     <link  rel="stylesheet" href='~/lib/select2/dist/css/select2.min.css' asp-append-version="true" />
     <link  rel="stylesheet" href='~/lib/select2/select2-bootstrap-5/select2-bootstrap-5-theme.min.css' asp-append-version="true" />
-    
+    <link rel="stylesheet" href="~/lib/datatables/datatables.min.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/employees.index.css" asp-append-version="true"/>
 }
 
 
-<div class="text-center">
-    <h1 class="display-4">Gerencie a lista de colaboradores</h1>
+<div>
+    <div class="text-center">
+        <h1 class="display-4">Gerencie a lista de colaboradores</h1>
+    </div>
 
-    <div id="controllers" class="row" >
-        <div class="form-group col-sm-6">
-            <div class="row">
-                <div class=col-sm-1>
-                <label for="npls">NPL:</label>
-                </div>
-                <div class="col-sm-9">
-                    <select id="npls" class="form-select form-control" multiple aria-label=".form-select-sm multiple select" data-placeholder="Selecione a(s) NPL(s)">
-                        <option></option>
-                        <option value="1" >CAA</option>
-                        <option value="8" >CPN</option>
-                        <option value="2" >GAN</option>
-                        <option value="7" >MTN</option>
-                        <option value="6" >MTS</option>
-                        <option value="3" >PMR</option>
-                        <option value="4" >PTU</option>
-                        <option value="5" >SRT</option>
-                    </select>
+        <div id="controllers" class="row controlers--div">
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class=col-sm-1>
+                    <label for="npls">NPL:</label>
+                    </div>
+                    <div class="col-sm-11">
+                        <select id="npls" class="form-select form-control" multiple aria-label=".form-select-sm multiple select" data-placeholder="Selecione a(s) NPL(s)">
+                            <option></option>
+                            <option value="1" >CAA</option>
+                            <option value="8" >CPN</option>
+                            <option value="2" >GAN</option>
+                            <option value="7" >MTN</option>
+                            <option value="6" >MTS</option>
+                            <option value="3" >PMR</option>
+                            <option value="4" >PTU</option>
+                            <option value="5" >SRT</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-               
-        </div>
         
-        <div class="form-group col-sm-6">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Importar Colaboradores</button>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Importar </button>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#"><i class="bi bi-person-plus"></i>Novo</button>
+
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#"> Exportar Selecionados</button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#"> Excluir Selecionados</button>
+
+                </div>
+
+            </div>
+            
         </div>
     </div>
-    <div class="row">
-
-    </div>
+    
     <div >
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                <th scope="col">#</th>
-                <th scope="col">Matrícula</th>
-                <th scope="col">Nome</th>
-                <th scope="col">NPL</th>
-                <th scope="col">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>mdo</td>
-                <td>mdo</td>
-                </tr>
-                <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>dada</td>
-                <td>mdo</td>
-                </tr>
-                <tr>
-                <th scope="row">3</th>
-                <td>Larry the Bird</td>
-                <td>twitter</td>
-                <td>twitter</td>
-                <td>mdo</td>
-                </tr>
-            </tbody>
-        </table>    
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th> <input type="checkbox" class="selectAll" name="selectAll" value="all"></th>
+                        <th>Matrícula</th>
+                        <th>Nome</th>
+                        <th>NPL</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td>Tiger Nixon</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>
+                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Garrett Winters</td>
+                        <td>Accountant</td>
+                        <td>Tokyo</td>
+                        <td>
+                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Ashton Cox</td>
+                        <td>Junior Technical Author</td>
+                        <td>San Francisco</td>
+                        <td>
+                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Cedric Kelly</td>
+                        <td>Senior Javascript Developer</td>
+                        <td>Edinburgh</td>
+                        <td>
+                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Airi Satou</td>
+                        <td>Accountant</td>
+                        <td>Tokyo</td>
+                        <td>
+                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Brielle Williamson</td>
+                        <td>Integration Specialist</td>
+                        <td>New York</td>
+                        <td>
+                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Herrod Chandler</td>
+                        <td>Sales Assistant</td>
+                        <td>San Francisco</td>
+                        <td>
+                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Rhona Davidson</td>
+                        <td>Integration Specialist</td>
+                        <td>Tokyo</td>
+                        <td>
+                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Colleen Hurst</td>
+                        <td>Javascript Developer</td>
+                        <td>San Francisco</td>
+                        <td>
+                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Sonya Frost</td>
+                        <td>Software Engineer</td>
+                        <td>Edinburgh</td>
+                        <td>
+                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Jena Gaines</td>
+                        <td>Office Manager</td>
+                        <td>London</td>
+                        <td>
+                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Quinn Flynn</td>
+                        <td>Support Lead</td>
+                        <td>Edinburgh</td>
+                        <td>
+                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Charde Marshall</td>
+                        <td>Regional Director</td>
+                        <td>San Francisco</td>
+                        <td>
+                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Haley Kennedy</td>
+                        <td>Senior Marketing Designer</td>
+                        <td>London</td>
+                        <td>
+                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Tatyana Fitzpatrick</td>
+                        <td>Regional Director</td>
+                        <td>London</td>
+                        <td>
+                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
     </div>
     
 </div>
@@ -110,12 +251,42 @@
 </div>
 
 
-@section Scripts {
-    <script src="~/lib/bootstrap/multiselect/dist/js/bootstrap-multiselect.js"></script>
+@section Scripts 
+{
     <script src="~/lib/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/lib/datatables/datatables.min.js"></script>
     <script>
         $(document).ready(function() {       
           $( '#npls' ).select2({ theme: 'bootstrap-5' });
+
+            let dTable= $('#example').DataTable({
+                responsive: true,
+                'language': {
+                    'searchPlaceholder': 'Pesquise aqui',
+                    url: '/js/datatable.pt_br.json'
+                },
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }],
+                select: {
+                    style: 'os',
+                    selector: 'td:first-child'
+                },
+                order: [[1, 'asc']]
+
+            });
+
+            $(".selectAll").on("click", function (e) {
+                if ($(this).is(":checked")) {
+                    dTable.rows().select();
+                } else {
+                    dTable.rows().deselect();
+                }
+            });
+
+
         });
 
     </script>
