@@ -19,6 +19,8 @@
 
             services.AddControllersWithViews()
                 .AddSessionStateTempDataProvider();
+            
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
             return services;
         }

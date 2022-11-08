@@ -1,0 +1,172 @@
+
+@model PortalProgramacao.Web.Models.Employee.AddOrEditEmployeeModel;
+
+@{
+    ViewData["Title"] = "Home Page";
+    ViewData["EmployeeMenu"] = "active";
+}
+
+@section Styles
+{
+    <link href='~/lib/bootstrap/dist/css/bootstrap-icons.css' rel='stylesheet' asp-append-version="true" />
+    <link  rel="stylesheet" href='~/lib/select2/dist/css/select2.min.css' asp-append-version="true" />
+    <link  rel="stylesheet" href='~/lib/select2/select2-bootstrap-5/select2-bootstrap-5-theme.min.css' asp-append-version="true" />
+
+}
+
+<div>
+    <div class="text-center">
+        <h1 class="display-4">Adicionar colaborador</h1>
+    </div>
+        <form class="needs-validation" asp-controller="Employee" asp-action="Add" method="POST">
+              <div class="row g-3">
+                    <div class="col-md-2">
+                        <label asp-for="RegisterId" class="fw-bold">Matrícula</label>
+                        <input type="text" class="form-control" id="registerId" asp-for="RegisterId" placeholder="Matrícula">
+                        <span asp-validation-for="RegisterId" class="invalid-feedback"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Name" class="fw-bold">Nome</label>
+                        <input type="text" class="form-control" id="name" asp-for="Name" placeholder="Nome">
+                        <span asp-validation-for="Name" class="invalid-feedback"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="NplId" class="fw-bold">NPL</label>
+                        <select asp-for="NplId" class="form-select form-control" aria-label=".form-select-sm select" data-placeholder="Selecione a NPL">
+                            <option selected></option>
+                            <option value="1" >CAA</option>
+                            <option value="8" >CPN</option>
+                            <option value="2" >GAN</option>
+                            <option value="7" >MTN</option>
+                            <option value="6" >MTS</option>
+                            <option value="3" >PMR</option>
+                            <option value="4" >PTU</option>
+                            <option value="5" >SRT</option>
+                        </select>
+                         <span asp-validation-for="NplId" class="invalid-feedback"></span>
+                    </div>
+                    
+                    <label for="processos" class="fw-bold">Processos</label>
+                    <div id="processos" class="row g-3 border border-light rounded-3 border-3" style="padding-bottom: 10px;">
+                        <div class="col-md-3">
+                            <label asp-for="SEPercentage" class="fw-bold">SE</label>
+                            <input type="text" class="form-control proc" id="se" asp-for="SEPercentage" placeholder="SE">
+                            <span asp-validation-for="SEPercentage" class="invalid-feedback"></span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label asp-for="LTPercentage" class="fw-bold">LT</label>
+                            <input type="text" class="form-control proc" id="lt" asp-for="LTPercentage" placeholder="LT">
+                            <span asp-validation-for="LTPercentage" class="invalid-feedback"></span>
+                        </div>
+
+                        
+                        <div class="col-md-3">
+                            <label asp-for="AUTPercentage" class="fw-bold">SE</label>
+                            <input type="text" class="form-control proc" id="aut" asp-for="AUTPercentage" placeholder="AUT">
+                            <span asp-validation-for="AUTPercentage" class="invalid-feedback"></span>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <label asp-for="TLEPercentage" class="fw-bold">TLE</label>
+                            <input type="text" class="form-control proc" id="tle" asp-for="TLEPercentage" placeholder="TLE">
+                            <span asp-validation-for="TLEPercentage" class="invalid-feedback"></span>
+                        </div>
+                    </div>
+
+                    <label for="dias" class="fw-bold">Dias Disponíveis por Mês</label>
+                    <div id="dias" class="row g-3 border border-light rounded-3 border-3" style="padding-bottom: 10px;">
+                        <div class="col-md-1">
+                            <label asp-for="Jan" class="fw-bold">JAN</label>
+                            <input type="number" class="form-control" id="jan" asp-for="Jan" placeholder="Jan" min="0" max="31">
+                            <span asp-validation-for="Jan" class="invalid-feedback"></span>
+                        </div>
+
+                        <div class="col-md-1">
+                            <label asp-for="Fev" class="fw-bold">FEV</label>
+                            <input type="number" class="form-control" id="fev" asp-for="Fev" placeholder="Fev" min="0" max="29">
+                            <span asp-validation-for="Fev" class="invalid-feedback"></span>
+                        </div>
+
+                        <div class="col-md-1">
+                            <label asp-for="Mar" class="fw-bold">MAR</label>
+                            <input type="number" class="form-control" id="mar" asp-for="Mar" placeholder="Mar"min="0" max="31">
+                            <span asp-validation-for="Mar" class="invalid-feedback"></span>
+                        </div>
+
+                        <div class="col-md-1">
+                            <label asp-for="Abr" class="fw-bold">ABR</label>
+                            <input type="number" class="form-control" id="abr" asp-for="Abr" placeholder="Abr" min="0" max="30">
+                            <span asp-validation-for="Abr" class="invalid-feedback"></span>
+                        </div>
+
+                        <div class="col-md-1">
+                            <label asp-for="Mai" class="fw-bold">MAI</label>
+                            <input type="number" class="form-control" id="mai" asp-for="Mai" placeholder="Mai" min="0" max="31">
+                            <span asp-validation-for="Mai" class="invalid-feedback"></span>
+                        </div>
+
+                        <div class="col-md-1">
+                            <label asp-for="Jun" class="fw-bold">JUN</label>
+                            <input type="number" class="form-control" id="jun" asp-for="Jun" placeholder="Jun" min="0" max="30">
+                            <span asp-validation-for="Jun" class="invalid-feedback"></span>
+                        </div>
+
+                        <div class="col-md-1">
+                            <label asp-for="Jul" class="fw-bold">JUL</label>
+                            <input type="number" class="form-control" id="jul" asp-for="Jul" placeholder="Jul" min="0" max="31">
+                            <span asp-validation-for="Jul" class="invalid-feedback"></span>
+                        </div>
+
+                        <div class="col-md-1">
+                            <label asp-for="Ago" class="fw-bold">AGO</label>
+                            <input type="number" class="form-control" id="ago" asp-for="Ago" placeholder="Ago" min="0" max="31">
+                            <span asp-validation-for="Ago" class="invalid-feedback"></span>
+                        </div>
+
+                        <div class="col-md-1">
+                            <label asp-for="Set" class="fw-bold">SET</label>
+                            <input type="number" class="form-control" id="set" asp-for="Set" placeholder="Set" min="0" max="30">
+                            <span asp-validation-for="Set" class="invalid-feedback"></span>
+                        </div>
+
+                        <div class="col-md-1">
+                            <label asp-for="Out" class="fw-bold">OUT</label>
+                            <input type="number" class="form-control" id="out" asp-for="Out" placeholder="Out" min="0" max="31">
+                            <span asp-validation-for="Out" class="invalid-feedback"></span>
+                        </div>
+
+                        <div class="col-md-1">
+                            <label asp-for="Nov" class="fw-bold">NOV</label>
+                            <input type="number" class="form-control" id="nov" asp-for="Nov" placeholder="Nov" min="0" max="30">
+                            <span asp-validation-for="Nov" class="invalid-feedback"></span>
+                        </div>
+
+                        <div class="col-md-1">
+                            <label asp-for="Dez" class="fw-bold">DEZ</label>
+                            <input type="number" class="form-control" id="dez" asp-for="Dez" placeholder="Dez" min="0" max="31">
+                            <span asp-validation-for="Dez" class="invalid-feedback"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <button type="submit" class="btn btn-primary float-end" >Salvar</button>
+                    <a asp-controller="Employee" asp-action="Index" role="button" class="btn btn-secondary float-end" style="margin-right: 5px;">Cancelar</a>
+                    
+                </div>
+                
+        </form>
+        
+    </div>
+    
+</div>
+
+
+@section Scripts 
+{
+    <script src="~/lib/select2/dist/js/select2.full.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/inputmask/dist/jquery.inputmask.min.js"></script>
+    <script src="~/js/Employee/employee.add.js"></script>
+}

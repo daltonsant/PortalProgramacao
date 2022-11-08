@@ -1,4 +1,7 @@
+using System.Data;
 using System.Diagnostics;
+using System.Text;
+using ExcelDataReader;
 using Microsoft.AspNetCore.Mvc;
 using PortalProgramacao.Web.Models;
 using PortalProgramacao.Web.Models.Employee;
@@ -35,11 +38,14 @@ public class EmployeeController : BaseController
     [HttpPost]
     public IActionResult Add(AddOrEditEmployeeModel model)
     {
+        if(!ModelState.IsValid)
+            return View(model);
+
         return View();
     }
 
     [HttpGet]
-    public IActionResult Edit()
+    public IActionResult Edit(ulong id)
     {
         return View();
     }
@@ -53,9 +59,18 @@ public class EmployeeController : BaseController
      [HttpPost]
     public IActionResult Import(IFormFile? excel)
     {
-        return Ok();
+        var errors = new List<string>();
+        EmployeeImportUtil.ImportEmployees(excel, null, errors);
+
+        return Ok(errors);
     }
 
+
+    [HttpDelete]
+    public IActionResult Delete(ulong[] ids)
+    {
+        return Ok();
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

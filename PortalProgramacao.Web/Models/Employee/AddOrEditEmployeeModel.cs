@@ -21,17 +21,25 @@ public class AddOrEditEmployeeModel
     [Display(Name = "NPL")]
     [Required(ErrorMessage = "O campo {0} é obrigatório")]
     public ulong? NplId { get; set; }
-    public SelectList? Npls { get; set; }
-
-    public ICollection<AddOrEditEmployeeProcessModel> EmployeeProcesses { get; set; }
-
-    public ICollection<MonthDayCountModel> MonthDayCounts { get; set; }
-
+    public string? SEPercentage { get; set; }
+    public string? LTPercentage { get; set; }
+    public string? AUTPercentage { get; set; }
+    public string? TLEPercentage { get; set; }
+    public int? Jan { get; set; }
+    public int? Fev { get; set; }
+    public int? Mar { get; set; }
+    public int? Abr { get; set; }
+    public int? Mai { get; set; }
+    public int? Jun { get; set; }
+    public int? Jul { get; set; }
+    public int? Ago { get; set; }
+    public int? Set { get; set; }
+    public int? Out { get; set; }
+    public int? Nov { get; set; }
+    public int? Dez { get; set; }
 
     public AddOrEditEmployeeModel()
     {
-        Npls = new SelectList(new List<SelectListItem>(), "Value", "Text", NplId);
-        EmployeeProcesses = new List<AddOrEditEmployeeProcessModel>();
-        MonthDayCounts = new List<MonthDayCountModel>();
+        
     }
 }

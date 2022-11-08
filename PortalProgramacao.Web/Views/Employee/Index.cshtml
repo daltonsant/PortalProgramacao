@@ -46,11 +46,10 @@
                 <div class="col-sm-4"></div>
                 <div class="col-sm-8">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Importar </button>
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#"><i class="bi bi-person-plus"></i>Novo</button>
+                    <a asp-controller="Employee" asp-action="Add" role="button" class="btn btn-secondary"><i class="bi bi-person-plus"> </i> Novo</a>
 
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#"> Exportar Selecionados</button>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#"> Excluir Selecionados</button>
-
+                    <button type="button" class="btn btn-success disabled" data-bs-toggle="modal" data-bs-target="#" id="exportSel"> Exportar Selecionados</button>
+                    <button type="button" class="btn btn-danger disabled" data-bs-toggle="modal" data-bs-target="#deleteAllModal" id="deleteSel"> Excluir Selecionados</button>
                 </div>
 
             </div>
@@ -63,6 +62,7 @@
                 <thead>
                     <tr>
                         <th> <input type="checkbox" class="selectAll" name="selectAll" value="all"></th>
+                        <th style="display: none;">Id</th>
                         <th>Matrícula</th>
                         <th>Nome</th>
                         <th>NPL</th>
@@ -72,6 +72,7 @@
                 <tbody>
                     <tr>
                         <td></td>
+                        <td style="display: none;">Id</td>
                         <td>U355117</td>
                         <td>System Architect</td>
                         <td>Edinburgh</td>
@@ -82,6 +83,7 @@
                     </tr>
                     <tr>
                         <td></td>
+                        <td style="display: none;">Id</td>
                         <td>U355107</td>
                         <td>Accountant</td>
                         <td>Tokyo</td>
@@ -92,6 +94,7 @@
                     </tr>
                     <tr>
                         <td></td>
+                        <td style="display: none;">Id</td>
                         <td>U355107</td>
                         <td>Junior Technical Author</td>
                         <td>San Francisco</td>
@@ -102,6 +105,7 @@
                     </tr>
                     <tr>
                         <td></td>
+                        <td style="display: none;">Id</td>
                         <td>U355102</td>
                         <td>Senior Javascript Developer</td>
                         <td>Edinburgh</td>
@@ -112,6 +116,7 @@
                     </tr>
                     <tr>
                         <td></td>
+                        <td style="display: none;">Id</td>
                         <td>U355108</td>
                         <td>Accountant</td>
                         <td>Tokyo</td>
@@ -122,6 +127,7 @@
                     </tr>
                     <tr>
                         <td></td>
+                        <td style="display: none;">Id</td>
                         <td>U355133</td>
                         <td>Integration Specialist</td>
                         <td>New York</td>
@@ -132,6 +138,7 @@
                     </tr>
                     <tr>
                         <td></td>
+                        <td style="display: none;">Id</td>
                         <td>U355123</td>
                         <td>Sales Assistant</td>
                         <td>San Francisco</td>
@@ -142,6 +149,7 @@
                     </tr>
                     <tr>
                         <td></td>
+                        <td style="display: none;">Id</td>
                         <td>U355156</td>
                         <td>Integration Specialist</td>
                         <td>Tokyo</td>
@@ -152,6 +160,7 @@
                     </tr>
                     <tr>
                         <td></td>
+                        <td style="display: none;">Id</td>
                         <td>U355121</td>
                         <td>Javascript Developer</td>
                         <td>San Francisco</td>
@@ -162,6 +171,7 @@
                     </tr>
                     <tr>
                         <td></td>
+                        <td style="display: none;">Id</td>
                         <td>U355166</td>
                         <td>Software Engineer</td>
                         <td>Edinburgh</td>
@@ -172,6 +182,7 @@
                     </tr>
                     <tr>
                         <td></td>
+                        <td style="display: none;">Id</td>
                         <td>U355189</td>
                         <td>Office Manager</td>
                         <td>London</td>
@@ -182,6 +193,7 @@
                     </tr>
                     <tr>
                         <td></td>
+                        <td style="display: none;">Id</td>
                         <td>U355167</td>
                         <td>Support Lead</td>
                         <td>Edinburgh</td>
@@ -192,6 +204,7 @@
                     </tr>
                     <tr>
                         <td></td>
+                        <td style="display: none;">Id</td>
                         <td>U355135</td>
                         <td>Regional Director</td>
                         <td>San Francisco</td>
@@ -202,28 +215,29 @@
                     </tr>
                     <tr>
                         <td></td>
+                        <td style="display: none;">Id</td>
                         <td>U355178</td>
                         <td>Senior Marketing Designer</td>
                         <td>London</td>
                         <td>
-                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="#" class="delete-link" style="color: red;" data-bs-toggle="modal" data-id="3333" data-bs-target="#deleteModal"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
                             <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
+                        <td style="display: none;">Id</td>
                         <td>U355197</td>
                         <td>Regional Director</td>
                         <td>London</td>
                         <td>
-                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                            <a href="#" class="delete-link" style="color: red;" data-bs-toggle="modal" data-id="22222" data-bs-target="#deleteModal" ><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="Employee/Edit/22222" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
                         </td>
                     </tr>
                 </tbody>
             </table>
     </div>
-    
 </div>
 
 <!-- Modal -->
@@ -231,63 +245,68 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Planilha de Colaboradores</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form id="import_form" asp-controller="Employee" asp-action="Import" method="POST" enctype="multipart/form-data">
             <div class="row">
-                <label for="formFile" class="form-label">Default file input example</label>
+                <label for="formFile" class="form-label">Selecione um arquivo .xlsx</label>
                 <input class="form-control" type="file" id="formFile" name="excel">
             </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" onclick="$('#import_form').submit()">Importar</button>
+        <button type="button" class="btn btn-primary" id="importar">Importar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Deletar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja deletar esse(s) colaborador(es) da base de dados?
+        <input type="hidden" name="employeeId" id="employeeId" value=""/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" id="confirmar_delete">Confirmar</button>
       </div>
     </div>
   </div>
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="deleteAllModal" tabindex="-1" aria-labelledby="deleteAllModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteAllModalLabel">Deletar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja deletar esse(s) colaborador(es) da base de dados?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" id="confirmar_deleteAll">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 @section Scripts 
 {
     <script src="~/lib/select2/dist/js/select2.full.min.js"></script>
     <script src="~/lib/datatables/datatables.min.js"></script>
-    <script>
-        $(document).ready(function() {       
-          $( '#npls' ).select2({ theme: 'bootstrap-5' });
-
-            let dTable= $('#example').DataTable({
-                responsive: true,
-                'language': {
-                    'searchPlaceholder': 'Pesquise aqui',
-                    url: '/js/datatable.pt_br.json'
-                },
-                columnDefs: [{
-                    orderable: false,
-                    className: 'select-checkbox',
-                    targets: 0
-                }],
-                select: {
-                    style: 'os',
-                    selector: 'td:first-child'
-                },
-                order: [[1, 'asc']]
-
-            });
-
-            $(".selectAll").on("click", function (e) {
-                if ($(this).is(":checked")) {
-                    dTable.rows().select();
-                } else {
-                    dTable.rows().deselect();
-                }
-            });
-
-
-        });
-
-    </script>
+    <script src="~/js/Employee/employee.index.js"></script>
 }
