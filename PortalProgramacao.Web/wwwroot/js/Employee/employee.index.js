@@ -14,23 +14,23 @@
             //$('#import_form').submit();
 
             var formData = new FormData();
-            formData.append('file', $('#formFile')[0].files[0]);
+            formData.append('excel', $('#formFile')[0].files[0]);
 
             $.ajax({
                 url : '/Employee/Import/',
                 type : 'POST',
-                data : {excel : formData},
+                data : formData,
                 processData: false,  // tell jQuery not to process the data
-                contentType: true,  // tell jQuery not to set contentType
+                contentType: false,  // tell jQuery not to set contentType
             })
             .done(function( msg ) {
-                console.log(data);
-                alert(data);
+                console.log(msg);
+                alert(msg);
                 //location.reload();
             });
 
 
-            $("#staticBackdrop").find('form').trigger('reset');
+            //$("#staticBackdrop").find('form').trigger('reset');
         });
  
         $( '#npls' ).select2({ theme: 'bootstrap-5' });
