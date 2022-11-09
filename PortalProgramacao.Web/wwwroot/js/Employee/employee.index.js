@@ -24,6 +24,13 @@
                 contentType: false,  // tell jQuery not to set contentType
             })
             .done(function( msg ) {
+                if(msg.length > 0)
+                {
+                    let error_container = $("#import_validations");
+                    for(let i = 0; i < msg.length;i++){
+                        error_container.append($("<span>").text(msg[i]));
+                    }
+                }
                 console.log(msg);
                 alert(msg);
                 //location.reload();

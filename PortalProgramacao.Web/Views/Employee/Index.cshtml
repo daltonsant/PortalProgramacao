@@ -100,10 +100,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="import_form" asp-controller="Employee" asp-action="Import" method="POST" enctype="multipart/form-data">
+        <form id="import_form" class="needs-validation" asp-controller="Employee" asp-action="Import" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <label for="formFile" class="form-label">Selecione um arquivo .xlsx</label>
                 <input class="form-control" type="file" id="formFile" name="excel">
+            </div>
+            <div class="row" id="import_validations" class="invalid-feedback" style="color: red;">
+                
             </div>
         </form>
       </div>
@@ -160,4 +163,5 @@
     <script src="~/lib/select2/dist/js/select2.full.min.js"></script>
     <script src="~/lib/datatables/datatables.min.js"></script>
     <script src="~/js/Employee/employee.index.js"></script>
+    <partial name="_ValidationScriptsPartial" />
 }
