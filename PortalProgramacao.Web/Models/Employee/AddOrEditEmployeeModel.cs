@@ -21,22 +21,23 @@ public class AddOrEditEmployeeModel
     [Display(Name = "NPL")]
     [Required(ErrorMessage = "O campo {0} é obrigatório")]
     public ulong? NplId { get; set; }
+    public string? NplName { get; set; }
     public string? SEPercentage { get; set; }
     public string? LTPercentage { get; set; }
     public string? AUTPercentage { get; set; }
     public string? TLEPercentage { get; set; }
-    public int? Jan { get; set; }
-    public int? Fev { get; set; }
-    public int? Mar { get; set; }
-    public int? Abr { get; set; }
-    public int? Mai { get; set; }
-    public int? Jun { get; set; }
-    public int? Jul { get; set; }
-    public int? Ago { get; set; }
-    public int? Set { get; set; }
-    public int? Out { get; set; }
-    public int? Nov { get; set; }
-    public int? Dez { get; set; }
+    public string? Jan { get; set; }
+    public string? Fev { get; set; }
+    public string? Mar { get; set; }
+    public string? Abr { get; set; }
+    public string? Mai { get; set; }
+    public string? Jun { get; set; }
+    public string? Jul { get; set; }
+    public string? Ago { get; set; }
+    public string? Set { get; set; }
+    public string? Out { get; set; }
+    public string? Nov { get; set; }
+    public string? Dez { get; set; }
 
     public AddOrEditEmployeeModel()
     {

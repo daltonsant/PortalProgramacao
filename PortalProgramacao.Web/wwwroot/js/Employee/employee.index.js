@@ -11,7 +11,25 @@
         });
  
         $('#importar').on('click', function () {
-            $('#import_form').submit();
+            //$('#import_form').submit();
+
+            var formData = new FormData();
+            formData.append('file', $('#formFile')[0].files[0]);
+
+            $.ajax({
+                url : '/Employee/Import/',
+                type : 'POST',
+                data : {excel : formData},
+                processData: false,  // tell jQuery not to process the data
+                contentType: true,  // tell jQuery not to set contentType
+            })
+            .done(function( msg ) {
+                console.log(data);
+                alert(data);
+                //location.reload();
+            });
+
+
             $("#staticBackdrop").find('form').trigger('reset');
         });
  
@@ -69,11 +87,37 @@
             }
         });
 
+        $("#confirmar_delete").on("click", function() {
+            let id = $("#employeeId").val();
+            $.ajax({
+                method: "Delete",
+                url: "/Employee/Delete/",
+                data: { ids: [id] }
+              })
+                .done(function( msg ) {
+                    location.reload();
+                });
+        });
+
         $("#confirmar_deleteAll").on("click", function() {
             let data = dTable.rows({selected: true}).data();
+            ids = []
+            let length = data.length;
+            
+            for(let i = 0; i < length; i++) {
+                console.log(data[i]);
+                ids.push(data[i][1]);
+            }
 
-            console.log(data);
-            alert(data);
+            $.ajax({
+                method: "Delete",
+                url: "/Employee/Delete/",
+                data: { ids: ids }
+              })
+                .done(function( msg ) {
+                    location.reload();
+                });
+            
         });
 
     });

@@ -1,4 +1,4 @@
-﻿using PortalProgramacao.Application.Extensions;
+﻿using PortalProgramacao.Infrastructure.Extensions;
 using PortalProgramacao.Web.AutoMapper.Profiles;
 using PortalProgramacao.Web.Extensions;
 using System.Reflection;

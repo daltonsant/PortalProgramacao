@@ -1,11 +1,8 @@
-using System.Data;
-using System.Diagnostics;
 using System.Text;
 using ExcelDataReader;
-using Microsoft.AspNetCore.Mvc;
-using PortalProgramacao.Domain.Interfaces.Services;
-using PortalProgramacao.Web.Models;
-using PortalProgramacao.Web.Models.Employee;
+using PortalProgramacao.Application.Dtos.Employee;
+using PortalProgramacao.Application.Interfaces.Services;
+using PortalProgramacao.Domain.Core.Interfaces;
 
 namespace PortalProgramacao.Web.Controllers.Employee;
 
@@ -72,7 +69,6 @@ public static class EmployeeImportUtil
                 {
                     var datum = dataset.Tables[0].Rows[index][colIndex].ToString();
                     row.Add(datum);
-                    errors.Add(datum);
                 }
 
                 if(ValidateData(row, index, errors))
@@ -87,7 +83,44 @@ public static class EmployeeImportUtil
 
             if(imported)
             {
-                //call service to import and persist the data
+                var employees =  new List<EmployeeDto>();
+                foreach(var row in rows)
+                {
+                    var decimals = new List<decimal>();
+                    var aux = decimal.Zero;
+
+                    for(int i = 3; i < row.Count; i++){
+                        aux = decimal.Zero;
+                        decimal.TryParse(row[i], out aux);
+                        decimals.Add(aux);
+                    }
+
+                    var employeeDto = new EmployeeDto()
+                    {
+                        RegisterId = row[0],
+                        Name = row[1],
+                        NplName = row[2],
+                        SEPercentage = decimals[0],
+                        LTPercentage = decimals[1],
+                        AUTPercentage = decimals[2],
+                        TLEPercentage = decimals[3],
+                        Jan = decimals[4],
+                        Fev = decimals[5],
+                        Mar = decimals[6],
+                        Abr = decimals[7],
+                        Mai = decimals[8],
+                        Jun = decimals[9],
+                        Jul = decimals[10],
+                        Ago = decimals[11],
+                        Set = decimals[12],
+                        Out = decimals[13],
+                        Nov = decimals[14],
+                        Dez = decimals[15]
+                    };
+                    employees.Add(employeeDto);
+                }
+                
+                employeeService.Import(employees);
             }
         }
         catch(Exception ex)

@@ -1,11 +1,4 @@
-using System.Data;
-using System.Diagnostics;
-using System.Text;
-using ExcelDataReader;
-using Microsoft.AspNetCore.Mvc;
-using PortalProgramacao.Domain.Interfaces.Services;
-using PortalProgramacao.Web.Models;
-using PortalProgramacao.Web.Models.Employee;
+
 
 namespace PortalProgramacao.Web.Controllers.Employee;
 

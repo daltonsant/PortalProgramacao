@@ -1,8 +1,8 @@
-using System.Data;
 using System.Diagnostics;
-using System.Text;
-using ExcelDataReader;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using PortalProgramacao.Application.Dtos.Employee;
+using PortalProgramacao.Application.Interfaces.Services;
 using PortalProgramacao.Web.Models;
 using PortalProgramacao.Web.Models.Employee;
 
@@ -11,15 +11,22 @@ namespace PortalProgramacao.Web.Controllers.Employee;
 public class EmployeeController : BaseController
 {
     private readonly ILogger<EmployeeController> _logger;
+    private readonly IEmployeeService _employeeService;
+    private readonly IMapper _mapper;
 
-    public EmployeeController(ILogger<EmployeeController> logger)
+    public EmployeeController(ILogger<EmployeeController> logger, IEmployeeService employeeService, IMapper mapper)
     {
         _logger = logger;
+        _employeeService = employeeService;
+        _mapper = mapper;
     }
 
     public IActionResult Index()
     {
-        return View();
+        var employees = _employeeService.GetAll();
+        var model = _mapper.Map<ICollection<ViewEmployeeModel>>(employees);
+        
+        return View(model);
     }
 
     public IActionResult Privacy()
@@ -41,34 +48,52 @@ public class EmployeeController : BaseController
         if(!ModelState.IsValid)
             return View(model);
 
-        return View();
+        var dto = _mapper.Map<EmployeeDto>(model);
+
+        _employeeService.Add(dto);
+
+        return RedirectToAction("Index", "Employee");
     }
 
     [HttpGet]
     public IActionResult Edit(ulong id)
     {
-        return View();
+        var entity = _employeeService.Get(id);
+        if(entity != null)
+        {
+            var model = _mapper.Map<AddOrEditEmployeeModel>(entity);
+            return View(model);
+        }
+
+        return NotFound();
     }
 
     [HttpPost]
     public IActionResult Edit(AddOrEditEmployeeModel model)
     {
-        return View();
+        if(!ModelState.IsValid)
+            return View(model);
+
+        var dto = _mapper.Map<EmployeeDto>(model);
+
+        _employeeService.Edit(dto);
+
+        return RedirectToAction("Index", "Employee");
     }
 
      [HttpPost]
     public IActionResult Import(IFormFile? excel)
     {
         var errors = new List<string>();
-        EmployeeImportUtil.ImportEmployees(excel, null, errors);
+        EmployeeImportUtil.ImportEmployees(excel, _employeeService, errors);
 
         return Ok(errors);
     }
 
-
     [HttpDelete]
     public IActionResult Delete(ulong[] ids)
     {
+        _employeeService.Delete(ids);
         return Ok();
     }
 

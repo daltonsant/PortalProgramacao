@@ -1,3 +1,4 @@
+@model ICollection<PortalProgramacao.Web.Models.Employee.ViewEmployeeModel>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -70,171 +71,21 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
+                    @foreach(var ee in Model){
                     <tr>
                         <td></td>
-                        <td style="display: none;">Id</td>
-                        <td>U355117</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
+                        <td style="display: none;">@ee.Id</td>
+                        <td>@ee.RegisterId</td>
+                        <td>@ee.Name</td>
+                        <td>@ee.NplName</td>
                         <td>
-                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                            <a href="#" class="delete-link" style="color: red;" data-bs-toggle="modal" data-id="@ee.Id" data-bs-target="#deleteModal" ><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="Employee/Edit/@ee.Id" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
                         </td>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td style="display: none;">Id</td>
-                        <td>U355107</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>
-                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="display: none;">Id</td>
-                        <td>U355107</td>
-                        <td>Junior Technical Author</td>
-                        <td>San Francisco</td>
-                        <td>
-                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="display: none;">Id</td>
-                        <td>U355102</td>
-                        <td>Senior Javascript Developer</td>
-                        <td>Edinburgh</td>
-                        <td>
-                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="display: none;">Id</td>
-                        <td>U355108</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>
-                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="display: none;">Id</td>
-                        <td>U355133</td>
-                        <td>Integration Specialist</td>
-                        <td>New York</td>
-                        <td>
-                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="display: none;">Id</td>
-                        <td>U355123</td>
-                        <td>Sales Assistant</td>
-                        <td>San Francisco</td>
-                        <td>
-                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="display: none;">Id</td>
-                        <td>U355156</td>
-                        <td>Integration Specialist</td>
-                        <td>Tokyo</td>
-                        <td>
-                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="display: none;">Id</td>
-                        <td>U355121</td>
-                        <td>Javascript Developer</td>
-                        <td>San Francisco</td>
-                        <td>
-                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="display: none;">Id</td>
-                        <td>U355166</td>
-                        <td>Software Engineer</td>
-                        <td>Edinburgh</td>
-                        <td>
-                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="display: none;">Id</td>
-                        <td>U355189</td>
-                        <td>Office Manager</td>
-                        <td>London</td>
-                        <td>
-                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="display: none;">Id</td>
-                        <td>U355167</td>
-                        <td>Support Lead</td>
-                        <td>Edinburgh</td>
-                        <td>
-                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="display: none;">Id</td>
-                        <td>U355135</td>
-                        <td>Regional Director</td>
-                        <td>San Francisco</td>
-                        <td>
-                            <a href="#" class="" style="color: red;"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="display: none;">Id</td>
-                        <td>U355178</td>
-                        <td>Senior Marketing Designer</td>
-                        <td>London</td>
-                        <td>
-                            <a href="#" class="delete-link" style="color: red;" data-bs-toggle="modal" data-id="3333" data-bs-target="#deleteModal"><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="#" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td style="display: none;">Id</td>
-                        <td>U355197</td>
-                        <td>Regional Director</td>
-                        <td>London</td>
-                        <td>
-                            <a href="#" class="delete-link" style="color: red;" data-bs-toggle="modal" data-id="22222" data-bs-target="#deleteModal" ><span style="color:red;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="Employee/Edit/22222" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
-                        </td>
-                    </tr>
+                    }
+                    
                 </tbody>
             </table>
     </div>

@@ -1,17 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PortalProgramacao.Application.Interfaces.Services;
+using PortalProgramacao.Infrastructure.Services;
 
-namespace PortalProgramacao.Application.Extensions
+namespace PortalProgramacao.Infrastructure.Extensions
 {
     internal static class ServicesConfigurationExtensions
     {
         internal static IServiceCollection ConfigureServices(this IServiceCollection services)
         {
-
+            services.AddScoped(typeof(IEmployeeService), typeof(EmployeeService) );
             return services;
         }
     }

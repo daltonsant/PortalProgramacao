@@ -4,14 +4,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PortalProgramacao.Infrastructure.Data.Context;
 using PortalProgramacao.Infrastructure.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace PortalProgramacao.Application.Extensions
+
+namespace PortalProgramacao.Infrastructure.Extensions
 {
     public static class ApplicationConfigurationExtensions
     {
