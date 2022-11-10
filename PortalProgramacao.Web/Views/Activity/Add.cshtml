@@ -1,0 +1,82 @@
+
+@model PortalProgramacao.Web.Models.Activity.AddOrEditActivityModel;
+
+@{
+    ViewData["Title"] = "Home Page";
+    ViewData["ActivityMenu"] = "active";
+}
+
+@section Styles
+{
+    <link href='~/lib/bootstrap/dist/css/bootstrap-icons.css' rel='stylesheet' asp-append-version="true" />
+    <link  rel="stylesheet" href='~/lib/select2/dist/css/select2.min.css' asp-append-version="true" />
+    <link  rel="stylesheet" href='~/lib/select2/select2-bootstrap-5/select2-bootstrap-5-theme.min.css' asp-append-version="true" />
+
+}
+
+<div>
+    <div class="text-center">
+        <h1 class="display-4">Adicionar Atividade</h1>
+    </div>
+        <form class="needs-validation" asp-controller="Activity" asp-action="Add" method="POST">
+              <div class="row g-3">
+                    <div class="col-md-2">
+                        <label asp-for="ApplicationID" class="fw-bold">ID</label>
+                        <input type="text" class="form-control" id="applicationId" asp-for="ApplicationID" placeholder="ID">
+                        <span asp-validation-for="ApplicationID" class="invalid-feedback"></span>
+                    </div>
+                     <div class="col-md-2">
+                        <label asp-for="Key" class="fw-bold">Chave</label>
+                        <input type="text" class="form-control" id="key" asp-for="Key" placeholder="Chave">
+                        <span asp-validation-for="Key" class="invalid-feedback"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Title" class="fw-bold">Atividade</label>
+                        <input type="text" class="form-control" id="title" asp-for="Title" placeholder="Título da atividade">
+                        <span asp-validation-for="Title" class="invalid-feedback"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <label asp-for="NplId" class="fw-bold">NPL</label>
+                        <select asp-for="NplId" class="form-select form-control" aria-label=".form-select-sm select" data-placeholder="Selecione a NPL">
+                            <option selected></option>
+                            <option value="1" >CAA</option>
+                            <option value="8" >CPN</option>
+                            <option value="2" >GAN</option>
+                            <option value="7" >MTN</option>
+                            <option value="6" >MTS</option>
+                            <option value="3" >PMR</option>
+                            <option value="4" >PTU</option>
+                            <option value="5" >SRT</option>
+                        </select>
+                         <span asp-validation-for="NplId" class="invalid-feedback"></span>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                     <div class="col-md-2">
+                        <label asp-for="ApplicationID" class="fw-bold">ID</label>
+                        <input type="text" class="form-control" id="applicationId" asp-for="ApplicationID" placeholder="ID">
+                        <span asp-validation-for="ApplicationID" class="invalid-feedback"></span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <button type="submit" class="btn btn-primary float-end" >Salvar</button>
+                    <a asp-controller="Activity" asp-action="Index" role="button" class="btn btn-secondary float-end" style="margin-right: 5px;">Cancelar</a>
+                    
+                </div>
+                
+        </form>
+        
+    </div>
+    
+</div>
+
+
+@section Scripts 
+{
+    <script src="~/lib/select2/dist/js/select2.full.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/inputmask/dist/jquery.inputmask.min.js"></script>
+    <script src="~/js/Activity/activity.add.js"></script>
+}

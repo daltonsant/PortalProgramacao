@@ -9,6 +9,7 @@ namespace PortalProgramacao.Infrastructure.Extensions
         internal static IServiceCollection ConfigureServices(this IServiceCollection services)
         {
             services.AddScoped(typeof(IEmployeeService), typeof(EmployeeService) );
+            services.AddScoped(typeof(IActivityService), typeof(ActivityService) );
             return services;
         }
     }

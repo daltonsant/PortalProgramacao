@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using PortalProgramacao.Application.Dtos.Activity;
+using PortalProgramacao.Web.Models.Activity;
 
 namespace PortalProgramacao.Web.AutoMapper.Profiles
 {
@@ -6,7 +8,10 @@ namespace PortalProgramacao.Web.AutoMapper.Profiles
     {
         public ActivityProfile()
         {
+            CreateMap<AddOrEditActivityModel, ActivityDto>()
+            .ReverseMap();
 
+            CreateMap<ActivityDto, ViewActivityModel>();
         }
     }
 }

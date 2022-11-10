@@ -1,9 +1,176 @@
+@model ICollection<PortalProgramacao.Web.Models.Activity.ViewActivityModel>
+
 @{
     ViewData["Title"] = "Home Page";
     ViewData["ActivityMenu"] = "active";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@section Styles
+{
+    <link href='~/lib/bootstrap/dist/css/bootstrap-icons.css' rel='stylesheet' asp-append-version="true" />
+    <link  rel="stylesheet" href='~/lib/select2/dist/css/select2.min.css' asp-append-version="true" />
+    <link  rel="stylesheet" href='~/lib/select2/select2-bootstrap-5/select2-bootstrap-5-theme.min.css' asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/datatables/datatables.min.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/activities.index.css" asp-append-version="true"/>
+}
+
+
+<div>
+    <div class="text-center">
+        <h1 class="display-4">Gerencie a lista de Atividades</h1>
+    </div>
+
+    <div id="controllers" class="row controlers--div">
+        <div class="col-sm-2">
+                <div class="row" style="display: none;">
+                    <div class=col-sm-1>
+                    <label for="npls">NPL:</label>
+                    </div>
+                    <div class="col-sm-11">
+                        <select id="npls" class="form-select form-control" multiple aria-label=".form-select-sm multiple select" data-placeholder="Selecione a(s) NPL(s)" >
+                            <option></option>
+                            <option value="1" >CAA</option>
+                            <option value="8" >CPN</option>
+                            <option value="2" >GAN</option>
+                            <option value="7" >MTN</option>
+                            <option value="6" >MTS</option>
+                            <option value="3" >PMR</option>
+                            <option value="4" >PTU</option>
+                            <option value="5" >SRT</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        
+        <div class="col-sm-10">
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8">
+                    <a href="~/files/Planilha padrao entrada portal.xlsx" role="button" class="btn btn-secondary"> Download Template</a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Importar </button>
+                    <a asp-controller="Activity" asp-action="Add" role="button" class="btn btn-secondary"><i class="bi bi-person-plus"> </i> Novo</a>
+
+                    <button type="button" class="btn btn-success disabled" id="exportSel"> Exportar Selecionados</button>
+                    <button type="button" class="btn btn-danger disabled" data-bs-toggle="modal" data-bs-target="#deleteAllModal" id="deleteSel"> Excluir Selecionados</button>
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+    
+    <div >
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th> <input type="checkbox" class="selectAll" name="selectAll" value="all"></th>
+                        <th style="display: none;">Id</th>
+                        <th>ID</th>
+                        <th>Atividade</th>
+                        <th>Tipo</th>
+                        <th>Processo</th>
+                        <th>NPL</th>
+                        <th>Data Prevista</th>
+                        <th>Ações</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach(var ee in Model)
+                    {
+                    <tr>
+                        <td></td>
+                        <td style="display: none;">@ee.Id</td>
+                        <td>@ee.ApplicationID</td>
+                        <td>@ee.Title</td>
+                        <td>@ee.Type</td>
+                        <td>@ee.Process</td>
+                        <td>@ee.NplName</td>
+                        <td>@ee.PlannedDate</td>
+                        <td>
+                            <a href="#" class="delete-link" style="color: black;" data-bs-toggle="modal" data-id="@ee.Id" data-bs-target="#deleteModal" ><span style="color:black;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                            <a href="Activity/Edit/@ee.Id" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                        </td>
+                    </tr>
+                    }
+                    
+                </tbody>
+            </table>
+    </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Planilha de Colaboradores</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="import_form" class="needs-validation" asp-controller="Activity" asp-action="Import" method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <label for="formFile" class="form-label">Selecione um arquivo .xlsx</label>
+                <input class="form-control" type="file" id="formFile" name="excel">
+            </div>
+            <div class="row" id="import_validations" class="invalid-feedback" style="color: red;">
+                
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="importar">Importar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Deletar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja deletar esse(s) colaborador(es) da base de dados?
+        <input type="hidden" name="activityId" id="activityId" value=""/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" id="confirmar_delete">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="deleteAllModal" tabindex="-1" aria-labelledby="deleteAllModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteAllModalLabel">Deletar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja deletar esse(s) colaborador(es) da base de dados?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" id="confirmar_deleteAll">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts 
+{
+    <script src="~/lib/select2/dist/js/select2.full.min.js"></script>
+    <script src="~/lib/datatables/datatables.min.js"></script>
+    <script src="~/js/Activity/activity.index.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+}

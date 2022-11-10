@@ -7,7 +7,7 @@
         });
  
         $(".delete-link").click(function() {
-            $('#employeeId').val($(this).data('id'));
+            $('#activityId').val($(this).data('id'));
         });
  
         $('#importar').on('click', function () {
@@ -15,7 +15,7 @@
 
             var formData = new FormData();
             formData.append('excel', $('#formFile')[0].files[0]);
-            
+
             $("#importar").addClass("disabled");
             let span = $("<span>");
             span.addClass("spinner-border spinner-border-sm");
@@ -24,10 +24,8 @@
             span.attr("id","spin_id");
             span.css("margin-right", "5px")
 
-            $("#importar").prepend(span);
-
             $.ajax({
-                url : '/Employee/Import/',
+                url : '/Activity/Import/',
                 type : 'POST',
                 data : formData,
                 processData: false,  // tell jQuery not to process the data
@@ -107,10 +105,10 @@
         });
 
         $("#confirmar_delete").on("click", function() {
-            let id = $("#employeeId").val();
+            let id = $("#activityId").val();
             $.ajax({
                 method: "Delete",
-                url: "/Employee/Delete/",
+                url: "/Activity/Delete/",
                 data: { ids: [id] }
               })
                 .done(function( msg ) {
@@ -129,7 +127,7 @@
 
             $.ajax({
                 method: "Delete",
-                url: "/Employee/Delete/",
+                url: "/Activity/Delete/",
                 data: { ids: ids }
               })
                 .done(function( msg ) {
@@ -149,7 +147,7 @@
 
             $.ajax({
                 method: "POST",
-                url: "/Employee/Export/",
+                url: "/Activity/Export/",
                 data: { ids: ids },
                 xhrFields: {
                     responseType: 'blob'
@@ -158,7 +156,7 @@
                     
                     let a = document.createElement('a');
                     a.href = window.URL.createObjectURL(result);
-                    a.download = "Colaboradores.xlsx";;
+                    a.download = "Atividades.xlsx";;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
