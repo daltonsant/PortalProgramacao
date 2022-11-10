@@ -24,16 +24,15 @@
                 contentType: false,  // tell jQuery not to set contentType
             })
             .done(function( msg ) {
-                if(msg.length > 0)
-                {
+                if (msg.length > 0) {
                     let error_container = $("#import_validations");
-                    for(let i = 0; i < msg.length;i++){
+                    for (let i = 0; i < msg.length; i++) {
                         error_container.append($("<span>").text(msg[i]));
                     }
                 }
-                console.log(msg);
-                alert(msg);
-                //location.reload();
+                else {
+                    location.reload();
+                }
             });
 
 
@@ -112,7 +111,6 @@
             let length = data.length;
             
             for(let i = 0; i < length; i++) {
-                console.log(data[i]);
                 ids.push(data[i][1]);
             }
 
@@ -127,6 +125,34 @@
             
         });
 
+        $("#exportSel").on("click", function() {
+            let data = dTable.rows({ selected: true }).data();
+            ids = []
+            let length = data.length;
+
+            for (let i = 0; i < length; i++) {
+                ids.push(data[i][1]);
+            }
+
+            $.ajax({
+                method: "POST",
+                url: "/Employee/Export/",
+                data: { ids: ids },
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (result) {
+                    
+                    let a = document.createElement('a');
+                    a.href = window.URL.createObjectURL(result);
+                    a.download = "Colaboradores.xlsx";;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(a.href);
+                }
+            });
+        });
     });
 
 }(jQuery));

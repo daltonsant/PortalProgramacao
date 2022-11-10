@@ -290,9 +290,19 @@ public class EmployeeService : IEmployeeService
             .Where(x => employees
                 .Select(y => y.RegisterId)
                 .Contains( x.RegisterId )
-            ).Select(x => x.RegisterId);
-        employeesToUpdate = employees.Where(x => entitiesToUpdate.Contains(x.RegisterId)).ToList();
-        employeesToAdd = employees.Where(x => !entitiesToUpdate.Contains(x.RegisterId)).ToList();
+            );
+
+        var registers = entitiesToUpdate.Select(y => y.RegisterId);
+
+        employeesToUpdate = employees.Where(x => registers.Contains(x.RegisterId)).ToList();
+        employeesToAdd = employees.Where(x => !registers.Contains(x.RegisterId)).ToList();
+
+        foreach(var entity in entitiesToUpdate)
+        {
+            var employee = employeesToUpdate.FirstOrDefault(x => x.RegisterId == entity.RegisterId);
+            if(employee != null)
+                employee.Id = entity.Id;
+        }
         
         ICollection<string> errors = new List<string>();
 

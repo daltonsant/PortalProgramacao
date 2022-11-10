@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using PortalProgramacao.Application.Dtos.Employee;
 using PortalProgramacao.Application.Interfaces.Services;
@@ -12,13 +13,16 @@ public class EmployeeController : BaseController
 {
     private readonly ILogger<EmployeeController> _logger;
     private readonly IEmployeeService _employeeService;
+    private readonly IWebHostEnvironment _webHostEnvironment;
+
     private readonly IMapper _mapper;
 
-    public EmployeeController(ILogger<EmployeeController> logger, IEmployeeService employeeService, IMapper mapper)
+    public EmployeeController(ILogger<EmployeeController> logger, IEmployeeService employeeService, IMapper mapper, IWebHostEnvironment webHostEnvironment)
     {
         _logger = logger;
         _employeeService = employeeService;
         _mapper = mapper;
+        _webHostEnvironment = webHostEnvironment;
     }
 
     public IActionResult Index()
@@ -81,13 +85,26 @@ public class EmployeeController : BaseController
         return RedirectToAction("Index", "Employee");
     }
 
-     [HttpPost]
+    [HttpPost]
     public IActionResult Import(IFormFile? excel)
     {
         var errors = new List<string>();
         EmployeeImportUtil.ImportEmployees(excel, _employeeService, errors);
 
         return Ok(errors);
+    }
+
+    [HttpPost]
+    public FileResult Export(ulong[] ids)
+    {
+        var excelBytes = EmployeeExportUtil.Export(_employeeService.Get(ids).ToList(), _webHostEnvironment);
+
+        FileResult fr = new FileContentResult(excelBytes, "application/vnd.ms-excel")
+        {
+            FileDownloadName = string.Format("Export_Colaboradores_{0}.xlsx", DateTime.Now.ToString("yyMMdd"))
+        };
+
+        return fr;
     }
 
     [HttpDelete]
