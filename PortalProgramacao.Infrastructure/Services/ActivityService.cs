@@ -187,7 +187,8 @@ public class ActivityService : IActivityService
         .Include(x => x.Process)
         .Include(x => x.Npl)
         .Include(x => x.Type)
-        .Where(x => ids.Contains(x.Id));
+        .Where(x => ids.Contains(x.Id))
+        .ToList();
 
         var activityDtos = new List<ActivityDto>();
         foreach(var activity in activities){
@@ -273,7 +274,8 @@ public class ActivityService : IActivityService
         var activities = _activityRepository.Entities
         .Include(x => x.Process)
         .Include(x => x.Type)
-        .Include(x => x.Npl);
+        .Include(x => x.Npl)
+        .ToList();
 
         var activityDtos = new List<ActivityDto>();
         foreach(var activity in activities){

@@ -22,7 +22,9 @@
             span.attr("role","status");
             span.attr("aria-hidden","true");
             span.attr("id","spin_id");
-            span.css("margin-right", "5px")
+            span.css("margin-right", "5px");
+
+            $("#importar").prepend(span);
 
             $.ajax({
                 url : '/Activity/Import/',

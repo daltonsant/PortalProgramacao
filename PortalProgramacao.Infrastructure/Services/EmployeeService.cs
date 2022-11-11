@@ -207,7 +207,8 @@ public class EmployeeService : IEmployeeService
         .ThenInclude(x => x.Process)
         .Include(x => x.MonthDayCounts)
         .Include(x => x.Npl)
-        .Where(x => ids.Contains(x.Id));
+        .Where(x => ids.Contains(x.Id))
+        .ToList();
 
         var employeeDtos = new List<EmployeeDto>();
         foreach(var employee in employees){
@@ -334,7 +335,8 @@ public class EmployeeService : IEmployeeService
         .Include(x => x.EnabledProcesses)
         .ThenInclude(x => x.Process)
         .Include(x => x.MonthDayCounts)
-        .Include(x => x.Npl);
+        .Include(x => x.Npl)
+        .ToList();
 
         var employeeDtos = new List<EmployeeDto>();
         foreach(var employee in employees){

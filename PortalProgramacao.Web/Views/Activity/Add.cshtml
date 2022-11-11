@@ -63,6 +63,55 @@
                             <select asp-for="ProcessId" asp-items="@Model.Processes" class="form-select form-control" id="ProcessId" aria-label=".form-select-sm select" data-placeholder="Selecione o Processo">Selecione o processo</select>
                             <span asp-validation-for="ProcessId" class="invalid-feedback"></span>
                         </div>
+                        <div class="col-md-3">
+                            <label asp-for="OsNote" class="fw-bold">OS/Nota</label>
+                            <input type="text" class="form-control" id="osnote" asp-for="OsNote" placeholder="N° Ordem/Nota">
+                            <span asp-validation-for="OsNote" class="invalid-feedback"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="Place" class="fw-bold">SE/LT/Outros</label>
+                            <input type="text" class="form-control" id="place" asp-for="Place" placeholder="Local da atividade">
+                            <span asp-validation-for="Place" class="invalid-feedback"></span>
+                        </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label asp-for="HeadCount" class="fw-bold">Head Count</label>
+                        <input type="text" class="form-control" id="headcount" asp-for="HeadCount" placeholder="Head Count">
+                        <span asp-validation-for="HeadCount" class="invalid-feedback"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="Hours" class="fw-bold">Horas Necessárias</label>
+                        <input type="text" class="form-control" id="hours" asp-for="Hours" placeholder="Qtd horas necessária">
+                        <span asp-validation-for="Hours" class="invalid-feedback"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ComuteTime" class="fw-bold">Horas Deslocamento</label>
+                        <input type="text" class="form-control" id="comutetime" asp-for="ComuteTime" placeholder="Qtd horas em deslocamento">
+                        <span asp-validation-for="ComuteTime" class="invalid-feedback"></span>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label asp-for="Status" class="fw-bold">Status</label>
+                        <input type="text" class="form-control" id="status" asp-for="Status" placeholder="Status">
+                        <span asp-validation-for="Status" class="invalid-feedback"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ProgramedDate" class="fw-bold">Data Programada</label>
+                        <input type="date" class="form-control" id="progdate" asp-for="ProgramedDate" placeholder="31/10/2022">
+                        <span asp-validation-for="ProgramedDate" class="invalid-feedback"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="PlanedDate" class="fw-bold">Data Planejada</label>
+                        <input type="date" class="form-control" id="plandate" asp-for="PlanedDate" placeholder="31/10/2022">
+                        <span asp-validation-for="PlanedDate" class="invalid-feedback"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="DueDate" class="fw-bold">Data Limite</label>
+                        <input type="date" class="form-control" id="duedate" asp-for="DueDate" placeholder="31/10/2022">
+                        <span asp-validation-for="DueDate" class="invalid-feedback"></span>
+                    </div>
                 </div>
 
                 <div style="margin-top: 10px;">
