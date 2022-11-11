@@ -53,19 +53,22 @@
                 </div>
 
                 <div class="row g-3">
-                     <div class="col-md-2">
-                        <label asp-for="ApplicationID" class="fw-bold">ID</label>
-                        <input type="text" class="form-control" id="applicationId" asp-for="ApplicationID" placeholder="ID">
-                        <span asp-validation-for="ApplicationID" class="invalid-feedback"></span>
-                    </div>
+                      <div class="col-md-3">
+                            <label asp-for="TypeId" id="TypeIdLabel" class="fw-bold"></label>
+                            <select asp-for="TypeId" asp-items="@Model.Types" class="form-select form-control" id="TypeId" aria-label=".form-select-sm select" data-placeholder="Selecione o Tipo">Selecione o tipo</select>
+                            <span asp-validation-for="TypeId" class="invalid-feedback"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="ProcessId" id="processIdLabel" class="fw-bold"></label>
+                            <select asp-for="ProcessId" asp-items="@Model.Processes" class="form-select form-control" id="ProcessId" aria-label=".form-select-sm select" data-placeholder="Selecione o Processo">Selecione o processo</select>
+                            <span asp-validation-for="ProcessId" class="invalid-feedback"></span>
+                        </div>
                 </div>
 
                 <div style="margin-top: 10px;">
                     <button type="submit" class="btn btn-primary float-end" >Salvar</button>
                     <a asp-controller="Activity" asp-action="Index" role="button" class="btn btn-secondary float-end" style="margin-right: 5px;">Cancelar</a>
-                    
                 </div>
-                
         </form>
         
     </div>

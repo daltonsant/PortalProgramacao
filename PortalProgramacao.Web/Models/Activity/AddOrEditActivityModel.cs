@@ -41,6 +41,13 @@ public class AddOrEditActivityModel
     public virtual string OsNote { get; set; }
     public virtual decimal Hours { get; set; }
     public virtual decimal ComuteTime { get; set; }
-    
+    public SelectList Types { get; set; }
+    public SelectList Processes { get; set; }
+
+    public AddOrEditActivityModel()
+    {
+        Types = new SelectList(new List<SelectListItem>(),"Value","Text",TypeId);
+        Processes = new SelectList(new List<SelectListItem>(),"Value","Text",ProcessId);
+    }
 
 }

@@ -63,8 +63,8 @@ public static class ActivityImportUtil
             
             var rows = new List<List<string>>();
 
-            var dictTypes = activityTypeRepository.Entities.GroupBy(x => x.Name).ToDictionary(k => k.Key, v => v.First());
-            var dictProcesses = processRepository.Entities.GroupBy(x => x.Name).ToDictionary(k => k.Key, v => v.First());
+            var dictTypes = activityTypeRepository.Entities.ToList().GroupBy(x => x.Name).ToDictionary(k => k.Key, v => v.First());
+            var dictProcesses = processRepository.Entities.ToList().GroupBy(x => x.Name).ToDictionary(k => k.Key, v => v.First());
 
             for(; index < rowCount && imported; index++)
             {
@@ -91,20 +91,63 @@ public static class ActivityImportUtil
                 var activities =  new List<ActivityDto>();
                 foreach(var row in rows)
                 {
-                    var decimals = new List<decimal>();
-                    var aux = decimal.Zero;
+                    DateTime? progDate=null;
+                    DateTime? planDate=null;
+                    DateTime? dueDate=null;
+                    decimal comute = decimal.Zero;
+                    decimal hour = decimal.Zero;
+                    decimal hc = decimal.Zero;
 
-                    for(int i = 3; i < row.Count; i++){
-                        aux = decimal.Zero;
-                        decimal.TryParse(row[i], out aux);
-                        decimals.Add(aux);
+                    if(!string.IsNullOrEmpty(row[6])){
+                        try {
+                            progDate = DateTime.Parse(row[6]);
+                        } catch(Exception ex){
+
+                        }
+                    }
+                    if(!string.IsNullOrEmpty(row[13])){
+                        try {
+                            planDate = DateTime.Parse(row[13]);
+                        } catch(Exception ex){
+
+                        }
+                    }
+                    if(!string.IsNullOrEmpty(row[14])){
+                        try {
+                            dueDate = DateTime.Parse(row[14]);
+                        } catch(Exception ex){
+
+                        }
                     }
 
+                    if(!string.IsNullOrEmpty(row[10])){
+                        decimal.TryParse(row[10], out hour);
+                    }
+                    if(!string.IsNullOrEmpty(row[11])){
+                        decimal.TryParse(row[11], out comute);
+                    }
+                    if(!string.IsNullOrEmpty(row[12])){
+                        decimal.TryParse(row[12], out hc);
+                    }
+                    
+                    
                     var activityDto = new ActivityDto()
                     {
                         ApplicationID = row[0],
                         Key = row[1],
-                       
+                        Status = row[2],
+                        NplName = row[3],
+                        ProcessName = row[4],
+                        Place = row[5],
+                        ProgramedDate = progDate,
+                        Title = row[7],
+                        TypeName = row[8],
+                        OsNote = row[9],
+                        Hours = hour,
+                        ComuteTime = comute,
+                        HeadCount = hc,
+                        PlanedDate = planDate,
+                        DueDate = dueDate,
                     };
                     activities.Add(activityDto);
                 }

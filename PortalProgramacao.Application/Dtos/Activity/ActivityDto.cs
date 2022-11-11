@@ -15,7 +15,7 @@ public class ActivityDto
     public virtual string? NplName { get; set; }
 
     public virtual ulong? ProcessId { get; set; }
-    public string? ProcessName { get; set; }
+    public virtual string? ProcessName { get; set; }
     public virtual string Place { get; set; }
     public virtual DateTime? ProgramedDate { get; set; }
     public virtual DateTime? DueDate { get; set; }

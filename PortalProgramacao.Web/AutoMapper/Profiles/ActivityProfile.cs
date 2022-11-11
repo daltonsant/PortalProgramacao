@@ -11,7 +11,9 @@ namespace PortalProgramacao.Web.AutoMapper.Profiles
             CreateMap<AddOrEditActivityModel, ActivityDto>()
             .ReverseMap();
 
-            CreateMap<ActivityDto, ViewActivityModel>();
+            CreateMap<ActivityDto, ViewActivityModel>()
+                .ForMember(dest => dest.PlannedDate, opt => opt.MapFrom(src =>src.PlanedDate.HasValue ? src.PlanedDate.Value.ToShortDateString() : string.Empty))
+            ;
         }
     }
 }

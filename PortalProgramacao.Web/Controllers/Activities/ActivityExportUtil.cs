@@ -37,7 +37,7 @@ namespace PortalProgramacao.Web.Controllers.Activities
                         SharedStringTablePart shareStringPart =
                             WorkbookPartHelper.GetSharedStringTablePart(workbookPart);
 
-                        PreencherInformacoesColaboradores(
+                        PreencherInformacoesAtividades(
                             workbookPart, shareStringPart, activities);
                     }
                 }
@@ -49,27 +49,27 @@ namespace PortalProgramacao.Web.Controllers.Activities
             }
         }
 
-        private static void PreencherInformacoesColaboradores(
+        private static void PreencherInformacoesAtividades(
             WorkbookPart workbookPart,
             SharedStringTablePart shareStringPart,
             ICollection<ActivityDto> activities)
         {
-            Worksheet worksheetColaboradores =
+            Worksheet worksheetAtividades =
                 WorkbookPartHelper.GetWorksheet(
             workbookPart, "Atividades");
 
-            SheetData? sheetDataColaboradores = worksheetColaboradores
+            SheetData? sheetDataAtividades = worksheetAtividades
                 .GetFirstChild<SheetData>();
 
-            if(sheetDataColaboradores != null)
+            if(sheetDataAtividades != null)
             {
                 Row rowBaseFormatacao = SheetDataHelper
-                .GetRow(sheetDataColaboradores, 3);
+                .GetRow(sheetDataAtividades, 2);
 
                 rowBaseFormatacao.Remove();
 
                 Row rowInformacoesColaborador;
-                uint numeroProximaLinha = 3;
+                uint numeroProximaLinha = 2;
 
                 foreach (var dto in activities)
                 {
@@ -132,12 +132,12 @@ namespace PortalProgramacao.Web.Controllers.Activities
                         "O", rowInformacoesColaborador,
                         (double)dto.ComuteTime);
 
-                    sheetDataColaboradores.Append(rowInformacoesColaborador);
+                    sheetDataAtividades.Append(rowInformacoesColaborador);
                     numeroProximaLinha++;
                 }
             }
 
-            worksheetColaboradores.Save();
+            worksheetAtividades.Save();
         }
 
     }

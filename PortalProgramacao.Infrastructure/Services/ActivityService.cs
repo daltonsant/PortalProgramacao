@@ -272,6 +272,7 @@ public class ActivityService : IActivityService
     {
         var activities = _activityRepository.Entities
         .Include(x => x.Process)
+        .Include(x => x.Type)
         .Include(x => x.Npl);
 
         var activityDtos = new List<ActivityDto>();

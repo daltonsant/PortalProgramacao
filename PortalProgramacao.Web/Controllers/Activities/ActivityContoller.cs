@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PortalProgramacao.Application.Dtos.Activity;
 using PortalProgramacao.Application.Interfaces.Services;
 using PortalProgramacao.Domain.Interfaces;
@@ -15,8 +16,6 @@ public class ActivityController : BaseController
     private readonly IWebHostEnvironment _webHostEnvironment;
     private readonly IActivityTypeRepository _activityTypeRepository;
     private readonly IProcessRepository _processRepository;
-
-
 
     private readonly IMapper _mapper;
 
@@ -49,14 +48,44 @@ public class ActivityController : BaseController
     [HttpGet]
     public IActionResult Add()
     {
-        return View();
+        var model = new AddOrEditActivityModel();
+
+        var processes = _processRepository.Entities.ToList();
+        var items = new List<SelectListItem>(){new SelectListItem()};
+        items.AddRange(processes.Select(x =>
+                new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList());
+        model.Processes =  new SelectList(items,"Value","Text", model.ProcessId);
+
+        items = new List<SelectListItem>(){new SelectListItem()};
+        var types = _activityTypeRepository.Entities.ToList();
+        items.AddRange(types.Select(x =>
+                new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList());
+
+        model.Types =  new SelectList(items,"Value","Text", model.TypeId);
+
+        return View(model);
     }
 
     [HttpPost]
     public IActionResult Add(AddOrEditActivityModel model)
     {
         if(!ModelState.IsValid)
+        {
+            var processes = _processRepository.Entities.ToList();
+            var items = new List<SelectListItem>(){new SelectListItem()};
+            items.AddRange(processes.Select(x =>
+                    new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList());
+            model.Processes =  new SelectList(items,"Value","Text", model.ProcessId);
+
+            items = new List<SelectListItem>(){new SelectListItem()};
+            var types = _activityTypeRepository.Entities.ToList();
+            items.AddRange(types.Select(x =>
+                    new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList());
+
+            model.Types =  new SelectList(items,"Value","Text", model.TypeId);
             return View(model);
+        }
+            
 
         var dto = _mapper.Map<ActivityDto>(model);
 
@@ -72,6 +101,18 @@ public class ActivityController : BaseController
         if(entity != null)
         {
             var model = _mapper.Map<AddOrEditActivityModel>(entity);
+            var processes = _processRepository.Entities.ToList();
+            var items = new List<SelectListItem>(){new SelectListItem()};
+            items.AddRange(processes.Select(x =>
+                    new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList());
+            model.Processes =  new SelectList(items,"Value","Text", model.ProcessId);
+
+            items = new List<SelectListItem>(){new SelectListItem()};
+            var types = _activityTypeRepository.Entities.ToList();
+            items.AddRange(types.Select(x =>
+                    new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList());
+
+            model.Types =  new SelectList(items,"Value","Text", model.TypeId);
             return View(model);
         }
 
@@ -82,7 +123,21 @@ public class ActivityController : BaseController
     public IActionResult Edit(AddOrEditActivityModel model)
     {
         if(!ModelState.IsValid)
+        {
+            var processes = _processRepository.Entities.ToList();
+            var items = new List<SelectListItem>(){new SelectListItem()};
+            items.AddRange(processes.Select(x =>
+                    new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList());
+            model.Processes =  new SelectList(items,"Value","Text", model.ProcessId);
+
+            items = new List<SelectListItem>(){new SelectListItem()};
+            var types = _activityTypeRepository.Entities.ToList();
+            items.AddRange(types.Select(x =>
+                    new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList());
+
+            model.Types =  new SelectList(items,"Value","Text", model.TypeId);
             return View(model);
+        }
 
         var dto = _mapper.Map<ActivityDto>(model);
 
