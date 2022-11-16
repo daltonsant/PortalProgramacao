@@ -86,8 +86,108 @@ public class WalletController : BaseController
         //saturacao total do mes
         //array com a saturacao por semana
         // filtrado pr npl, mes, processo
+        var activityQuery = _activityRepository.Entities
+            .Include(x => x.Npl).Include(x => x.Process).AsQueryable();
 
-        return Json("");
+        if (!string.IsNullOrEmpty(npl))
+        {
+            activityQuery = activityQuery.Where(x => x.Npl.Code == npl);
+        }
+
+        if (!string.IsNullOrEmpty(process))
+        {
+            activityQuery = activityQuery.Where(x => x.Process.Name == process);
+        }
+
+        var m = 0;
+        if (month.HasValue)
+        {
+            m = month.Value;
+        }
+        else
+        {
+            m = DateTime.Now.Month;
+        }
+
+        activityQuery = activityQuery.Where(x => x.PlanedDate.HasValue ? x.PlanedDate.Value.Month == m : false);
+
+        var activities = activityQuery.ToList();
+
+        var employeeQuery = _employeeRepository.Entities.Include(x => x.Npl)
+            .Include(x => x.EnabledProcesses).ThenInclude(x => x.Process)
+            .Include(x => x.MonthDayCounts).AsQueryable();
+
+        if (!string.IsNullOrEmpty(npl))
+        {
+            employeeQuery = employeeQuery.Where(x => x.Npl.Code == npl);
+        }
+
+        if (!string.IsNullOrEmpty(process))
+        {
+            employeeQuery = employeeQuery.Where(x => x.EnabledProcesses.Any(y => y.Process.Name == process && y.Percentage > decimal.Zero));
+        }
+        
+        employeeQuery = employeeQuery.Where(x => x.MonthDayCounts.Any(y => y.Month == m && y.NumberOfDays > 0));
+
+        decimal hhAvailable = decimal.Zero;
+        decimal hhAvailableSE = decimal.Zero;
+        decimal hhAvailableLT = decimal.Zero;
+        decimal hhAvailableAUT = decimal.Zero;
+        decimal hhAvailableTLE = decimal.Zero;
+
+        foreach ( var emp in employeeQuery)
+        {
+            var days = emp.MonthDayCounts.FirstOrDefault(emp=> emp.Month == m)?.NumberOfDays ?? decimal.Zero;
+            var empContrib = 8.0M * days;
+            hhAvailable += empContrib;
+            hhAvailableSE += 
+                empContrib * (emp.EnabledProcesses
+                .FirstOrDefault(x => x.Process.Name == "SE")?.Percentage/100.0M ?? decimal.Zero);
+            hhAvailableLT +=
+                empContrib * (emp.EnabledProcesses
+                .FirstOrDefault(x => x.Process.Name == "LT")?.Percentage/100.0M ?? decimal.Zero);
+            hhAvailableAUT +=
+                empContrib * (emp.EnabledProcesses
+                .FirstOrDefault(x => x.Process.Name == "AUT")?.Percentage/100.0M ?? decimal.Zero);
+            hhAvailableTLE +=
+                empContrib * (emp.EnabledProcesses
+                .FirstOrDefault(x => x.Process.Name == "TLE")?.Percentage/100.0M ?? decimal.Zero);
+
+        }
+
+        decimal hhNec = decimal.Zero;
+        decimal hhNecSE = decimal.Zero;
+        decimal hhNecLT = decimal.Zero;
+        decimal hhNecAUT = decimal.Zero;
+        decimal hhNecTLE = decimal.Zero;
+
+        foreach( var act in  activities)
+        {
+            var actHH = act.HeadCount * (act.Hours + act.ComuteTime);
+            hhNec += actHH;
+            if (act.Process.Name == "SE")
+                hhNecSE += actHH;
+            if(act.Process.Name =="LT")
+                hhNecLT+= actHH;
+            if(act.Process.Name == "AUT")
+                hhNecAUT += actHH;
+            if(act.Process.Name == "TLE")
+                hhNecTLE+= actHH;
+        }
+
+        return Json(new 
+            {
+                dispTot = hhAvailable,
+                necTot = hhNec,
+                dispSE = hhAvailableSE,
+                necSE = hhNecSE,
+                dispLT = hhAvailableLT,
+                necLT = hhNecLT,
+                dispAUT = hhAvailableAUT,
+                necAUT = hhNecAUT,
+                dispTLE = hhAvailableTLE,
+                necTLE = hhNecTLE,
+        });
     }
 
 

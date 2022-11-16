@@ -7,13 +7,46 @@
 @section Styles{
     <link  rel="stylesheet" href='~/lib/fullcalendar/lib/main.css' asp-append-version="true" />
     <link href='~/lib/bootstrap/dist/css/bootstrap-icons.css' rel='stylesheet' asp-append-version="true" />
+    <link rel="stylesheet" href='~/css/calendar.css' asp-append-version="true" />
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about Bem vindo ao portal da programação.</p>
+    <table class="table">
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Total</th>
+            <th scope="col">SE</th>
+            <th scope="col">LT</th>
+            <th scope="col">AUT</th>
+            <th scope="col">TLE</th>
+        </tr>
+        <tr>
+            <th>HH Disp.</th>
+            <th id="dispTot">10</th>
+            <th id="dispSE">10</th>
+            <th id="dispLT">10</th>
+            <th id="dispAUT">A10</th>
+            <th id="dispTLE">10</th>
+        </tr>
+        <tr>
+            <th>HH Nec.</th>
+            <th id="necTot">1</th>
+            <th id="necSE">110</th>
+            <th id="necLT">110</th>
+            <th id="necAUT">10</th>
+            <th id="necTLE">10</th>
+        </tr>
+        <tr>
+            <th>HH (%)</th>
+            <th id="satTot">10%</th>
+            <th id="satSE">10%</th>
+            <th id="satLT">10%</th>
+            <th id="satAUT">10%</th>
+            <th id="satTLE">10%</th>
+        </tr>
+    </table>
 </div>
-<div class="row">
+<div class="row" style="margin-bottom:10px;">
     <div class="col-md-4">
         <label for="npl" class="fw-bold">NPL</label>
         <select name= "npl" id="npl" class="form-select form-control" aria-label=".form-select-sm select" data-placeholder="Selecione a NPL">
