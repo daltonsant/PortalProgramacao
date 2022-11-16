@@ -168,10 +168,11 @@ public class ActivityController : BaseController
         return fr;
     }
 
-    [HttpDelete]
-    public IActionResult Delete(ulong[] ids)
+    [HttpPost]
+    public IActionResult Delete(ICollection<ulong> ids)
     {
-        _activityService.Delete(ids);
+        if(ids != null)
+            _activityService.Delete(ids.ToArray());
         return Ok();
     }
 

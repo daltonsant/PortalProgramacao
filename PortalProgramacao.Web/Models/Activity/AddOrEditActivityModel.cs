@@ -20,7 +20,7 @@ public class AddOrEditActivityModel
     [Display(Name = "Atividade")]
     public virtual string Title{ get; set; }
     public virtual decimal MenHour{ get;set; }
-    public virtual decimal HeadCount { get; set; }
+    public virtual string HeadCount { get; set; }
 
     [Required(ErrorMessage = "O campo {0} é obrigatório")]
     [Display(Name = "NPL")]
@@ -33,14 +33,17 @@ public class AddOrEditActivityModel
     public virtual string Place { get; set; }
     public virtual DateTime? ProgramedDate { get; set; }
     public virtual DateTime? DueDate { get; set; }
+
+    [Required(ErrorMessage = "O campo {0} é obrigatório")]
+    [Display(Name = "Data planejada")]
     public virtual DateTime? PlanedDate { get; set; }
     
     [Required(ErrorMessage = "O campo {0} é obrigatório")]
     [Display(Name = "Tipo")]
     public virtual ulong? TypeId { get; set; }
-    public virtual string OsNote { get; set; }
-    public virtual decimal Hours { get; set; }
-    public virtual decimal ComuteTime { get; set; }
+    public virtual string? OsNote { get; set; }
+    public virtual string Hours { get; set; }
+    public virtual string ComuteTime { get; set; }
     public SelectList Types { get; set; }
     public SelectList Processes { get; set; }
 

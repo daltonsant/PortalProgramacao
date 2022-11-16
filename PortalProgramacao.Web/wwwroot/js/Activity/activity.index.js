@@ -109,7 +109,7 @@
         $("#confirmar_delete").on("click", function() {
             let id = $("#activityId").val();
             $.ajax({
-                method: "Delete",
+                method: "POST",
                 url: "/Activity/Delete/",
                 data: { ids: [id] }
               })
@@ -128,7 +128,7 @@
             }
 
             $.ajax({
-                method: "Delete",
+                method: "POST",
                 url: "/Activity/Delete/",
                 data: { ids: ids }
               })

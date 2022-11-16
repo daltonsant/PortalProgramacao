@@ -9,7 +9,13 @@ namespace PortalProgramacao.Web.AutoMapper.Profiles
         public ActivityProfile()
         {
             CreateMap<AddOrEditActivityModel, ActivityDto>()
-            .ReverseMap();
+                .ForMember(dest=> dest.HeadCount, opt => opt.MapFrom(src => decimal.Parse(src.HeadCount)))
+                .ForMember(dest => dest.ComuteTime, opt => opt.MapFrom(src => decimal.Parse(src.ComuteTime)))
+                .ForMember(dest => dest.Hours, opt => opt.MapFrom(src => decimal.Parse(src.Hours)))
+            .ReverseMap()
+                .ForMember(dest => dest.ComuteTime, opt => opt.MapFrom(src => src.ComuteTime.ToString()))
+                .ForMember(dest => dest.ComuteTime, opt => opt.MapFrom(src => src.ComuteTime.ToString()))
+                .ForMember(dest => dest.Hours, opt => opt.MapFrom(src => src.Hours.ToString()));
 
             CreateMap<ActivityDto, ViewActivityModel>()
                 .ForMember(dest => dest.PlannedDate, opt => opt.MapFrom(src =>src.PlanedDate.HasValue ? src.PlanedDate.Value.ToShortDateString() : string.Empty))

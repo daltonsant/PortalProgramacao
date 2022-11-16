@@ -77,17 +77,17 @@
                 <div class="row g-3">
                     <div class="col-md-3">
                         <label asp-for="HeadCount" class="fw-bold">Head Count</label>
-                        <input type="text" class="form-control" id="headcount" asp-for="HeadCount" placeholder="Head Count">
+                <input type="text" class="form-control num" id="headcount" asp-for="HeadCount" placeholder="Head Count">
                         <span asp-validation-for="HeadCount" class="invalid-feedback"></span>
                     </div>
                     <div class="col-md-3">
                         <label asp-for="Hours" class="fw-bold">Horas Necessárias</label>
-                        <input type="text" class="form-control" id="hours" asp-for="Hours" placeholder="Qtd horas necessária">
+                <input type="text" class="form-control num" id="hours" asp-for="Hours" placeholder="Qtd horas necessária">
                         <span asp-validation-for="Hours" class="invalid-feedback"></span>
                     </div>
                     <div class="col-md-3">
                         <label asp-for="ComuteTime" class="fw-bold">Horas Deslocamento</label>
-                        <input type="text" class="form-control" id="comutetime" asp-for="ComuteTime" placeholder="Qtd horas em deslocamento">
+                        <input type="text" class="form-control num" id="comutetime" asp-for="ComuteTime" placeholder="Qtd horas em deslocamento">
                         <span asp-validation-for="ComuteTime" class="invalid-feedback"></span>
                     </div>
                 </div>
