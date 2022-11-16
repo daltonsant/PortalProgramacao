@@ -5,3 +5,23 @@
 .event-attention {
     background-color: #ff6a00;
 }
+
+h2.fc-toolbar-title {
+    color: #53672A;
+}
+
+.fc-today-button, .fc-prev-button, .fc-next-button {
+    color: #fff;
+    background-color: #5F6971;
+    border-color: #5F6971;
+}
+
+.fc-today-button.disabled, .fc-today-button:disabled {
+    color: rgb(133, 133, 133);
+    background-color: #d3d3d3;
+    border-color: #d3d3d3;
+}
+
+.fc-col-header-cell {
+    color: #53672A;
+}

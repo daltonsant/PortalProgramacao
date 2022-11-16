@@ -35,11 +35,11 @@
                 let dispAUT = document.getElementById("dispAUT");
                 let dispTLE = document.getElementById("dispTLE");
 
-                dispTot.innerHTML = (data["dispTot"].toFixed(2));
-                dispSE.innerHTML = (data["dispSE"].toFixed(2));
-                dispLT.innerHTML = (data["dispLT"].toFixed(2));
-                dispAUT.innerHTML = (data["dispAUT"].toFixed(2));
-                dispTLE.innerHTML = (data["dispTLE"].toFixed(2));
+                dispTot.innerHTML = (data["dispTot"].toFixed(2)).replace(".",",");
+                dispSE.innerHTML = (data["dispSE"].toFixed(2)).replace(".",",");
+                dispLT.innerHTML = (data["dispLT"].toFixed(2)).replace(".",",");
+                dispAUT.innerHTML = (data["dispAUT"].toFixed(2)).replace(".",",");
+                dispTLE.innerHTML = (data["dispTLE"].toFixed(2).replace(".",","));
 
                 let necTot = document.getElementById("necTot");
                 let necSE = document.getElementById("necSE");
@@ -47,11 +47,11 @@
                 let necAUT = document.getElementById("necAUT");
                 let necTLE = document.getElementById("necTLE");
 
-                necTot.innerHTML = (data["necTot"].toFixed(2));
-                necSE.innerHTML = (data["necSE"].toFixed(2));
-                necLT.innerHTML = (data["necLT"].toFixed(2));
-                necAUT.innerHTML = (data["necAUT"].toFixed(2));
-                necTLE.innerHTML = (data["necTLE"].toFixed(2));
+                necTot.innerHTML = (data["necTot"].toFixed(2)).replace(".",",");
+                necSE.innerHTML = (data["necSE"].toFixed(2)).replace(".",",");
+                necLT.innerHTML = (data["necLT"].toFixed(2)).replace(".",",");
+                necAUT.innerHTML = (data["necAUT"].toFixed(2)).replace(".",",");
+                necTLE.innerHTML = (data["necTLE"].toFixed(2)).replace(".",",");
 
 
                 let satTot = document.getElementById("satTot");
@@ -60,27 +60,25 @@
                 let satAUT = document.getElementById("satAUT");
                 let satTLE = document.getElementById("satTLE");
 
-                let aux = (data["necTot"].toFixed(2) * 100 / data["dispTot"].toFixed(2));
+                let aux = (data["necTot"].toFixed(2) * 100 / data["dispTot"].toFixed(2)).toFixed(2);
                 if (isNaN(aux) || !isFinite(aux))
                     aux = "-";
                 else
-                    aux = aux + " %";
+                    aux = (aux + "%").replace(".",",");
                 satTot.innerHTML = aux;
 
                 aux = (data["necSE"].toFixed(2) * 100 / data["dispSE"].toFixed(2)).toFixed(2);
                 if (isNaN(aux) || !isFinite(aux))
                     aux = "-";
                 else
-                    aux = aux + " %";
-                satTot.innerHTML = aux;
-
+                    aux = (aux + "%").replace(".",",");
                 satSE.innerHTML = aux;
 
                 aux = (data["necLT"].toFixed(2) * 100 / data["dispLT"].toFixed(2)).toFixed(2);
                 if (isNaN(aux) || !isFinite(aux))
                     aux = "-";
                 else
-                    aux = aux + " %";
+                    aux = (aux + "%").replace(".",",");
 
                 satLT.innerHTML = aux;
 
@@ -88,7 +86,7 @@
                 if (isNaN(aux) || !isFinite(aux))
                     aux = "-";
                 else
-                    aux = aux + " %";
+                    aux = (aux + "%").replace(".",",");
 
                 satAUT.innerHTML = aux;
 
@@ -96,7 +94,7 @@
                 if (isNaN(aux) || !isFinite(aux))
                     aux = "-";
                 else
-                    aux = aux + " %";
+                    aux = (aux + "%").replace(".",",");
                 satTLE.innerHTML = aux;
 
             }
@@ -108,7 +106,8 @@
         /********************
          *     Calendar     *
          ********************/
-         
+         updateKpis();
+
          let calendarJQ = $("#calendar");
          let calendar = new FullCalendar.Calendar(calendarJQ[0], {
             themeSystem: 'bootstrap5',

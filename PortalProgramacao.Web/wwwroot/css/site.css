@@ -15,9 +15,13 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: rgb(168, 168, 168);
 }
 
 .active {
   background-color: rgb(168, 168, 168);
 }
 
+.main-container{
+  background-color: white;
+}
