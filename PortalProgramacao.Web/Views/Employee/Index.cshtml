@@ -12,50 +12,35 @@
     <link  rel="stylesheet" href='~/lib/select2/select2-bootstrap-5/select2-bootstrap-5-theme.min.css' asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/datatables/datatables.min.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/employees.index.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/employee.css" asp-append-version="true"/>
 }
 
 
 <div>
-    <div class="text-center">
-        <h1 class="display-4">Gerencie a lista de colaboradores</h1>
+    <div class="text-center" >
+      <div class="fw-bold border-bottom" style="padding-top:10px;">
+          <h1 style="color: #fff; background-color:  #61A60E;padding-bottom: 10px;">
+              Colaboradores
+          </h1>
+      </div>
     </div>
 
     <div id="controllers" class="row controlers--div">
-        <div class="col-sm-2">
-                <div class="row" style="display: none;">
-                    <div class=col-sm-1>
-                    <label for="npls">NPL:</label>
-                    </div>
-                    <div class="col-sm-11">
-                        <select id="npls" class="form-select form-control" multiple aria-label=".form-select-sm multiple select" data-placeholder="Selecione a(s) NPL(s)" >
-                            <option></option>
-                            <option value="1" >CAA</option>
-                            <option value="8" >CPN</option>
-                            <option value="2" >GAN</option>
-                            <option value="7" >MTN</option>
-                            <option value="6" >MTS</option>
-                            <option value="3" >PMR</option>
-                            <option value="4" >PTU</option>
-                            <option value="5" >SRT</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        
-        <div class="col-sm-10">
+        <div class="col-sm-12">
             <div class="row">
-                <div class="col-sm-4"></div>
-                <div class="col-sm-8">
-                    <a href="~/files/Planilha padrao entrada colaboradores.xlsx" role="button" class="btn btn-secondary"> Download Template</a>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Importar </button>
+                <div class="col-sm-4 d-flex justify-content-start">
                     <a asp-controller="Employee" asp-action="Add" role="button" class="btn btn-secondary"><i class="bi bi-person-plus"> </i> Novo</a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Importar </button>
+                    <a href="~/files/Planilha padrao entrada colaboradores.xlsx" role="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Download template"><i class="bi bi-download"></i></a>
 
+                </div>
+                <div class="col-sm-8 d-flex justify-content-end">
+                    
                     <button type="button" class="btn btn-success disabled" id="exportSel"> Exportar Selecionados</button>
                     <button type="button" class="btn btn-danger disabled" data-bs-toggle="modal" data-bs-target="#deleteAllModal" id="deleteSel"> Excluir Selecionados</button>
                 </div>
 
-            </div>
-            
+            </div>  
         </div>
     </div>
     
@@ -65,10 +50,10 @@
                     <tr>
                         <th> <input type="checkbox" class="selectAll" name="selectAll" value="all"></th>
                         <th style="display: none;">Id</th>
-                        <th>Matrícula</th>
-                        <th>Nome</th>
-                        <th>NPL</th>
-                        <th>Ações</th>
+                        <th style="color: #53672A;">Matrícula</th>
+                        <th style="color: #53672A;">Nome</th>
+                        <th style="color: #53672A;">NPL</th>
+                        <th style="color: #53672A;">Ações</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -10,12 +10,16 @@
     <link href='~/lib/bootstrap/dist/css/bootstrap-icons.css' rel='stylesheet' asp-append-version="true" />
     <link rel="stylesheet" href='~/lib/select2/dist/css/select2.min.css' asp-append-version="true" />
     <link rel="stylesheet" href='~/lib/select2/select2-bootstrap-5/select2-bootstrap-5-theme.min.css' asp-append-version="true" />
-
+    <link rel="stylesheet" href="~/css/activity.css" asp-append-version="true"/>
 }
 
 <div>
-    <div class="text-center">
-        <h1 class="display-4">Editar Atividade</h1>
+    <div class="text-center" >
+      <div class="fw-bold border-bottom" style="padding-top:10px;">
+          <h1 style="color: #fff; background-color:  #61A60E;padding-bottom: 10px;">
+              Editar Atividade
+          </h1>
+      </div>
     </div>
     <form class="needs-validation" asp-controller="Activity" asp-action="Edit" method="POST">
         @Html.HiddenFor(x => x.Id)
@@ -32,7 +36,7 @@
             </div>
             <div class="col-md-6">
                 <label asp-for="Title" class="fw-bold">Atividade</label>
-                <input type="text" class="form-control" id="title" asp-for="Title" placeholder="TÌtulo da atividade">
+                <input type="text" class="form-control" id="title" asp-for="Title" placeholder="TÔøΩtulo da atividade">
                 <span asp-validation-for="Title" class="invalid-feedback"></span>
             </div>
             <div class="col-md-2">
@@ -65,7 +69,7 @@
             </div>
             <div class="col-md-3">
                 <label asp-for="OsNote" class="fw-bold">OS/Nota</label>
-                <input type="text" class="form-control" id="osnote" asp-for="OsNote" placeholder="N∞ Ordem/Nota">
+                <input type="text" class="form-control" id="osnote" asp-for="OsNote" placeholder="NÔøΩ Ordem/Nota">
                 <span asp-validation-for="OsNote" class="invalid-feedback"></span>
             </div>
             <div class="col-md-3">
@@ -81,8 +85,8 @@
                 <span asp-validation-for="HeadCount" class="invalid-feedback"></span>
             </div>
             <div class="col-md-3">
-                <label asp-for="Hours" class="fw-bold ">Horas Necess·rias</label>
-                <input type="text" class="form-control num" id="hours" asp-for="Hours" placeholder="Qtd horas necess·ria">
+                <label asp-for="Hours" class="fw-bold ">Horas Necess√°rias</label>
+                <input type="text" class="form-control num" id="hours" asp-for="Hours" placeholder="Qtd horas necessÔøΩria">
                 <span asp-validation-for="Hours" class="invalid-feedback"></span>
             </div>
             <div class="col-md-3">
@@ -114,7 +118,7 @@
             </div>
         </div>
 
-        <div style="margin-top: 10px;">
+        <div style="margin-top: 10px;padding-bottom: 30px;">
             <button type="submit" class="btn btn-primary float-end">Salvar</button>
             <a asp-controller="Activity" asp-action="Index" role="button" class="btn btn-secondary float-end" style="margin-right: 5px;">Cancelar</a>
         </div>

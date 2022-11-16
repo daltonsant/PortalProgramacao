@@ -12,44 +12,30 @@
     <link  rel="stylesheet" href='~/lib/select2/select2-bootstrap-5/select2-bootstrap-5-theme.min.css' asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/datatables/datatables.min.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/activities.index.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/activity.css" asp-append-version="true"/>
 }
 
 
 <div>
-    <div class="text-center">
-        <h1 class="display-4">Gerencie a lista de Atividades</h1>
+   <div class="text-center" >
+      <div class="fw-bold border-bottom" style="padding-top:10px;">
+          <h1 style="color: #fff; background-color:  #61A60E;padding-bottom: 10px;">
+              Atividades
+          </h1>
+      </div>
     </div>
 
     <div id="controllers" class="row controlers--div">
-        <div class="col-sm-2">
-                <div class="row" style="display: none;">
-                    <div class=col-sm-1>
-                    <label for="npls">NPL:</label>
-                    </div>
-                    <div class="col-sm-11">
-                        <select id="npls" class="form-select form-control" multiple aria-label=".form-select-sm multiple select" data-placeholder="Selecione a(s) NPL(s)" >
-                            <option></option>
-                            <option value="1" >CAA</option>
-                            <option value="8" >CPN</option>
-                            <option value="2" >GAN</option>
-                            <option value="7" >MTN</option>
-                            <option value="6" >MTS</option>
-                            <option value="3" >PMR</option>
-                            <option value="4" >PTU</option>
-                            <option value="5" >SRT</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        
-        <div class="col-sm-10">
+        <div class="col-sm-12">
             <div class="row">
-                <div class="col-sm-4"></div>
-                <div class="col-sm-8">
-                    <a href="~/files/Planilha padrao entrada portal.xlsx" role="button" class="btn btn-secondary"> Download Template</a>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Importar </button>
+                <div class="col-sm-4 d-flex justify-content-start">
                     <a asp-controller="Activity" asp-action="Add" role="button" class="btn btn-secondary"><i class="bi bi-person-plus"> </i> Novo</a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Importar </button>
+                    <a href="~/files/Planilha padrao entrada portal.xlsx" role="button" class="btn btn-secondary"data-bs-toggle="tooltip" data-bs-placement="top" title="Download template"><i class="bi bi-download"></i></a>
 
+                </div>
+                <div class="col-sm-8 d-flex justify-content-end">
+                    
                     <button type="button" class="btn btn-success disabled" id="exportSel"> Exportar Selecionados</button>
                     <button type="button" class="btn btn-danger disabled" data-bs-toggle="modal" data-bs-target="#deleteAllModal" id="deleteSel"> Excluir Selecionados</button>
                 </div>
@@ -60,43 +46,43 @@
     </div>
     
     <div >
-            <table id="example" class="table table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th> <input type="checkbox" class="selectAll" name="selectAll" value="all"></th>
-                        <th style="display: none;">Id</th>
-                        <th>ID</th>
-                        <th>Atividade</th>
-                        <th>Tipo</th>
-                        <th>Processo</th>
-                        <th>NPL</th>
-                        <th>Data Prevista</th>
-                        <th>Ações</th>
+        <table id="example" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th> <input type="checkbox" class="selectAll" name="selectAll" value="all"></th>
+                    <th style="display: none;">Id</th>
+                    <th style="color: #53672A;">ID</th>
+                    <th style="color: #53672A;">Atividade</th>
+                    <th style="color: #53672A;">Tipo</th>
+                    <th style="color: #53672A;">Processo</th>
+                    <th style="color: #53672A;">NPL</th>
+                    <th style="color: #53672A;">Data Prevista</th>
+                    <th style="color: #53672A;">Ações</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                    @foreach(var ee in Model)
-                    {
-                    <tr>
-                        <td></td>
-                        <td style="display: none;">@ee.Id</td>
-                        <td>@ee.ApplicationID</td>
-                        <td>@ee.Title</td>
-                        <td>@ee.TypeName</td>
-                        <td>@ee.ProcessName</td>
-                        <td>@ee.NplName</td>
-                        <td>@ee.PlannedDate</td>
-                        <td>
-                            <a href="#" class="delete-link" style="color: black;" data-bs-toggle="modal" data-id="@ee.Id" data-bs-target="#deleteModal" ><span style="color:black;"><i class="bi bi-trash"></i> </span> Deletar</a>
-                            <a href="Activity/Edit/@ee.Id" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
-                        </td>
-                    </tr>
-                    }
-                    
-                </tbody>
-            </table>
+                </tr>
+            </thead>
+            <tbody>
+                
+                @foreach(var ee in Model)
+                {
+                <tr>
+                    <td></td>
+                    <td style="display: none;">@ee.Id</td>
+                    <td>@ee.ApplicationID</td>
+                    <td>@ee.Title</td>
+                    <td>@ee.TypeName</td>
+                    <td>@ee.ProcessName</td>
+                    <td>@ee.NplName</td>
+                    <td>@ee.PlannedDate</td>
+                    <td>
+                        <a href="#" class="delete-link" style="color: black;" data-bs-toggle="modal" data-id="@ee.Id" data-bs-target="#deleteModal" ><span style="color:black;"><i class="bi bi-trash"></i> </span> Deletar</a>
+                        <a href="Activity/Edit/@ee.Id" class="" style="color: black;"><i class="bi bi-pencil"></i> Editar</a>
+                    </td>
+                </tr>
+                }
+                
+            </tbody>
+        </table>
     </div>
 </div>
 

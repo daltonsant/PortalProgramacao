@@ -15,8 +15,12 @@
 }
 
 <div>
-    <div class="text-center">
-        <h1 class="display-4">Editar colaborador</h1>
+    <div class="text-center" >
+      <div class="fw-bold border-bottom" style="padding-top:10px;">
+          <h1 style="color: #fff; background-color:  #61A60E;padding-bottom: 10px;">
+              Editar Colaborador
+          </h1>
+      </div>
     </div>
         <form class="needs-validation" asp-controller="Employee" asp-action="Edit" method="POST">
               @Html.HiddenFor(x => x.Id)
@@ -151,7 +155,7 @@
                     </div>
                 </div>
 
-                <div style="margin-top: 10px;">
+                <div style="margin-top: 10px;padding-bottom: 30px;">
                     <button type="submit" class="btn btn-primary float-end" >Salvar</button>
                     <a asp-controller="Employee" asp-action="Index" role="button" class="btn btn-secondary float-end" style="margin-right: 5px;">Cancelar</a>
                     
