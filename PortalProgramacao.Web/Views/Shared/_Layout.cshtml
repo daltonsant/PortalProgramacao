@@ -1,11 +1,29 @@
-﻿@{
-    var isAdmin = true;
-    var isLogged = true;
+﻿@using PortalProgramacao.Infrastructure.Identity
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    var isAdmin = false;
+    var isLogged = false;
+    
+    var currentUser = @User;
+    
+    if(currentUser != null && currentUser.Identity != null && currentUser.Identity.IsAuthenticated)
+        isLogged = true;
     
     var userName = "Usuário";
     if(!isLogged)
         userName = "Faça o login";
     
+     if(isLogged && currentUser != null && currentUser.Identity != null)
+     {
+        var user = await UserManager.FindByNameAsync(@currentUser.Identity.Name ?? string.Empty);
+        userName = user.FirstName;
+
+        isAdmin = await UserManager.IsInRoleAsync(user, "Administrator");
+     }
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -64,11 +82,11 @@
                                 <div class="dropdown-divider"></div>
                                 @if(isLogged)
                                 {
-                                <a href="#" class="dropdown-item"><img src="/icons/logout_black_24dp.svg" class="logout" alt=""> Logout</a>
+                                <a asp-action="Logout" asp-controller="Home" class="dropdown-item"><img src="/icons/logout_black_24dp.svg" class="logout" alt=""> Logout</a>
                                 }
                                 else
                                 {
-                                <a href="#" class="dropdown-item"><img src="/icons/login_black_24dp.svg" class="logout" alt=""> Login</a>
+                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalLogin"><img src="/icons/login_black_24dp.svg" alt="" > Login</a>
                                 }
 
                             </div>
@@ -89,6 +107,38 @@
             &copy; 2022 - NSPS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
+    
+<!-- Modal -->
+<div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="modalLoginLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLoginLabel">Faça o login</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form asp-controller="Home" asp-action="Login" method="POST" id="formLogin">
+         <div class="modal-body">
+           <div class="">
+                <label for="UserName" class="fw-bold" style="color: #53672A;">Usuário</label>
+                <input type="text" class="form-control" id="UserName" name="UserName" placeholder="Login">
+           </div>
+           <div class="">
+                <label for="Password" class="fw-bold" style="color: #53672A;">Senha</label>
+                <input type="password" class="form-control" id="Password" name="Password" placeholder="Password">
+           </div>
+            <span id="loginValidations" class="invalid-feedback"></span>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="confirmLogin">Logar</button>
+         </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/popper/popper.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

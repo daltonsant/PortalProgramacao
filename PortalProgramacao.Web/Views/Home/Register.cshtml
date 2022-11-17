@@ -1,0 +1,91 @@
+
+@model PortalProgramacao.Web.Models.UserModel;
+
+@{
+    ViewData["Title"] = "Cadastrar Usuário";
+}
+
+@section Styles
+{
+    <link href='~/lib/bootstrap/dist/css/bootstrap-icons.css' rel='stylesheet' asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/register.css" asp-append-version="true"/>
+}
+
+<div>
+    <div class="text-center" >
+      <div class="fw-bold border-bottom" style="padding-top:10px;">
+          <h1 style="color: #fff; background-color:  #61A60E;padding-bottom: 10px;">
+              Cadastrar Usuário
+          </h1>
+      </div>
+    </div>
+    <div class="justify-content-center">
+        <form class="needs-validation" asp-controller="Home" asp-action="Register" method="POST">
+            <span class="invalid-feedback">@Html.ValidationSummary()</span>
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <label asp-for="FirstName" class="fw-bold" style="color: #53672A;">Nome</label>
+                    <input type="text" class="form-control" id="FirstName" asp-for="FirstName" placeholder="Nome">
+                    <span asp-validation-for="FirstName" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <label asp-for="LastName" class="fw-bold" style="color: #53672A;">Sobrenome</label>
+                    <input type="text" class="form-control" id="LastName" asp-for="LastName" placeholder="Sobrenome">
+                    <span asp-validation-for="LastName" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <label asp-for="Email" class="fw-bold" style="color: #53672A;">Email</label>
+                    <input type="email" class="form-control" id="Email" asp-for="Email" placeholder="Email">
+                    <span asp-validation-for="Email" class="invalid-feedback"></span>
+                </div>
+            </div>
+
+            <div class="row g-3" style="margin-top:10px;margin-bottom:10px;padding-left:10px;">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" asp-for="IsAdmin">
+                    <label class="form-check-label fw-bold" style="color: #53672A;" asp-for="IsAdmin">
+                        Usuário Admin
+                    </label>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <label asp-for="UserName" class="fw-bold" style="color: #53672A;">Login</label>
+                    <input type="text" class="form-control" id="UserName" asp-for="UserName" placeholder="login do usuário">
+                    <span asp-validation-for="UserName" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <label asp-for="Password" class="fw-bold" style="color: #53672A;">Senha</label>
+                    <input type="password" class="form-control" id="Password" asp-for="Password" placeholder="Senha">
+                    <span asp-validation-for="Password" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="row g-3">
+                    <div class="col-md-12">
+                    <label asp-for="ConfirmPassword" class="fw-bold" style="color: #53672A;">Confirmar senha</label>
+                    <input type="password" class="form-control" id="ConfirmPassword" asp-for="ConfirmPassword" placeholder="Confirme a senha">
+                    <span asp-validation-for="ConfirmPassword" class="invalid-feedback"></span>
+                </div>
+            </div>
+
+            <div style="margin-top: 10px;padding-bottom: 30px;">
+                <button type="submit" class="btn btn-primary float-end" >Salvar</button>
+                <a asp-controller="Home" asp-action="Index" role="button" class="btn btn-secondary float-end" style="margin-right: 5px;">Cancelar</a>
+            </div>
+        </form>
+    </div>   
+</div>
+
+
+
+@section Scripts 
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/inputmask/dist/jquery.inputmask.min.js"></script>
+}
