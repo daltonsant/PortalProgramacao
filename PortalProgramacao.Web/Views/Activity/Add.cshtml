@@ -22,110 +22,108 @@
           </h1>
       </div>
     </div>
-        <form class="needs-validation" asp-controller="Activity" asp-action="Add" method="POST">
-              <div class="row g-3">
-                    <div class="col-md-2">
-                        <label asp-for="ApplicationID" class="fw-bold">ID</label>
-                        <input type="text" class="form-control" id="applicationId" asp-for="ApplicationID" placeholder="ID">
-                        <span asp-validation-for="ApplicationID" class="invalid-feedback"></span>
-                    </div>
-                     <div class="col-md-2">
-                        <label asp-for="Key" class="fw-bold">Chave</label>
-                        <input type="text" class="form-control" id="key" asp-for="Key" placeholder="Chave">
-                        <span asp-validation-for="Key" class="invalid-feedback"></span>
-                    </div>
-                    <div class="col-md-6">
-                        <label asp-for="Title" class="fw-bold">Atividade</label>
-                        <input type="text" class="form-control" id="title" asp-for="Title" placeholder="Título da atividade">
-                        <span asp-validation-for="Title" class="invalid-feedback"></span>
-                    </div>
-                    <div class="col-md-2">
-                        <label asp-for="NplId" class="fw-bold">NPL</label>
-                        <select asp-for="NplId" class="form-select form-control" aria-label=".form-select-sm select" data-placeholder="Selecione a NPL">
-                            <option selected></option>
-                            <option value="1" >CAA</option>
-                            <option value="8" >CPN</option>
-                            <option value="2" >GAN</option>
-                            <option value="7" >MTN</option>
-                            <option value="6" >MTS</option>
-                            <option value="3" >PMR</option>
-                            <option value="4" >PTU</option>
-                            <option value="5" >SRT</option>
-                        </select>
-                         <span asp-validation-for="NplId" class="invalid-feedback"></span>
-                    </div>
+    <form class="needs-validation" asp-controller="Activity" asp-action="Add" method="POST">
+            <div class="row g-3">
+                <div class="col-md-2">
+                    <label asp-for="ApplicationID" class="fw-bold" style="color: #53672A;">ID</label>
+                    <input type="text" class="form-control" id="applicationId" asp-for="ApplicationID" placeholder="ID">
+                    <span asp-validation-for="ApplicationID" class="invalid-feedback"></span>
                 </div>
+                <div class="col-md-2">
+                    <label asp-for="Key" class="fw-bold" style="color: #53672A;">Chave</label>
+                    <input type="text" class="form-control" id="key" asp-for="Key" placeholder="Chave">
+                    <span asp-validation-for="Key" class="invalid-feedback"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Title" class="fw-bold" style="color: #53672A;">Atividade</label>
+                    <input type="text" class="form-control" id="title" asp-for="Title" placeholder="Título da atividade">
+                    <span asp-validation-for="Title" class="invalid-feedback"></span>
+                </div>
+                <div class="col-md-2">
+                    <label asp-for="NplId" class="fw-bold" style="color: #53672A;">NPL</label>
+                    <select asp-for="NplId" class="form-select form-control" aria-label=".form-select-sm select" data-placeholder="Selecione a NPL">
+                        <option selected></option>
+                        <option value="1" >CAA</option>
+                        <option value="8" >CPN</option>
+                        <option value="2" >GAN</option>
+                        <option value="7" >MTN</option>
+                        <option value="6" >MTS</option>
+                        <option value="3" >PMR</option>
+                        <option value="4" >PTU</option>
+                        <option value="5" >SRT</option>
+                    </select>
+                    <span asp-validation-for="NplId" class="invalid-feedback"></span>
+                </div>
+            </div>
 
-                <div class="row g-3">
-                      <div class="col-md-3">
-                            <label asp-for="TypeId" id="TypeIdLabel" class="fw-bold"></label>
-                            <select asp-for="TypeId" asp-items="@Model.Types" class="form-select form-control" id="TypeId" aria-label=".form-select-sm select" data-placeholder="Selecione o Tipo">Selecione o tipo</select>
-                            <span asp-validation-for="TypeId" class="invalid-feedback"></span>
-                        </div>
-                        <div class="col-md-3">
-                            <label asp-for="ProcessId" id="processIdLabel" class="fw-bold"></label>
-                            <select asp-for="ProcessId" asp-items="@Model.Processes" class="form-select form-control" id="ProcessId" aria-label=".form-select-sm select" data-placeholder="Selecione o Processo">Selecione o processo</select>
-                            <span asp-validation-for="ProcessId" class="invalid-feedback"></span>
-                        </div>
-                        <div class="col-md-3">
-                            <label asp-for="OsNote" class="fw-bold">OS/Nota</label>
-                            <input type="text" class="form-control" id="osnote" asp-for="OsNote" placeholder="N° Ordem/Nota">
-                            <span asp-validation-for="OsNote" class="invalid-feedback"></span>
-                        </div>
-                        <div class="col-md-3">
-                            <label asp-for="Place" class="fw-bold">SE/LT/Outros</label>
-                            <input type="text" class="form-control" id="place" asp-for="Place" placeholder="Local da atividade">
-                            <span asp-validation-for="Place" class="invalid-feedback"></span>
-                        </div>
+            <div class="row g-3">
+                    <div class="col-md-3">
+                        <label asp-for="TypeId" id="TypeIdLabel" class="fw-bold" style="color: #53672A;"></label>
+                        <select asp-for="TypeId" asp-items="@Model.Types" class="form-select form-control" id="TypeId" aria-label=".form-select-sm select" data-placeholder="Selecione o Tipo">Selecione o tipo</select>
+                        <span asp-validation-for="TypeId" class="invalid-feedback"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="ProcessId" id="processIdLabel" class="fw-bold" style="color: #53672A;"></label>
+                        <select asp-for="ProcessId" asp-items="@Model.Processes" class="form-select form-control" id="ProcessId" aria-label=".form-select-sm select" data-placeholder="Selecione o Processo">Selecione o processo</select>
+                        <span asp-validation-for="ProcessId" class="invalid-feedback"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="OsNote" class="fw-bold" style="color: #53672A;">OS/Nota</label>
+                        <input type="text" class="form-control" id="osnote" asp-for="OsNote" placeholder="N° Ordem/Nota">
+                        <span asp-validation-for="OsNote" class="invalid-feedback"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label asp-for="Place" class="fw-bold" style="color: #53672A;">SE/LT/Outros</label>
+                        <input type="text" class="form-control" id="place" asp-for="Place" placeholder="Local da atividade">
+                        <span asp-validation-for="Place" class="invalid-feedback"></span>
+                    </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label asp-for="HeadCount" class="fw-bold" style="color: #53672A;">Head Count</label>
+                    <input type="text" class="form-control num" id="headcount" asp-for="HeadCount" placeholder="Head Count">
+                    <span asp-validation-for="HeadCount" class="invalid-feedback"></span>
                 </div>
-                <div class="row g-3">
-                    <div class="col-md-3">
-                        <label asp-for="HeadCount" class="fw-bold">Head Count</label>
-                <input type="text" class="form-control num" id="headcount" asp-for="HeadCount" placeholder="Head Count">
-                        <span asp-validation-for="HeadCount" class="invalid-feedback"></span>
-                    </div>
-                    <div class="col-md-3">
-                        <label asp-for="Hours" class="fw-bold">Horas Necessárias</label>
-                <input type="text" class="form-control num" id="hours" asp-for="Hours" placeholder="Qtd horas necessária">
-                        <span asp-validation-for="Hours" class="invalid-feedback"></span>
-                    </div>
-                    <div class="col-md-3">
-                        <label asp-for="ComuteTime" class="fw-bold">Horas Deslocamento</label>
-                        <input type="text" class="form-control num" id="comutetime" asp-for="ComuteTime" placeholder="Qtd horas em deslocamento">
-                        <span asp-validation-for="ComuteTime" class="invalid-feedback"></span>
-                    </div>
+                <div class="col-md-3">
+                    <label asp-for="Hours" class="fw-bold" style="color: #53672A;">Horas Necessárias</label>
+                    <input type="text" class="form-control num" id="hours" asp-for="Hours" placeholder="Qtd horas necessária">
+                    <span asp-validation-for="Hours" class="invalid-feedback"></span>
                 </div>
-                <div class="row g-3">
-                    <div class="col-md-3">
-                        <label asp-for="Status" class="fw-bold">Status</label>
-                        <input type="text" class="form-control" id="status" asp-for="Status" placeholder="Status">
-                        <span asp-validation-for="Status" class="invalid-feedback"></span>
-                    </div>
-                    <div class="col-md-3">
-                        <label asp-for="ProgramedDate" class="fw-bold">Data Programada</label>
-                        <input type="date" class="form-control" id="progdate" asp-for="ProgramedDate" placeholder="31/10/2022">
-                        <span asp-validation-for="ProgramedDate" class="invalid-feedback"></span>
-                    </div>
-                    <div class="col-md-3">
-                        <label asp-for="PlanedDate" class="fw-bold">Data Planejada</label>
-                        <input type="date" class="form-control" id="plandate" asp-for="PlanedDate" placeholder="31/10/2022">
-                        <span asp-validation-for="PlanedDate" class="invalid-feedback"></span>
-                    </div>
-                    <div class="col-md-3">
-                        <label asp-for="DueDate" class="fw-bold">Data Limite</label>
-                        <input type="date" class="form-control" id="duedate" asp-for="DueDate" placeholder="31/10/2022">
-                        <span asp-validation-for="DueDate" class="invalid-feedback"></span>
-                    </div>
+                <div class="col-md-3">
+                    <label asp-for="ComuteTime" class="fw-bold" style="color: #53672A;">Horas Deslocamento</label>
+                    <input type="text" class="form-control num" id="comutetime" asp-for="ComuteTime" placeholder="Qtd horas em deslocamento">
+                    <span asp-validation-for="ComuteTime" class="invalid-feedback"></span>
                 </div>
+                <div class="col-md-3">
+                    <label asp-for="Status" class="fw-bold" style="color: #53672A;">Status</label>
+                    <input type="text" class="form-control" id="status" asp-for="Status" placeholder="Status">
+                    <span asp-validation-for="Status" class="invalid-feedback"></span>
+                </div>
+            </div>
+            <div class="row g-3">
+                
+                <div class="col-md-3">
+                    <label asp-for="ProgramedDate" class="fw-bold" style="color: #53672A;">Data Programada</label>
+                    <input type="date" class="form-control" id="progdate" asp-for="ProgramedDate" placeholder="31/10/2022">
+                    <span asp-validation-for="ProgramedDate" class="invalid-feedback"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="PlanedDate" class="fw-bold" style="color: #53672A;">Data Planejada</label>
+                    <input type="date" class="form-control" id="plandate" asp-for="PlanedDate" placeholder="31/10/2022">
+                    <span asp-validation-for="PlanedDate" class="invalid-feedback"></span>
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="DueDate" class="fw-bold" style="color: #53672A;">Data Limite</label>
+                    <input type="date" class="form-control" id="duedate" asp-for="DueDate" placeholder="31/10/2022">
+                    <span asp-validation-for="DueDate" class="invalid-feedback"></span>
+                </div>
+            </div>
 
-                <div style="margin-top: 10px;padding-bottom: 30px;">
-                    <button type="submit" class="btn btn-primary float-end" >Salvar</button>
-                    <a asp-controller="Activity" asp-action="Index" role="button" class="btn btn-secondary float-end" style="margin-right: 5px;">Cancelar</a>
-                </div>
-        </form>
-        
-    </div>
-    
+            <div style="margin-top: 10px;padding-bottom: 30px;">
+                <button type="submit" class="btn btn-primary float-end" >Salvar</button>
+                <a asp-controller="Activity" asp-action="Index" role="button" class="btn btn-secondary float-end" style="margin-right: 5px;">Cancelar</a>
+            </div>
+    </form>    
 </div>
 
 
