@@ -77,7 +77,7 @@ namespace PortalProgramacao.Web.Controllers.Activities
 
                     SheetDataHelper.SetValorTextoCelula(
                         "A", rowInformacoesColaborador,
-                        dto.ApplicationID,
+                        dto.Id.ToString(),
                         shareStringPart);
 
                     SheetDataHelper.SetValorTextoCelula(
@@ -102,7 +102,7 @@ namespace PortalProgramacao.Web.Controllers.Activities
 
                      SheetDataHelper.SetValorDataHoraCelula(
                         "F", rowInformacoesColaborador,
-                        dto.ProgramedDate ?? new DateTime(2000,1,1));
+                        dto.ProgramedDate ?? dto.PlanedDate ?? dto.DueDate ?? DateTime.Now);
 
                     SheetDataHelper.SetValorTextoCelula(
                         "G", rowInformacoesColaborador,

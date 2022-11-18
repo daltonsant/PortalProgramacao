@@ -68,9 +68,9 @@
             },
             {
                 targets: 1,
-                searchable: false,
+                searchable: true,
                 orderable : false,
-                className : 'taskids',
+                className : 'actStatus',
                 visible  : false
             }],
             select: {
@@ -125,7 +125,7 @@
             let length = data.length;
             
             for(let i = 0; i < length; i++) {
-                ids.push(data[i][1]);
+                ids.push(data[i][2]);
             }
 
             $.ajax({
@@ -145,7 +145,7 @@
             let length = data.length;
 
             for (let i = 0; i < length; i++) {
-                ids.push(data[i][1]);
+                ids.push(data[i][2]);
             }
 
             $.ajax({

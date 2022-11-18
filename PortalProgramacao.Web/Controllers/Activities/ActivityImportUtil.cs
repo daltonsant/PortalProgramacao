@@ -65,8 +65,12 @@ public static class ActivityImportUtil
 
             var dictTypes = activityTypeRepository.Entities.ToList().GroupBy(x => x.Name).ToDictionary(k => k.Key, v => v.First());
             var dictProcesses = processRepository.Entities.ToList().GroupBy(x => x.Name).ToDictionary(k => k.Key, v => v.First());
-            
-            for(; index < rowCount && imported; index++)
+            var dictStatus = new HashSet<string>();
+            dictStatus.Add("planejada");
+            dictStatus.Add("executada");
+            dictStatus.Add("programada");
+
+            for (; index < rowCount && imported; index++)
             {
                 var row = new List<string>();
 
@@ -87,7 +91,7 @@ public static class ActivityImportUtil
 
                 if (!isEmpty)
                 {
-                    if (ValidateData(row, index, errors, dictTypes, dictProcesses))
+                    if (ValidateData(row, index, errors, dictTypes, dictProcesses, dictStatus))
                     {
                         rows.Add(row);
                     }
@@ -109,6 +113,7 @@ public static class ActivityImportUtil
                     decimal comute = decimal.Zero;
                     decimal hour = decimal.Zero;
                     decimal hc = decimal.Zero;
+                    ulong? id = null;
 
                     if(!string.IsNullOrEmpty(row[6])){
                         try {
@@ -141,11 +146,27 @@ public static class ActivityImportUtil
                     if(!string.IsNullOrEmpty(row[12])){
                         decimal.TryParse(row[12], out hc);
                     }
-                    
-                    
+
+                    if (!string.IsNullOrEmpty(row[0]))
+                    {
+                        try
+                        {
+                            ulong aux = 0;
+                            ulong.TryParse(row[0], out aux);
+                            if(aux != 0)
+                            {
+                                id = aux;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+
                     var activityDto = new ActivityDto()
                     {
-                        ApplicationID = row[0],
+                        Id = id,
                         Key = row[1],
                         Status = row[2],
                         NplName = row[3],
@@ -181,7 +202,8 @@ public static class ActivityImportUtil
     private static bool ValidateData(ICollection<string> row, int rowIndex, 
         ICollection<string> errors, 
         Dictionary<string, Domain.Entities.Activities.Type> dictTypes,
-        Dictionary<string, Process> dictProcesses)
+        Dictionary<string, Process> dictProcesses,
+        HashSet<string> dictStatus)
     {
         bool isOk = true;
 
@@ -193,12 +215,6 @@ public static class ActivityImportUtil
         }
         var rowList = row.ToList();
 
-        //validando primeira columa de ID
-        if(string.IsNullOrEmpty(rowList[ActivityImportColumns.INDEX_APLICATIONID].Trim()) )
-        {
-            errors.Add($"Campo de ID precisa ser preenchido na linha {rowIndex+1}");
-            isOk = false;
-        }
 
         if(string.IsNullOrEmpty(rowList[ActivityImportColumns.INDEX_NPL].Trim()) )
         {
@@ -245,10 +261,17 @@ public static class ActivityImportUtil
         var typeString = rowList[ActivityImportColumns.INDEX_TYPE].Trim();
         if(!dictTypes.ContainsKey(typeString))
         {
-             errors.Add($"Campo Tipo inválido na linha {rowIndex+1}");
+            errors.Add($"Campo Tipo inválido na linha {rowIndex+1}");
             isOk = false;
         }
-        
+
+        var statusString = rowList[ActivityImportColumns.INDEX_STATUS].Trim().ToLower();
+        if (!dictStatus.Contains(statusString))
+        {
+            errors.Add($"Campo Status inválido na linha {rowIndex + 1}. (Valores permitidos: planejada/programada/executada)");
+            isOk = false;
+        }
+
         return isOk;
     }
 }

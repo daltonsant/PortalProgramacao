@@ -22,12 +22,11 @@
       </div>
     </div>
     <form class="needs-validation" asp-controller="Activity" asp-action="Edit" method="POST">
-        @Html.HiddenFor(x => x.Id)
         <div class="row g-3">
             <div class="col-md-2">
-                <label asp-for="ApplicationID" class="fw-bold" style="color: #53672A;">ID</label>
-                <input type="text" class="form-control" id="applicationId" asp-for="ApplicationID" placeholder="ID">
-                <span asp-validation-for="ApplicationID" class="invalid-feedback"></span>
+                <label asp-for="Id" class="fw-bold" style="color: #53672A;">ID</label>
+                <input type="text" class="form-control" id="applicationId" asp-for="Id" placeholder="ID" readonly>
+                <span asp-validation-for="Id" class="invalid-feedback"></span>
             </div>
             <div class="col-md-2">
                 <label asp-for="Key" class="fw-bold" style="color: #53672A;">Chave</label>
@@ -97,8 +96,8 @@
         </div>
         <div class="row g-3">
             <div class="col-md-3">
-                <label asp-for="Status" class="fw-bold" style="color: #53672A;">Status</label>
-                <input type="text" class="form-control" id="status" asp-for="Status" placeholder="Status">
+                <label asp-for="Status" id="StatusLabel" class="fw-bold" style="color: #53672A;"></label>
+                <select asp-for="Status" asp-items="@Model.StatusList" class="form-select form-control" id="Status" aria-label=".form-select-sm select" data-placeholder="Selecione o Status">Selecione o status</select>
                 <span asp-validation-for="Status" class="invalid-feedback"></span>
             </div>
             <div class="col-md-3">

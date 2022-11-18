@@ -34,7 +34,7 @@ public class ActivityService : IActivityService
     {
         ICollection<string> errors = new List<string>();
 
-        if(_activityRepository.Entities.Count(x => x.ApplicationID == dto.ApplicationID) > 0)
+        if(_activityRepository.Entities.Count(x => x.Id == dto.Id) > 0)
         {
             errors.Add("Ja existe uma atividade cadastrada com o mesmo ID.");
             return errors;
@@ -56,9 +56,8 @@ public class ActivityService : IActivityService
         {
             Title = dto.Title,
             Key = dto.Key,
-            ApplicationID = dto.ApplicationID,
             Place = dto.Place,
-            OsNote = dto.OsNote,
+            OsNote = dto.OsNote ?? string.Empty,
             Status = dto.Status,
             MenHour = dto.MenHour,
             HeadCount = dto.HeadCount,
@@ -155,9 +154,8 @@ public class ActivityService : IActivityService
             
             activity.Title = dto.Title;
             activity.Key = dto.Key;
-            activity.ApplicationID = dto.ApplicationID;
             activity.Place = dto.Place;
-            activity.OsNote = dto.OsNote;
+            activity.OsNote = dto.OsNote ?? string.Empty;
             activity.Status = dto.Status;
             activity.MenHour = dto.MenHour;
             activity.HeadCount = dto.HeadCount;
@@ -197,7 +195,6 @@ public class ActivityService : IActivityService
                 Id = activity.Id,
                 Title = activity.Title,
                 Key = activity.Key,
-                ApplicationID = activity.ApplicationID,
                 Place = activity.Place,
                 OsNote = activity.OsNote,
                 Status = activity.Status,
@@ -227,23 +224,22 @@ public class ActivityService : IActivityService
     {
         var activitiesToUpdate = new List<ActivityDto>();
         var activitiesToAdd = new List<ActivityDto>();
-        var entitiesToUpdate = _activityRepository.Entities
-            .Where(x => activities
-                .Select(y => y.ApplicationID)
-                .Contains( x.ApplicationID )
-            );
 
-        var registers = entitiesToUpdate.Select(y => y.ApplicationID);
+        var idsToSearch = activities.Where(x => x.Id.HasValue).Select(x => x.Id.Value).ToList();
+        var entitiesToUpdate = new List<Activity>();
 
-        activitiesToUpdate = activities.Where(x => registers.Contains(x.ApplicationID)).ToList();
-        activitiesToAdd = activities.Where(x => !registers.Contains(x.ApplicationID)).ToList();
-
-        foreach(var entity in entitiesToUpdate)
+        if (idsToSearch != null && idsToSearch.Any())
         {
-            var activity = activitiesToUpdate.FirstOrDefault(x => x.ApplicationID == entity.ApplicationID);
-            if(activity != null)
-                activity.Id = entity.Id;
+            entitiesToUpdate = _activityRepository.Entities
+            .Where(x =>idsToSearch
+                .Contains(x.Id)
+            ).ToList();
         }
+
+        var registers = entitiesToUpdate.Select(y => y.Id);
+
+        activitiesToUpdate = activities.Where(x => x.Id.HasValue && registers.Contains(x.Id.Value)).ToList();
+        activitiesToAdd = activities.Where(x => !x.Id.HasValue || !registers.Contains(x.Id.Value)).ToList();
         
         ICollection<string> errors = new List<string>();
 
@@ -284,7 +280,6 @@ public class ActivityService : IActivityService
                 Id = activity.Id,
                 Title = activity.Title,
                 Key = activity.Key,
-                ApplicationID = activity.ApplicationID,
                 Place = activity.Place,
                 OsNote = activity.OsNote,
                 Status = activity.Status,

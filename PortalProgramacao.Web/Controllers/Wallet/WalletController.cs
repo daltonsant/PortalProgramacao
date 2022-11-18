@@ -54,7 +54,7 @@ public class WalletController : BaseController
             var taskEvent = new ViewCalendarModelcs() 
             { 
                 id = task.Id.ToString(),
-                title = task.ApplicationID,
+                title = task.Process.Name + "-" + task.Npl.Code + task.Id.ToString(),
                 url = "/Activity/Edit/" + task.Id,
             };
 

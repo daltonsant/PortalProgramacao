@@ -18,8 +18,6 @@ namespace PortalProgramacao.Infrastructure.Data.Mappings
             builder.Property(e => e.CreatedDate).IsRequired();
             builder.Property(e => e.UpdatedDate);
             builder.Property(e => e.Key);
-            builder.Property(e => e.ApplicationID).IsRequired();
-            builder.HasIndex(x => x.ApplicationID).IsUnique();
             builder.Property(e => e.Status);
             builder.Property(e => e.Title);
             builder.Property(e => e.Place);

@@ -63,6 +63,16 @@ public class ActivityController : BaseController
 
         model.Types =  new SelectList(items,"Value","Text", model.TypeId);
 
+        items = new List<SelectListItem>() { new SelectListItem() };
+        var dictStatus = new Dictionary<string, string>();
+        dictStatus.Add("planejada","Planejada");
+        dictStatus.Add("programada", "Programada");
+        dictStatus.Add("executada", "Executada");
+
+        items.AddRange(dictStatus.Select(x =>
+                new SelectListItem() { Text = x.Value, Value = x.Key }).ToList());
+        model.StatusList = new SelectList(items, "Value","Text", model.Status);
+
         return View(model);
     }
 
@@ -83,6 +93,17 @@ public class ActivityController : BaseController
                     new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList());
 
             model.Types =  new SelectList(items,"Value","Text", model.TypeId);
+
+            items = new List<SelectListItem>() { new SelectListItem() };
+            var dictStatus = new Dictionary<string, string>();
+            dictStatus.Add("planejada", "Planejada");
+            dictStatus.Add("programada", "Programada");
+            dictStatus.Add("executada", "Executada");
+
+            items.AddRange(dictStatus.Select(x =>
+                    new SelectListItem() { Text = x.Value, Value = x.Key }).ToList());
+            model.StatusList = new SelectList(items, "Value", "Text", model.Status);
+
             return View(model);
         }
             
@@ -113,6 +134,17 @@ public class ActivityController : BaseController
                     new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList());
 
             model.Types =  new SelectList(items,"Value","Text", model.TypeId);
+
+            items = new List<SelectListItem>() { new SelectListItem() };
+            var dictStatus = new Dictionary<string, string>();
+            dictStatus.Add("planejada", "Planejada");
+            dictStatus.Add("programada", "Programada");
+            dictStatus.Add("executada", "Executada");
+
+            items.AddRange(dictStatus.Select(x =>
+                    new SelectListItem() { Text = x.Value, Value = x.Key }).ToList());
+            model.StatusList = new SelectList(items, "Value", "Text", model.Status);
+
             return View(model);
         }
 
@@ -136,6 +168,17 @@ public class ActivityController : BaseController
                     new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList());
 
             model.Types =  new SelectList(items,"Value","Text", model.TypeId);
+
+            items = new List<SelectListItem>() { new SelectListItem() };
+            var dictStatus = new Dictionary<string, string>();
+            dictStatus.Add("planejada", "Planejada");
+            dictStatus.Add("programada", "Programada");
+            dictStatus.Add("executada", "Executada");
+
+            items.AddRange(dictStatus.Select(x =>
+                    new SelectListItem() { Text = x.Value, Value = x.Key }).ToList());
+            model.StatusList = new SelectList(items, "Value", "Text", model.Status);
+
             return View(model);
         }
 
