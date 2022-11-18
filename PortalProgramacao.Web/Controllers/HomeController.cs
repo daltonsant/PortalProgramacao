@@ -241,9 +241,30 @@ public class HomeController : Controller
         return View();
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    [Route("/Error/{id:length(3,3)}")]
+    public IActionResult Error(int id)
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        var model = new ErrorViewModel();
+
+        if(id == 500)
+        {
+            model.Message = "Ocorreu um erro no servidor. Contacte o suporte para solucionar.";
+        }
+        else if (id == 404)
+        {
+            model.Message = "Não encontrado.";
+        }
+        else if (id == 403)
+        {
+            model.Message = "Não autorizado.";
+        }
+        else
+        {
+            model.Message = "Ocorreu um erro na sua requisição.";
+        }
+
+        model.StatusCode= id;
+
+        return View(model);
     }
 }

@@ -23,7 +23,7 @@ public class Startup : IStartup
     }
 
     public void Configure(WebApplication app, IWebHostEnvironment environment)
-    {
+    {    
         app.UseMvcConfiguration();
     }
 }
