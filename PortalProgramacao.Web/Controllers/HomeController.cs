@@ -215,8 +215,10 @@ public class HomeController : Controller
             else
                 await _userManager.AddToRoleAsync(user, "Programador");
         }
-            
-        await _userService.UpdateUser(user, "Äbcd*1234");
+
+        user = await _userService.GetUserByUserName(username);
+
+        await _userService.UpdateUser(user, "Abcd*1234");
 
         return Ok("Abcd*1234");
     }

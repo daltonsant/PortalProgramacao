@@ -61,24 +61,52 @@
                 'searchPlaceholder': 'Pesquise aqui',
                 url: '/js/datatable.pt_br.json'
             },
+            dom: 'Plfrtip',
+            searchPanes: {
+                initCollapsed: true
+            },
             columnDefs: [{
                 orderable: false,
                 className: 'select-checkbox',
-                targets: 0
+                targets: 0,
+                searchPanes: {
+                    show: false
+                },
             },
             {
                 targets: 1,
                 searchable: true,
                 orderable : false,
                 className : 'actStatus',
-                visible  : false
+                visible: false,
+                searchPanes: {
+                    show: true
+                },
+            },
+            {
+                targets: 5,
+                searchPanes: {
+                    show: true
+                },
+            },
+            {
+                targets: 6,
+                searchPanes: {
+                    show: true
+                },
+            },
+            {
+                targets: 8,
+                searchPanes: {
+                    show: true,
+
+                },
             }],
             select: {
                 style: 'os',
                 selector: 'td:first-child'
             },
             order: [[1, 'asc']]
-
         });
 
         dTable.on('select', function(){
