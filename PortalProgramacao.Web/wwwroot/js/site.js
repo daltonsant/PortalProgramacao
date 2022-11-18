@@ -14,29 +14,38 @@
         
         $.ajax({
             url: "/Home/Login",
-            data: formData,
+            data: JSON.stringify(formData),
             method: "POST",
             async: true,
             contentType: 'application/json; charset=utf-8',
+            headers: {
+                'RequestVerificationToken': gettoken(),
+            },
             success: function (data) {
                 if(data.length > 0){
                     $("#loginValidations").text(data);
+                    $("#loginValidations").show();
                 }
                 else
                 {
+                    $("#loginValidations").hide();
+                    $("#loginValidations").text("");
                     location.reload();
                 }
             }
         });
     }
 
-
-
     $(document).ready(function () {
         
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+
+        $("#loginLink").on("click", function () {
+            $("#loginValidations").hide();
+            $("#loginValidations").text("");
         });
 
         $("#confirmLogin").on("click", loginCallback);

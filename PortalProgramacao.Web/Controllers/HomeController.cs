@@ -1,6 +1,9 @@
 ﻿using System.Diagnostics;
+using DocumentFormat.OpenXml.ExtendedProperties;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PortalProgramacao.Infrastructure.Identity;
 using PortalProgramacao.Infrastructure.Interfaces;
 using PortalProgramacao.Web.Models;
@@ -11,11 +14,13 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IUserService _userService;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public HomeController(ILogger<HomeController> logger, IUserService userService)
+    public HomeController(ILogger<HomeController> logger, IUserService userService, UserManager<ApplicationUser> userManager)
     {
         _logger = logger;
         _userService = userService;
+        _userManager = userManager;
     }
 
     public IActionResult Index()
@@ -28,17 +33,12 @@ public class HomeController : Controller
         return View();
     }
 
+    [ValidateAntiForgeryToken]
     [HttpPost]
     [Route("/Home/Login/")]
     public async Task<IActionResult> Login([FromBody] LoginModel model)
     {
         var errors = new List<string>();
-
-        model = new LoginModel(){
-            UserName = "dpsecin",
-            Password = "Abcd*1234"
-        };
-        ModelState.Clear();
         
         if (!ModelState.IsValid)
         {
@@ -68,9 +68,17 @@ public class HomeController : Controller
         return Ok(errors);
     }
 
-
-    public IActionResult Register()
+    public async Task<IActionResult> Register()
     {
+        var userIdentity = User?.Identity;
+        if (userIdentity?.Name == null)
+            return Unauthorized();
+
+        var loggedUser = await _userService.GetUserByUserName(userIdentity.Name);
+
+        if (loggedUser == null || !await _userManager.IsInRoleAsync(loggedUser, "Administrator"))
+            return Unauthorized();
+
         return View(new UserModel());
     }
 
@@ -101,6 +109,15 @@ public class HomeController : Controller
             }
         }
 
+        var userIdentity = User?.Identity;
+        if (userIdentity?.Name == null)
+            return Unauthorized();
+
+        var loggedUser = await _userService.GetUserByUserName(userIdentity.Name);
+
+        if (loggedUser == null || !await _userManager.IsInRoleAsync(loggedUser, "Administrator"))
+            return Unauthorized();
+
         userCreated = await _userService.CreateUser(user, model.Password);
 
         if (userCreated.Succeeded)
@@ -111,7 +128,7 @@ public class HomeController : Controller
                 return RedirectToAction("Index", "Home");
             }
 
-            await _userService.AddUserInRole(user, "User");
+            await _userService.AddUserInRole(user, "Programador");
             return RedirectToAction("Index", "Home");
         }
         else
@@ -124,21 +141,84 @@ public class HomeController : Controller
         }
     }
 
-
-    public IActionResult UpdateUser()
+    public async Task<IActionResult> UpdateUser()
     {
-        return Ok();
-    }
+        var userIdentity = User?.Identity;
+        if (userIdentity?.Name == null)
+            return NotFound();
 
-    public IActionResult UpdateUser(UserModel model)
-    {
-        return Ok();
+        var user = await _userService.GetUserByUserName(userIdentity.Name);
+
+        if (user == null)
+            return NotFound();
+
+        var model = new UpdateUserModel()
+        {
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email
+        };
+
+
+        return View(model);
     }
 
     [HttpPost]
-    public IActionResult ResetPassword(string userId)
+    public async Task<IActionResult> UpdateUser(UpdateUserModel model)
     {
-        return Ok();
+        if (!ModelState.IsValid) return View(model);
+
+        var userIdentity = User?.Identity;
+        if (userIdentity?.Name == null)
+            return NotFound();
+
+        var user = await _userService.GetUserByUserName(userIdentity.Name);
+
+        if (user == null)
+            return NotFound();
+
+        user.FirstName = model.FirstName;
+        user.LastName = model.LastName;
+        user.Email = model.Email;
+
+        var res = await _userService.UpdateUser(user, model.Password);
+
+        if(res.Succeeded)
+            return RedirectToAction("Index", "Home");
+
+        return View(model);
+    }
+
+    [Authorize]
+    public async Task<IActionResult> ResetUser(string username, bool? isAdmin)
+    {
+        var userIdentity = User?.Identity;
+        if (userIdentity?.Name == null)
+            return Unauthorized();
+
+        var loggedUser = await _userService.GetUserByUserName(userIdentity.Name);
+
+        if (loggedUser == null || !await _userManager.IsInRoleAsync(loggedUser, "Administrator"))
+            return Unauthorized();
+
+        var user = await _userService.GetUserByUserName(username);
+
+        if (user == null)
+            return NotFound();
+
+        if (isAdmin.HasValue)
+        {
+            // THIS LINE IS IMPORTANT
+            await _userManager.RemoveFromRolesAsync(user, new List<string>() { "Administrator", "Programador" });
+            if (isAdmin.Value)
+                await _userManager.AddToRoleAsync(user, "Administrator");
+            else
+                await _userManager.AddToRoleAsync(user, "Programador");
+        }
+            
+        await _userService.UpdateUser(user, "Äbcd*1234");
+
+        return Ok("Abcd*1234");
     }
 
     public async Task<IActionResult> Logout()
@@ -146,6 +226,13 @@ public class HomeController : Controller
         await _userService.Logout();
         return RedirectToAction("Index","Home");
     }
+
+    [Authorize]
+    public IActionResult Admin()
+    {
+        return View();
+    }
+
 
     public IActionResult Privacy()
     {

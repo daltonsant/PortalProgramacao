@@ -56,9 +56,15 @@ public class UserService : IUserService
         return _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
     }
 
-    public Task<IdentityResult> UpdateUser(ApplicationUser user)
+    public async Task<IdentityResult> UpdateUser(ApplicationUser user, string? newPassword)
     {
-        return _userManager.UpdateAsync(user);
+        if (!string.IsNullOrEmpty(newPassword))
+        {
+            string token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            await _userManager.ResetPasswordAsync(user, token, newPassword);
+        }
+        
+        return await _userManager.UpdateAsync(user);
     }
 
     public IQueryable<ApplicationUser> Users

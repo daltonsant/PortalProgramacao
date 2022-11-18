@@ -65,7 +65,7 @@ public static class ActivityImportUtil
 
             var dictTypes = activityTypeRepository.Entities.ToList().GroupBy(x => x.Name).ToDictionary(k => k.Key, v => v.First());
             var dictProcesses = processRepository.Entities.ToList().GroupBy(x => x.Name).ToDictionary(k => k.Key, v => v.First());
-
+            
             for(; index < rowCount && imported; index++)
             {
                 var row = new List<string>();
@@ -76,13 +76,25 @@ public static class ActivityImportUtil
                     row.Add(datum ?? string.Empty);
                 }
 
-                if(ValidateData(row, index, errors, dictTypes, dictProcesses))
+                var isEmpty = true;
+                for(int colIndex = 0; colIndex<15; colIndex++)
                 {
-                    rows.Add(row);
+                    if (!string.IsNullOrEmpty(row[colIndex].Trim()))
+                    {
+                        isEmpty = false;
+                    }
                 }
-                else
+
+                if (!isEmpty)
                 {
-                    imported = false;
+                    if (ValidateData(row, index, errors, dictTypes, dictProcesses))
+                    {
+                        rows.Add(row);
+                    }
+                    else
+                    {
+                        imported = false;
+                    }
                 }
             }
 

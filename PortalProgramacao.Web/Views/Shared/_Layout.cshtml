@@ -66,15 +66,15 @@
                             <div class="dropdown-menu">
                                 @if(isLogged && isAdmin) // se o usuario for admin
                                 {
-                                <a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Admin</a>
+                                    <a asp-action="Admin" asp-controller="Home" class="dropdown-item"><i class="fa fa-sliders"></i> Admin</a>
                                 }
                                 
                                 @if(isLogged) // se o usuario estiver logado
                                 {
-                                <a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Perfil</a>
+                                <a asp-action="UpdateUser" asp-controller="Home" class="dropdown-item"><i class="fa fa-user-o"></i> Perfil</a>
                                 }
                                 
-                                @if(isLogged && isAdmin) // se o usuario for admin
+                                @if(isLogged && isAdmin && false) // se o usuario for admin
                                 {
                                 <a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Configurações</a>
                                 }
@@ -86,7 +86,7 @@
                                 }
                                 else
                                 {
-                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalLogin"><img src="/icons/login_black_24dp.svg" alt="" > Login</a>
+                                <a id="loginLink" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalLogin"><img src="/icons/login_black_24dp.svg" alt="" > Login</a>
                                 }
 
                             </div>
@@ -144,7 +144,14 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     
     <script src="~/js/site.js" asp-append-version="true"></script>
-    
+    <script type="text/javascript">
+        function gettoken() {
+            var token = '@Html.AntiForgeryToken()';
+            token = $(token).val();
+            return token;
+        }
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

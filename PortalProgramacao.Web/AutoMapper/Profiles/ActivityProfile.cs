@@ -18,6 +18,7 @@ namespace PortalProgramacao.Web.AutoMapper.Profiles
                 .ForMember(dest => dest.Hours, opt => opt.MapFrom(src => src.Hours.ToString()));
 
             CreateMap<ActivityDto, ViewActivityModel>()
+                .ForMember(dest => dest.Place, opt => opt.MapFrom(src => src.Place))
                 .ForMember(dest => dest.PlannedDate, opt => opt.MapFrom(src =>src.PlanedDate.HasValue ? src.PlanedDate.Value.ToShortDateString() : string.Empty))
             ;
         }

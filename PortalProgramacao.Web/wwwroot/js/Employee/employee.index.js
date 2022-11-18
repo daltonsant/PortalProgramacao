@@ -39,6 +39,7 @@
                 
                 if (msg.length > 0) {
                     let error_container = $("#import_validations");
+                    error_container.empty();
                     for (let i = 0; i < msg.length; i++) {
                         error_container.append($("<span>").text(msg[i]));
                     }

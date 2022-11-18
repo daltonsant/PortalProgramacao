@@ -71,13 +71,25 @@ public static class EmployeeImportUtil
                     row.Add(datum);
                 }
 
-                if(ValidateData(row, index, errors))
+                var isEmpty = true;
+                for (int colIndex = 0; colIndex < 15; colIndex++)
                 {
-                    rows.Add(row);
+                    if (!string.IsNullOrEmpty(row[colIndex].Trim()))
+                    {
+                        isEmpty = false;
+                    }
                 }
-                else
+
+                if (!isEmpty)
                 {
-                    imported = false;
+                    if (ValidateData(row, index, errors))
+                    {
+                        rows.Add(row);
+                    }
+                    else
+                    {
+                        imported = false;
+                    }
                 }
             }
 
