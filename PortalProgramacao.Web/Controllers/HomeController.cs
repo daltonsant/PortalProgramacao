@@ -33,7 +33,6 @@ public class HomeController : Controller
         return View();
     }
 
-    [ValidateAntiForgeryToken]
     [HttpPost]
     [Route("/Home/Login/")]
     public async Task<IActionResult> Login([FromBody] LoginModel model)

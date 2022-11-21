@@ -18,9 +18,9 @@
             method: "POST",
             async: true,
             contentType: 'application/json; charset=utf-8',
-            headers: {
-                'RequestVerificationToken': gettoken(),
-            },
+            // headers: {
+            //     'RequestVerificationToken': gettoken(),
+            // },
             success: function (data) {
                 if(data.length > 0){
                     $("#loginValidations").text(data);

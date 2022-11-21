@@ -146,7 +146,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script type="text/javascript">
         function gettoken() {
-            var token = '@Html.AntiForgeryToken()';
+            var token = "";//'@Html.AntiForgeryToken()';
             token = $(token).val();
             return token;
         }
