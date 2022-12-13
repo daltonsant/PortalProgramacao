@@ -178,7 +178,7 @@ public class WalletController : BaseController
 
         foreach( var act in  activities)
         {
-            var actHH = act.HeadCount * (act.Hours + act.ComuteTime);
+            var actHH = (act.HeadCount * act.Hours) + act.ComuteTime;
             hhNec += actHH;
             if (act.Process.Name == "SE")
                 hhNecSE += actHH;
