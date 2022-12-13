@@ -14,17 +14,25 @@
         let selectedProcess = $('#processo').find(":selected").val();
         return selectedProcess;
     }
+    
+    function getCurrentSector() {
+        let selectedSector = $('#setor').find(":selected").val();
+        return selectedSector;
+    }
 
     function updateKpis() {
         let nplFilter = getCurrentNpl();
         let monthFilter = getCurrentMonth();
         let procFilter = getCurrentProcess();
+        let sectorFilter = getCurrentSector();
+
         $.ajax({
             url: "/Wallet/GetKpis",
             data: {
                 npl: nplFilter,
                 month: monthFilter,
-                process: procFilter
+                process: procFilter,
+                sector: sectorFilter
             },
             method: "POST",
             async: true,
@@ -120,7 +128,8 @@
                      return {
                          npl: getCurrentNpl(),
                          month: getCurrentMonth(),
-                         process: getCurrentProcess()
+                         process: getCurrentProcess(),
+                         sector: getCurrentSector()
                      };
                  },
                  failure: function () {
@@ -130,7 +139,6 @@
            
          });
 
-        
         $("#npl").on("change", function () {
             calendar.refetchEvents();
             updateKpis();
@@ -147,6 +155,11 @@
             updateKpis();
         });
         $("#processo").on("change", function () {
+            calendar.refetchEvents();
+            updateKpis();
+        });
+
+        $("#setor").on("change", function () {
             calendar.refetchEvents();
             updateKpis();
         });

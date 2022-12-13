@@ -27,11 +27,16 @@ public class WalletController : BaseController
     }
 
     [HttpPost]
-    public IActionResult List(string? npl, int? month, string? process)
+    public IActionResult List(string? npl, int? month, string? process, ulong? sector)
     {
         ICollection<ViewCalendarModelcs> models = new List<ViewCalendarModelcs>();
         var activitieQuery = _activityRepository.Entities
-            .Include(x => x.Npl).Include(x => x.Process).AsQueryable();
+            .Include(x => x.Npl).ThenInclude(x => x.Sector).Include(x => x.Process).AsQueryable();
+
+        if(sector.HasValue)
+        {
+            activitieQuery = activitieQuery.Where(x => x.Npl.Sector.Id == sector.Value);
+        }
 
         if(!string.IsNullOrEmpty(npl) )
         {
@@ -81,13 +86,18 @@ public class WalletController : BaseController
     }
 
 
-    public IActionResult GetKpis(string? npl, int? month, string? process)
+    public IActionResult GetKpis(string? npl, int? month, string? process, ulong? sector)
     {
         //saturacao total do mes
         //array com a saturacao por semana
         // filtrado pr npl, mes, processo
         var activityQuery = _activityRepository.Entities
-            .Include(x => x.Npl).Include(x => x.Process).AsQueryable();
+            .Include(x => x.Npl).ThenInclude(x => x.Sector).Include(x => x.Process).AsQueryable();
+
+        if(sector.HasValue)
+        {
+            activityQuery = activityQuery.Where(x => x.Npl.Sector.Id == sector.Value);
+        }
 
         if (!string.IsNullOrEmpty(npl))
         {
@@ -113,9 +123,14 @@ public class WalletController : BaseController
 
         var activities = activityQuery.ToList();
 
-        var employeeQuery = _employeeRepository.Entities.Include(x => x.Npl)
+        var employeeQuery = _employeeRepository.Entities.Include(x => x.Npl).ThenInclude(x => x.Sector)
             .Include(x => x.EnabledProcesses).ThenInclude(x => x.Process)
             .Include(x => x.MonthDayCounts).AsQueryable();
+        
+        if(sector.HasValue)
+        {
+            employeeQuery = employeeQuery.Where(x => x.Npl.Sector.Id == sector.Value);
+        }
 
         if (!string.IsNullOrEmpty(npl))
         {
