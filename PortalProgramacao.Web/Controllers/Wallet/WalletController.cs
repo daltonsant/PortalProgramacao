@@ -59,7 +59,7 @@ public class WalletController : BaseController
             var taskEvent = new ViewCalendarModelcs() 
             { 
                 id = task.Id.ToString(),
-                title = task.Process.Name + "-" + task.Npl.Code + task.Id.ToString(),
+                title = task.Process.Name + "-" + task.Npl.Code +"-"+ task.Title + "-" +task.Place.ToString(),
                 url = "/Activity/Edit/" + task.Id,
             };
 
@@ -153,22 +153,27 @@ public class WalletController : BaseController
         foreach ( var emp in employeeQuery)
         {
             var days = emp.MonthDayCounts.FirstOrDefault(emp=> emp.Month == m)?.NumberOfDays ?? decimal.Zero;
-            var empContrib = 8.0M * days;
-            hhAvailable += empContrib;
-            hhAvailableSE += 
-                empContrib * (emp.EnabledProcesses
-                .FirstOrDefault(x => x.Process.Name == "SE")?.Percentage/100.0M ?? decimal.Zero);
-            hhAvailableLT +=
-                empContrib * (emp.EnabledProcesses
-                .FirstOrDefault(x => x.Process.Name == "LT")?.Percentage/100.0M ?? decimal.Zero);
-            hhAvailableAUT +=
-                empContrib * (emp.EnabledProcesses
-                .FirstOrDefault(x => x.Process.Name == "AUT")?.Percentage/100.0M ?? decimal.Zero);
-            hhAvailableTLE +=
-                empContrib * (emp.EnabledProcesses
-                .FirstOrDefault(x => x.Process.Name == "TLE")?.Percentage/100.0M ?? decimal.Zero);
-
+            var empContrib = 7.5M * days;
+            
+            if(string.IsNullOrEmpty(process) || process == "SE")
+                hhAvailableSE += 
+                    empContrib * (emp.EnabledProcesses
+                    .FirstOrDefault(x => x.Process.Name == "SE")?.Percentage/100.0M ?? decimal.Zero);
+            if(string.IsNullOrEmpty(process) || process == "LT")
+                hhAvailableLT +=
+                    empContrib * (emp.EnabledProcesses
+                    .FirstOrDefault(x => x.Process.Name == "LT")?.Percentage/100.0M ?? decimal.Zero);
+            if(string.IsNullOrEmpty(process) || process == "AUT")
+                hhAvailableAUT +=
+                    empContrib * (emp.EnabledProcesses
+                    .FirstOrDefault(x => x.Process.Name == "AUT")?.Percentage/100.0M ?? decimal.Zero);
+            if(string.IsNullOrEmpty(process) || process == "TLE")
+                hhAvailableTLE +=
+                    empContrib * (emp.EnabledProcesses
+                    .FirstOrDefault(x => x.Process.Name == "TLE")?.Percentage/100.0M ?? decimal.Zero);
         }
+        
+        hhAvailable += hhAvailableSE + hhAvailableLT + hhAvailableAUT + hhAvailableTLE;
 
         decimal hhNec = decimal.Zero;
         decimal hhNecSE = decimal.Zero;
@@ -204,10 +209,5 @@ public class WalletController : BaseController
                 necTLE = hhNecTLE,
         });
     }
-
-
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+    
 }
