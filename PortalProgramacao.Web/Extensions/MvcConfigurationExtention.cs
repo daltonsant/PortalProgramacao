@@ -17,6 +17,8 @@
                 options.AccessDeniedPath = new PathString("/Error/403");
             });
 
+            services.AddMemoryCache();
+            services.AddSession();
             services.AddControllersWithViews()
                 .AddSessionStateTempDataProvider();
             
@@ -57,7 +59,9 @@
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            
+            app.UseSession();
+            
             app.MapDefaultControllerRoute();
 
             app.UseEndpoints(endpoints =>

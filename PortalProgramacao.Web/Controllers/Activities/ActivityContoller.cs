@@ -38,13 +38,7 @@ public class ActivityController : BaseController
         
         return View(model);
     }
-
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-
+    
     [HttpGet]
     public IActionResult Add()
     {
@@ -116,7 +110,7 @@ public class ActivityController : BaseController
     }
 
     [HttpGet]
-    public IActionResult Edit(ulong id)
+    public IActionResult Edit(ulong id, bool? returnToWallet)
     {
         var entity = _activityService.Get(id);
         if(entity != null)
@@ -145,6 +139,10 @@ public class ActivityController : BaseController
                     new SelectListItem() { Text = x.Value, Value = x.Key }).ToList());
             model.StatusList = new SelectList(items, "Value", "Text", model.Status);
 
+            TempData["returnToWallet"] = false;
+            if (returnToWallet.HasValue && returnToWallet.Value)
+                TempData["returnToWallet"] = true;
+            
             return View(model);
         }
 
@@ -152,7 +150,7 @@ public class ActivityController : BaseController
     }
 
     [HttpPost]
-    public IActionResult Edit(AddOrEditActivityModel model)
+    public IActionResult Edit(AddOrEditActivityModel model, bool?  returnToWallet)
     {
         if(!ModelState.IsValid)
         {
@@ -179,6 +177,9 @@ public class ActivityController : BaseController
                     new SelectListItem() { Text = x.Value, Value = x.Key }).ToList());
             model.StatusList = new SelectList(items, "Value", "Text", model.Status);
 
+            if (returnToWallet.HasValue && returnToWallet.Value)
+                TempData["returnToWallet"] = true;
+            
             return View(model);
         }
 
@@ -186,6 +187,9 @@ public class ActivityController : BaseController
 
         _activityService.Edit(dto);
 
+        if (returnToWallet.HasValue && returnToWallet.Value)
+            return RedirectToAction("Index", "Wallet");
+        
         return RedirectToAction("Index", "Activity");
     }
 

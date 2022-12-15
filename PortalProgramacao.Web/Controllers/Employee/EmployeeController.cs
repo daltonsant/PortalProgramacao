@@ -33,12 +33,6 @@ public class EmployeeController : BaseController
         return View(model);
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-
     [HttpGet]
     public IActionResult Add()
     {

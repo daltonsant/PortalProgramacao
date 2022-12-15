@@ -60,7 +60,7 @@ public class WalletController : BaseController
             { 
                 id = task.Id.ToString(),
                 title = task.Process.Name + "-" + task.Npl.Code +"-"+ task.Title + "-" +task.Place.ToString(),
-                url = "/Activity/Edit/" + task.Id,
+                url = "/Activity/Edit?id=" + task.Id + "&returnToWallet=true",
             };
 
             if (task.PlanedDate.HasValue)
