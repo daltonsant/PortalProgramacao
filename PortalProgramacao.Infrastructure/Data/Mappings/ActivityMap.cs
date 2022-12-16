@@ -29,6 +29,8 @@ namespace PortalProgramacao.Infrastructure.Data.Mappings
             builder.Property(e => e.PlanedDate);
             builder.Property(e => e.ProgramedDate);
             builder.Property(e => e.DueDate);
+            builder.Property(e => e.Origin);
+            builder.Property(e => e.Csi);
             
             builder.ToTable("Activities");
         }

@@ -16,6 +16,7 @@ namespace PortalProgramacao.Infrastructure.Extensions
             services.AddScoped(typeof(IProcessRepository), typeof(ProcessRepository) );
             services.AddScoped(typeof(INplRepository), typeof(NplRepository) );
             services.AddScoped(typeof(IActivityTypeRepository), typeof(ActivityTypeRepository) );
+            services.AddScoped(typeof(ISectorRepository), typeof(SectorRepository));
 
 
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork) );

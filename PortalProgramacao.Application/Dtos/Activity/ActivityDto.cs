@@ -24,6 +24,8 @@ public class ActivityDto
     public virtual string OsNote { get; set; }
     public virtual decimal Hours { get; set; }
     public virtual decimal ComuteTime { get; set; }
+    public virtual string? Origin { get; set; }
+    public virtual string? Csi { get; set; }
 }
 
 

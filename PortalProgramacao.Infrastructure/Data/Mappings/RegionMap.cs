@@ -22,25 +22,25 @@ namespace PortalProgramacao.Infrastructure.Data.Mappings
             builder.Property(e => e.Name).HasMaxLength(256);
 
             builder.HasMany(e => e.Npls).WithOne(x => x.Sector);
-
+            var date = new DateTime(2022, 12, 15);
             builder.HasData(new List<Sector>(){
                 new Sector(){
                     Id = 1,
                     Code = "NSIT",
                     Name = "Interior",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = date
                 },
                 new Sector(){
                     Id = 2,
                     Code = "NSLT",
                     Name = "Litoral",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = date
                 },
                 new Sector(){
                     Id = 3,
                     Code = "NSMT",
                     Name = "Metropolitano",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = date
                 }
             });
 

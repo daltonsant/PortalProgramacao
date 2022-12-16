@@ -120,6 +120,11 @@ namespace PortalProgramacao.Web.Controllers.Activities
                         shareStringPart);
                     
                     SheetDataHelper.SetValorTextoCelula(
+                        "J", rowInformacoesColaborador,
+                        dto.Csi ?? string.Empty,
+                        shareStringPart);
+                    
+                    SheetDataHelper.SetValorTextoCelula(
                         "K", rowInformacoesColaborador,
                         dto.Status,
                         shareStringPart);
@@ -131,7 +136,7 @@ namespace PortalProgramacao.Web.Controllers.Activities
                     SheetDataHelper.SetValorNumericoCelula(
                         "O", rowInformacoesColaborador,
                         (double)dto.ComuteTime);
-
+                    
                     sheetDataAtividades.Append(rowInformacoesColaborador);
                     numeroProximaLinha++;
                 }

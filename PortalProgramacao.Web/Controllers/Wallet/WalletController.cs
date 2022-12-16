@@ -50,11 +50,12 @@ public class WalletController : BaseController
 
         if (month.HasValue)
         {
-            activitieQuery = activitieQuery.Where(x => x.PlanedDate.HasValue ? x.PlanedDate.Value.Month == month : false);
+            activitieQuery = activitieQuery.Where(x => x.ProgramedDate.HasValue ? x.ProgramedDate.Value.Month == month.Value :
+                (x.PlanedDate.HasValue ? x.PlanedDate.Value.Month == month.Value : false));
         }
         var activities = activitieQuery.ToList();
 
-        foreach (var task in activities)
+        foreach (var task in activities.Where(x => x.Status != "executada"))
         {
             var taskEvent = new ViewCalendarModelcs() 
             { 
@@ -67,6 +68,12 @@ public class WalletController : BaseController
             {
                 taskEvent.start = task.PlanedDate.Value.ToString("yyyy-MM-dd");
                 taskEvent.end = task.PlanedDate.Value.AddDays(1).ToString("yyyy-MM-dd");
+            }
+
+            if (task.ProgramedDate.HasValue)
+            {
+                taskEvent.start = task.ProgramedDate.Value.ToString("yyyy-MM-dd");
+                taskEvent.end = task.ProgramedDate.Value.AddDays(1).ToString("yyyy-MM-dd");
             }
 
             if (task.DueDate.HasValue && task.DueDate.Value == DateTime.Today)
@@ -119,7 +126,8 @@ public class WalletController : BaseController
             m = DateTime.Now.Month;
         }
 
-        activityQuery = activityQuery.Where(x => x.PlanedDate.HasValue ? x.PlanedDate.Value.Month == m : false);
+        activityQuery = activityQuery.Where(x => x.ProgramedDate.HasValue ? x.ProgramedDate.Value.Month == m :
+            (x.PlanedDate.HasValue ? x.PlanedDate.Value.Month == m : false));
 
         var activities = activityQuery.ToList();
 

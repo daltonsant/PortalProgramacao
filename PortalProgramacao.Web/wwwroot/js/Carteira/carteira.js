@@ -11,7 +11,7 @@
     }
     
     function onSectorUpdate(selectedSector) {
-        if(selectedSector === undefined || selectedSector === "")
+        if(selectedSector === undefined)
             return;
         
         let nplFilter = document.getElementById("npl");

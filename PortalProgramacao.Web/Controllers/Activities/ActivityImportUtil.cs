@@ -74,14 +74,14 @@ public static class ActivityImportUtil
             {
                 var row = new List<string>();
 
-                for(int colIndex = 0; colIndex < 15; colIndex++)
+                for(int colIndex = 0; colIndex < 17; colIndex++)
                 {
                     var datum = dataset.Tables[0].Rows[index][colIndex].ToString();
                     row.Add(datum ?? string.Empty);
                 }
 
                 var isEmpty = true;
-                for(int colIndex = 0; colIndex<15; colIndex++)
+                for(int colIndex = 0; colIndex<17; colIndex++)
                 {
                     if (!string.IsNullOrEmpty(row[colIndex].Trim()))
                     {
@@ -181,6 +181,8 @@ public static class ActivityImportUtil
                         HeadCount = hc,
                         PlanedDate = planDate,
                         DueDate = dueDate,
+                        Origin = row[15],
+                        Csi = row[16]
                     };
                     activities.Add(activityDto);
                 }

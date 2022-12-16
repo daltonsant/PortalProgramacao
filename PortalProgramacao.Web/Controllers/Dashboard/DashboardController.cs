@@ -1,5 +1,6 @@
 
 using AutoMapper;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.AspNetCore.Mvc;
 
 using PortalProgramacao.Application.Dtos.Dashboard;
@@ -27,7 +28,8 @@ public class DashboardController : BaseController
     {
         return View();
     }
-
+    
+    [HttpPost]
     public IActionResult Dash(DashboardFilterModel model)
     {
         var dto = _mapper.Map<DashboardFilterModel, DashDto>(model);
