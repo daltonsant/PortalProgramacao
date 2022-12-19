@@ -1,0 +1,33 @@
+@model List<Tuple<string,string>>
+<div>
+    <div class="text-center">
+        <div class="fw-bold border-bottom" style="padding-top:10px;">
+            <h1 style="color: #fff; background-color:  #61A60E;padding-bottom: 10px;">
+                Administrador
+            </h1>
+        </div>
+    </div>
+    <table id="tabelaUsuários" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th style="color: #53672A;">Nome do usuário</th>
+                <th style="color: #53672A;">Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tuple in Model)
+            {
+                <tr>
+                    <td>
+                        <p>@tuple.Item1</p>
+                    </td>
+                    <td><a asp-action="ResetUser" asp-controller="Home" asp-route-username="@tuple.Item2">Resetar Password</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+
+</div>
+
+

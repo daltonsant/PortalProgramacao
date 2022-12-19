@@ -16,7 +16,9 @@ public class HomeController : Controller
     private readonly IUserService _userService;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public HomeController(ILogger<HomeController> logger, IUserService userService, UserManager<ApplicationUser> userManager)
+    public HomeController(ILogger<HomeController> logger, 
+        IUserService userService, 
+        UserManager<ApplicationUser> userManager)
     {
         _logger = logger;
         _userService = userService;
@@ -222,6 +224,22 @@ public class HomeController : Controller
         return Ok("Abcd*1234");
     }
 
+    public async Task<IActionResult> ListUsers()
+    {
+        var list = new List<Tuple<string,string>>();
+        var users = _userManager.Users.ToList();
+
+        foreach (var user in users)
+        {
+            var name = user.FirstName + " " + user.LastName + " - " + user.UserName;
+            var action = user.UserName;
+            var tuple = new Tuple<string, string>(name, action);
+            list.Add(tuple);
+        }
+        
+        return View(list);
+    }
+    
     public async Task<IActionResult> Logout()
     {
         await _userService.Logout();
