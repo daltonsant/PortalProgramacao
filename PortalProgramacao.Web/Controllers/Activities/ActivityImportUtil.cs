@@ -168,7 +168,7 @@ public static class ActivityImportUtil
                     {
                         Id = id,
                         Key = row[1],
-                        Status = row[2],
+                        Status = row[2]?.ToLower() ?? string.Empty,
                         NplName = row[3],
                         ProcessName = row[4],
                         Place = row[5],
