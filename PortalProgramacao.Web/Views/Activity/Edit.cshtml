@@ -1,8 +1,10 @@
+@using DocumentFormat.OpenXml.Wordprocessing
 @model PortalProgramacao.Web.Models.Activity.AddOrEditActivityModel;
 
 @{
     ViewData["Title"] = "Home Page";
     ViewData["ActivityMenu"] = "active";
+    var returnToWallet = TempData["returnToWallet"] ?? "";
 }
 
 @section Styles
@@ -22,8 +24,9 @@
       </div>
     </div>
     <form class="needs-validation" asp-controller="Activity" asp-action="Edit" method="POST">
+        @Html.Hidden("returnToWallet",TempData["returnToWallet"])
         <div class="row g-3">
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <label asp-for="Id" class="fw-bold" style="color: #53672A;">ID</label>
                 <input type="text" class="form-control" id="applicationId" asp-for="Id" placeholder="ID" readonly>
                 <span asp-validation-for="Id" class="invalid-feedback"></span>
@@ -33,7 +36,7 @@
                 <input type="text" class="form-control" id="key" asp-for="Key" placeholder="Chave">
                 <span asp-validation-for="Key" class="invalid-feedback"></span>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <label asp-for="Title" class="fw-bold" style="color: #53672A;">Atividade</label>
                 <input type="text" class="form-control" id="title" asp-for="Title" placeholder="T�tulo da atividade">
                 <span asp-validation-for="Title" class="invalid-feedback"></span>
@@ -53,6 +56,11 @@
                 </select>
                 <span asp-validation-for="NplId" class="invalid-feedback"></span>
             </div>
+            <div class="col-md-2">
+                <label asp-for="ProcessId" id="processIdLabel" class="fw-bold" style="color: #53672A;"></label>
+                <select asp-for="ProcessId" asp-items="@Model.Processes" class="form-select form-control" id="ProcessId" aria-label=".form-select-sm select" data-placeholder="Selecione o Processo">Selecione o processo</select>
+                <span asp-validation-for="ProcessId" class="invalid-feedback"></span>
+            </div>
         </div>
 
         <div class="row g-3">
@@ -61,16 +69,19 @@
                 <select asp-for="TypeId" asp-items="@Model.Types" class="form-select form-control" id="TypeId" aria-label=".form-select-sm select" data-placeholder="Selecione o Tipo">Selecione o tipo</select>
                 <span asp-validation-for="TypeId" class="invalid-feedback"></span>
             </div>
-            <div class="col-md-3">
-                <label asp-for="ProcessId" id="processIdLabel" class="fw-bold" style="color: #53672A;"></label>
-                <select asp-for="ProcessId" asp-items="@Model.Processes" class="form-select form-control" id="ProcessId" aria-label=".form-select-sm select" data-placeholder="Selecione o Processo">Selecione o processo</select>
-                <span asp-validation-for="ProcessId" class="invalid-feedback"></span>
-            </div>
+            
             <div class="col-md-3">
                 <label asp-for="OsNote" class="fw-bold" style="color: #53672A;">OS/Nota</label>
                 <input type="text" class="form-control" id="osnote" asp-for="OsNote" placeholder="N. Ordem/Nota">
                 <span asp-validation-for="OsNote" class="invalid-feedback"></span>
             </div>
+            
+            <div class="col-md-3">
+                <label asp-for="Csi" id="CsiLabel" class="fw-bold" style="color: #53672A;">CSI/Acesso Proativo</label>
+                <input type="text" class="form-control" id="Csi" asp-for="Csi" placeholder="CSI / Acesso proativo">
+                <span asp-validation-for="Csi" class="invalid-feedback"></span>
+            </div>
+            
             <div class="col-md-3">
                 <label asp-for="Place" class="fw-bold" style="color: #53672A;">SE/LT/Outros</label>
                 <input type="text" class="form-control" id="place" asp-for="Place" placeholder="Local da atividade">
@@ -93,13 +104,13 @@
                 <input type="text" class="form-control num" id="comutetime" asp-for="ComuteTime" placeholder="Qtd horas em deslocamento">
                 <span asp-validation-for="ComuteTime" class="invalid-feedback"></span>
             </div>
-        </div>
-        <div class="row g-3">
-            <div class="col-md-3">
+             <div class="col-md-3">
                 <label asp-for="Status" id="StatusLabel" class="fw-bold" style="color: #53672A;"></label>
                 <select asp-for="Status" asp-items="@Model.StatusList" class="form-select form-control" id="Status" aria-label=".form-select-sm select" data-placeholder="Selecione o Status">Selecione o status</select>
                 <span asp-validation-for="Status" class="invalid-feedback"></span>
-            </div>
+             </div>
+        </div>
+        <div class="row g-3">
             <div class="col-md-3">
                 <label asp-for="ProgramedDate" class="fw-bold" style="color: #53672A;">Data Programada</label>
                 <input type="date" class="form-control" id="progdate" asp-for="ProgramedDate" placeholder="31/10/2022">
@@ -115,11 +126,23 @@
                 <input type="date" class="form-control" id="duedate" asp-for="DueDate" placeholder="31/10/2022">
                 <span asp-validation-for="DueDate" class="invalid-feedback"></span>
             </div>
+            <div class="col-md-3">
+                <label asp-for="Csi" id="OriginLabel" class="fw-bold" style="color: #53672A;">Origem</label>
+                <input type="text" class="form-control" id="Origin" asp-for="Origin" placeholder="Origem">
+                <span asp-validation-for="Origin" class="invalid-feedback"></span>
+            </div>
         </div>
 
         <div style="margin-top: 10px;padding-bottom: 30px;">
             <button type="submit" class="btn btn-primary float-end">Salvar</button>
-            <a asp-controller="Activity" asp-action="Index" role="button" class="btn btn-secondary float-end" style="margin-right: 5px;">Cancelar</a>
+            @if (returnToWallet == "")
+            {
+                <a asp-controller="Activity" asp-action="Index" role="button" class="btn btn-secondary float-end" style="margin-right: 5px;">Cancelar</a>
+            }
+            else
+            {
+                <a asp-controller="Wallet" asp-action="Index" role="button" class="btn btn-secondary float-end" style="margin-right: 5px;">Cancelar</a>
+            }
         </div>
     </form>
 

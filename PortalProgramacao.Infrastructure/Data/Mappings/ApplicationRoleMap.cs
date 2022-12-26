@@ -19,17 +19,19 @@ namespace PortalProgramacao.Infrastructure.Data.Mappings
             builder.HasData(
                 new ApplicationRole()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = "0c3959bd-151b-4447-bc7c-714dd798707d",
                     Name = "Administrator",
                     NormalizedName = "ADMINISTRATOR",
-                    Description = "Administrador do sistema"
+                    Description = "Administrador do sistema",
+                    ConcurrencyStamp = "0c3959bd-151b-4447-bc7c-714dd798707d"
                 },
                 new ApplicationRole()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = "d861b504-7f2c-4d37-bb12-2c1da3c206bb",
                     Name = "Programador",
                     NormalizedName = "PROGRAMADOR",
-                    Description = "Usuário comum do sistema"
+                    Description = "Usuário comum do sistema",
+                    ConcurrencyStamp = "d861b504-7f2c-4d37-bb12-2c1da3c206bb"
                 });
 
             builder.ToTable("ApplicationRoles");

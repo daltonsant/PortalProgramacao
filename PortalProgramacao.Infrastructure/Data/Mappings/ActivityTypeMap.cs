@@ -26,77 +26,77 @@ namespace PortalProgramacao.Infrastructure.Data.Mappings
                 new ActivityType(){
                     Id = 1,
                     Name = "Preventiva SE",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = new DateTime(2022,12,15)
                 },
                 new ActivityType(){
                     Id = 2,
                     Name = "Preventiva LT",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = new DateTime(2022,12,15)
                 },
                 new ActivityType(){
                     Id = 3,
                     Name = "Inspeção SE",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = new DateTime(2022,12,15)
                 },
                 new ActivityType(){
                     Id = 4,
                     Name = "Inspeção LT",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = new DateTime(2022,12,15)
                 },
                 new ActivityType(){
                     Id = 5,
                     Name = "Corretiva SE",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = new DateTime(2022,12,15)
                 },
                 new ActivityType(){
                     Id = 6,
                     Name = "Corretiva LT",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = new DateTime(2022,12,15)
                 },
                 new ActivityType(){
                     Id = 7,
                     Name = "Expansão SE",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = new DateTime(2022,12,15)
                 },
                 new ActivityType(){
                     Id = 8,
                     Name = "Expansão LT",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = new DateTime(2022,12,15)
                 },
                 new ActivityType(){
                     Id = 9,
                     Name = "Comissionamento SE",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = new DateTime(2022,12,15)
                 },
                 new ActivityType(){
                     Id = 10,
                     Name = "Comissionamento LT",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = new DateTime(2022,12,15)
                 },
                 new ActivityType(){
                     Id = 11,
                     Name = "Corretiva Aut",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = new DateTime(2022,12,15)
                 },
                 new ActivityType(){
                     Id = 12,
                     Name = "Preventiva Aut",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = new DateTime(2022,12,15)
                 },
                 new ActivityType(){
                     Id = 13,
                     Name = "DESC",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = new DateTime(2022,12,15)
                 },
                 new ActivityType(){
                     Id = 14,
                     Name = "Apoio a UTD/UTEPs",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = new DateTime(2022,12,15)
                 },
                 new ActivityType(){
                     Id = 15,
                     Name = "Transporte",
-                    CreatedDate = DateTime.Now
+                    CreatedDate = new DateTime(2022,12,15)
                 }
             });
 

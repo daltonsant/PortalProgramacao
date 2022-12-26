@@ -49,6 +49,11 @@
                     </select>
                     <span asp-validation-for="NplId" class="invalid-feedback"></span>
                 </div>
+                <div class="col-md-2">
+                    <label asp-for="ProcessId" id="processIdLabel" class="fw-bold" style="color: #53672A;"></label>
+                    <select asp-for="ProcessId" asp-items="@Model.Processes" class="form-select form-control" id="ProcessId" aria-label=".form-select-sm select" data-placeholder="Selecione o Processo">Selecione o processo</select>
+                    <span asp-validation-for="ProcessId" class="invalid-feedback"></span>
+                </div>
             </div>
 
             <div class="row g-3">
@@ -57,17 +62,20 @@
                         <select asp-for="TypeId" asp-items="@Model.Types" class="form-select form-control" id="TypeId" aria-label=".form-select-sm select" data-placeholder="Selecione o Tipo">Selecione o tipo</select>
                         <span asp-validation-for="TypeId" class="invalid-feedback"></span>
                     </div>
-                    <div class="col-md-3">
-                        <label asp-for="ProcessId" id="processIdLabel" class="fw-bold" style="color: #53672A;"></label>
-                        <select asp-for="ProcessId" asp-items="@Model.Processes" class="form-select form-control" id="ProcessId" aria-label=".form-select-sm select" data-placeholder="Selecione o Processo">Selecione o processo</select>
-                        <span asp-validation-for="ProcessId" class="invalid-feedback"></span>
-                    </div>
+                    
                     <div class="col-md-3">
                         <label asp-for="OsNote" class="fw-bold" style="color: #53672A;">OS/Nota</label>
                         <input type="text" class="form-control" id="osnote" asp-for="OsNote" placeholder="N. Ordem/Nota">
                         <span asp-validation-for="OsNote" class="invalid-feedback"></span>
                     </div>
+                    
                     <div class="col-md-3">
+                        <label asp-for="Csi" id="CsiLabel" class="fw-bold" style="color: #53672A;">CSI/Acesso Proativo</label>
+                        <input type="text" class="form-control" id="Csi" asp-for="Csi" placeholder="CSI / Acesso proativo">
+                        <span asp-validation-for="Csi" class="invalid-feedback"></span>
+                    </div>
+                
+                     <div class="col-md-3">
                         <label asp-for="Place" class="fw-bold" style="color: #53672A;">SE/LT/Outros</label>
                         <input type="text" class="form-control" id="place" asp-for="Place" placeholder="Local da atividade">
                         <span asp-validation-for="Place" class="invalid-feedback"></span>
@@ -112,6 +120,11 @@
                     <input type="date" class="form-control" id="duedate" asp-for="DueDate" placeholder="31/10/2022">
                     <span asp-validation-for="DueDate" class="invalid-feedback"></span>
                 </div>
+                 <div class="col-md-3">
+                    <label asp-for="Csi" id="OriginLabel" class="fw-bold" style="color: #53672A;">Origem</label>
+                    <input type="text" class="form-control" id="Origin" asp-for="Origin" placeholder="Origem">
+                    <span asp-validation-for="Origin" class="invalid-feedback"></span>
+                 </div>
             </div>
 
             <div style="margin-top: 10px;padding-bottom: 30px;">

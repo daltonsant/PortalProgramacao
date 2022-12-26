@@ -13,10 +13,15 @@ namespace PortalProgramacao.Web.AutoMapper.Profiles
                 .ForMember(dest=> dest.HeadCount, opt => opt.MapFrom(src => decimal.Parse(src.HeadCount)))
                 .ForMember(dest => dest.ComuteTime, opt => opt.MapFrom(src => decimal.Parse(src.ComuteTime)))
                 .ForMember(dest => dest.Hours, opt => opt.MapFrom(src => decimal.Parse(src.Hours)))
+                .ForMember(dest => dest.Origin, opt => opt.MapFrom(src => src.Origin))
+                .ForMember(dest => dest.Csi, opt => opt.MapFrom(src => src.Csi))
             .ReverseMap()
                 .ForMember(dest => dest.ComuteTime, opt => opt.MapFrom(src => src.ComuteTime.ToString()))
                 .ForMember(dest => dest.ComuteTime, opt => opt.MapFrom(src => src.ComuteTime.ToString()))
-                .ForMember(dest => dest.Hours, opt => opt.MapFrom(src => src.Hours.ToString()));
+                .ForMember(dest => dest.Hours, opt => opt.MapFrom(src => src.Hours.ToString()))
+                .ForMember(dest => dest.Origin, opt => opt.MapFrom(src => src.Origin))
+                .ForMember(dest => dest.Csi, opt => opt.MapFrom(src => src.Csi))
+                ;
 
             CreateMap<ActivityDto, ViewActivityModel>()
                 .ForMember(dest => dest.Place, opt => opt.MapFrom(src => src.Place))

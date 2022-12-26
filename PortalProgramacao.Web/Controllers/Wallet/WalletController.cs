@@ -50,23 +50,30 @@ public class WalletController : BaseController
 
         if (month.HasValue)
         {
-            activitieQuery = activitieQuery.Where(x => x.PlanedDate.HasValue ? x.PlanedDate.Value.Month == month : false);
+            activitieQuery = activitieQuery.Where(x => x.ProgramedDate.HasValue ? x.ProgramedDate.Value.Month == month.Value :
+                (x.PlanedDate.HasValue ? x.PlanedDate.Value.Month == month.Value : false));
         }
         var activities = activitieQuery.ToList();
 
-        foreach (var task in activities)
+        foreach (var task in activities.Where(x => x.Status != "executada"))
         {
             var taskEvent = new ViewCalendarModelcs() 
             { 
                 id = task.Id.ToString(),
-                title = task.Process.Name + "-" + task.Npl.Code + task.Id.ToString(),
-                url = "/Activity/Edit/" + task.Id,
+                title = task.Process.Name + "-" + task.Npl.Code +"-"+ task.Title + "-" +task.Place.ToString(),
+                url = "/Activity/Edit?id=" + task.Id + "&returnToWallet=true",
             };
 
             if (task.PlanedDate.HasValue)
             {
                 taskEvent.start = task.PlanedDate.Value.ToString("yyyy-MM-dd");
                 taskEvent.end = task.PlanedDate.Value.AddDays(1).ToString("yyyy-MM-dd");
+            }
+
+            if (task.ProgramedDate.HasValue)
+            {
+                taskEvent.start = task.ProgramedDate.Value.ToString("yyyy-MM-dd");
+                taskEvent.end = task.ProgramedDate.Value.AddDays(1).ToString("yyyy-MM-dd");
             }
 
             if (task.DueDate.HasValue && task.DueDate.Value == DateTime.Today)
@@ -119,7 +126,8 @@ public class WalletController : BaseController
             m = DateTime.Now.Month;
         }
 
-        activityQuery = activityQuery.Where(x => x.PlanedDate.HasValue ? x.PlanedDate.Value.Month == m : false);
+        activityQuery = activityQuery.Where(x => x.ProgramedDate.HasValue ? x.ProgramedDate.Value.Month == m :
+            (x.PlanedDate.HasValue ? x.PlanedDate.Value.Month == m : false));
 
         var activities = activityQuery.ToList();
 
@@ -153,22 +161,27 @@ public class WalletController : BaseController
         foreach ( var emp in employeeQuery)
         {
             var days = emp.MonthDayCounts.FirstOrDefault(emp=> emp.Month == m)?.NumberOfDays ?? decimal.Zero;
-            var empContrib = 8.0M * days;
-            hhAvailable += empContrib;
-            hhAvailableSE += 
-                empContrib * (emp.EnabledProcesses
-                .FirstOrDefault(x => x.Process.Name == "SE")?.Percentage/100.0M ?? decimal.Zero);
-            hhAvailableLT +=
-                empContrib * (emp.EnabledProcesses
-                .FirstOrDefault(x => x.Process.Name == "LT")?.Percentage/100.0M ?? decimal.Zero);
-            hhAvailableAUT +=
-                empContrib * (emp.EnabledProcesses
-                .FirstOrDefault(x => x.Process.Name == "AUT")?.Percentage/100.0M ?? decimal.Zero);
-            hhAvailableTLE +=
-                empContrib * (emp.EnabledProcesses
-                .FirstOrDefault(x => x.Process.Name == "TLE")?.Percentage/100.0M ?? decimal.Zero);
-
+            var empContrib = 7.5M * days;
+            
+            if(string.IsNullOrEmpty(process) || process == "SE")
+                hhAvailableSE += 
+                    empContrib * (emp.EnabledProcesses
+                    .FirstOrDefault(x => x.Process.Name == "SE")?.Percentage/100.0M ?? decimal.Zero);
+            if(string.IsNullOrEmpty(process) || process == "LT")
+                hhAvailableLT +=
+                    empContrib * (emp.EnabledProcesses
+                    .FirstOrDefault(x => x.Process.Name == "LT")?.Percentage/100.0M ?? decimal.Zero);
+            if(string.IsNullOrEmpty(process) || process == "AUT")
+                hhAvailableAUT +=
+                    empContrib * (emp.EnabledProcesses
+                    .FirstOrDefault(x => x.Process.Name == "AUT")?.Percentage/100.0M ?? decimal.Zero);
+            if(string.IsNullOrEmpty(process) || process == "TLE")
+                hhAvailableTLE +=
+                    empContrib * (emp.EnabledProcesses
+                    .FirstOrDefault(x => x.Process.Name == "TLE")?.Percentage/100.0M ?? decimal.Zero);
         }
+        
+        hhAvailable += hhAvailableSE + hhAvailableLT + hhAvailableAUT + hhAvailableTLE;
 
         decimal hhNec = decimal.Zero;
         decimal hhNecSE = decimal.Zero;
@@ -204,10 +217,5 @@ public class WalletController : BaseController
                 necTLE = hhNecTLE,
         });
     }
-
-
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+    
 }

@@ -58,7 +58,11 @@ public class AddOrEditActivityModel
     public SelectList Types { get; set; }
     public SelectList Processes { get; set; }
     public SelectList StatusList { get; set; }
-
+    
+    public virtual string? Origin { get; set; }
+    
+    public virtual string? Csi { get; set; }
+    
     public AddOrEditActivityModel()
     {
         Types = new SelectList(new List<SelectListItem>(),"Value","Text",TypeId);

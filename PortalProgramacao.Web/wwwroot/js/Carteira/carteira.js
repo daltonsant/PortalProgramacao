@@ -1,12 +1,88 @@
 
 
 (function ($) {
-
+    
+    function getOption(text,value) {
+        let option = document.createElement('option')
+        if(value !== undefined)
+            option.value = value;
+        option.text = text;
+        return option;
+    }
+    
+    function onSectorUpdate(selectedSector) {
+        if(selectedSector === undefined)
+            return;
+        
+        let nplFilter = document.getElementById("npl");
+        
+        let nplSelectedOld = nplFilter.value;
+        
+        for (a in nplFilter.options) { 
+            nplFilter.options.remove(nplFilter.options.length-1); 
+        }
+        console.log(selectedSector);
+        console.log(nplSelectedOld);
+        
+        let option = getOption("");
+        nplFilter.add(option);
+        nplFilter.value = "";
+        
+        if(parseInt(selectedSector) === 1) {
+            option = getOption("PTU",4);
+            nplFilter.add(option);
+            option = getOption("SRT",5);
+            nplFilter.add(option);
+            if(nplSelectedOld == 4 || nplSelectedOld == 5){
+                nplFilter.value = nplSelectedOld;
+            }
+        } else if (parseInt(selectedSector) === 2) {
+            option = getOption("CAA",1);
+            nplFilter.add(option);
+            option = getOption("GAN",2);
+            nplFilter.add(option);
+            option = getOption("PMR",3);
+            nplFilter.add(option);
+            if(nplSelectedOld == 2 || nplSelectedOld == 3 || nplSelectedOld == 1){
+                nplFilter.value=nplSelectedOld;
+            }
+        } else if(parseInt(selectedSector) ===3) {
+            option = getOption("CPN",8);
+            nplFilter.add(option);
+            option = getOption("MTN",7);
+            nplFilter.add(option);
+            option = getOption("MTS",6);
+            nplFilter.add(option);
+            if(nplSelectedOld == 8 || nplSelectedOld == 7 || nplSelectedOld == 6){
+                nplFilter.value = nplSelectedOld;
+            }
+        }
+        else {
+            option = getOption("CAA",1);
+            nplFilter.add(option);
+            option = getOption("CPN",8);
+            nplFilter.add(option);
+            option = getOption("GAN",2);
+            nplFilter.add(option);
+            option = getOption("MTN",7);
+            nplFilter.add(option);
+            option = getOption("MTS",6);
+            nplFilter.add(option);
+            option = getOption("PMR",3);
+            nplFilter.add(option);
+            option = getOption("PTU",4);
+            nplFilter.add(option);
+            option = getOption("SRT",5);
+            nplFilter.add(option);
+            nplFilter.value = nplSelectedOld;
+        }
+    }
+    
     function getCurrentNpl() {
         let selectedNpl = $('#npl').find(":selected").text();
         return selectedNpl;
     }
-    function getCurrentMonth() {
+    function getCurrentMonth() {6
         let selectedMonth = $('#month').find(":selected").val();
         return selectedMonth;
     }
@@ -110,7 +186,6 @@
     }
 
     $(document).ready(function (){
-
         /********************
          *     Calendar     *
          ********************/
@@ -161,6 +236,7 @@
 
         $("#setor").on("change", function () {
             calendar.refetchEvents();
+            onSectorUpdate(this.value);
             updateKpis();
         });
 

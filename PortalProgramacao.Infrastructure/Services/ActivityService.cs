@@ -66,6 +66,8 @@ public class ActivityService : IActivityService
             ProgramedDate = dto.ProgramedDate,
             DueDate = dto.DueDate,
             PlanedDate = dto.PlanedDate,
+            Origin = dto.Origin,
+            Csi = dto.Csi,
 
             CreatedDate = DateTime.Now,
         };
@@ -83,7 +85,7 @@ public class ActivityService : IActivityService
             activity.Type = _activityTypeRepository.Entities.FirstOrDefault(x => x.Name == dto.TypeName);
 
         if(dto.ProcessId.HasValue)
-            activity.Process = processes.FirstOrDefault(x => x.Id == dto.TypeId);
+            activity.Process = processes.FirstOrDefault(x => x.Id == dto.ProcessId);
         else
             activity.Process = processes.FirstOrDefault(x => x.Name == dto.ProcessName);
 
@@ -148,7 +150,7 @@ public class ActivityService : IActivityService
                 activity.Type = _activityTypeRepository.Entities.FirstOrDefault(x => x.Name == dto.TypeName);
 
             if(dto.ProcessId.HasValue)
-                activity.Process = processes.FirstOrDefault(x => x.Id == dto.TypeId);
+                activity.Process = processes.FirstOrDefault(x => x.Id == dto.ProcessId);
             else
                 activity.Process = processes.FirstOrDefault(x => x.Name == dto.ProcessName);
             
@@ -164,6 +166,8 @@ public class ActivityService : IActivityService
             activity.ProgramedDate = dto.ProgramedDate;
             activity.DueDate = dto.DueDate;
             activity.PlanedDate = dto.PlanedDate;
+            activity.Csi = dto.Csi;
+            activity.Origin = dto.Origin;
             
             activity.UpdatedDate = DateTime.Now;
             return activity;
@@ -205,6 +209,8 @@ public class ActivityService : IActivityService
                 ProgramedDate = activity.ProgramedDate,
                 DueDate = activity.DueDate,
                 PlanedDate = activity.PlanedDate,
+                Origin = activity.Origin,
+                Csi = activity.Csi,
 
                 NplId = activity.Npl.Id,
                 NplName = activity.Npl.Code,
@@ -290,6 +296,8 @@ public class ActivityService : IActivityService
                 ProgramedDate = activity.ProgramedDate,
                 DueDate = activity.DueDate,
                 PlanedDate = activity.PlanedDate,
+                Origin = activity.Origin,
+                Csi = activity.Csi,
 
                 NplId = activity.Npl.Id,
                 NplName = activity.Npl.Code,

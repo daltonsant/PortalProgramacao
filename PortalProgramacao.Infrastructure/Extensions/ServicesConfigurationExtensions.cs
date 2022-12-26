@@ -12,6 +12,7 @@ namespace PortalProgramacao.Infrastructure.Extensions
             services.AddScoped(typeof(IEmployeeService), typeof(EmployeeService) );
             services.AddScoped(typeof(IActivityService), typeof(ActivityService) );
             services.AddScoped(typeof(IUserService), typeof(UserService));
+            services.AddScoped(typeof(IDashboardService), typeof(DashboardService));
             
             return services;
         }
